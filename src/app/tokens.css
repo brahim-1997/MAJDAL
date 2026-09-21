@@ -33,13 +33,17 @@
 
   /* --- Type families.
          Swap these two to install licensed faces; nothing else changes. --- */
-  --font-display: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue",
-    "Arial Narrow", sans-serif;
-  --font-text: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial,
-    sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "Roboto Mono", Menlo, monospace;
-  --font-arabic: "Noto Kufi Arabic", "Noto Naskh Arabic", "Geeza Pro",
-    "Segoe UI", system-ui, sans-serif;
+  --font-display: "Archivo Variable", ui-sans-serif, system-ui, "Helvetica Neue",
+    Arial, sans-serif;
+  --font-text: "Archivo Variable", ui-sans-serif, system-ui, "Helvetica Neue",
+    Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  /* IBM Plex Sans Arabic: chosen so Arabic and Latin carry comparable optical
+     weight rather than Arabic reading as a smaller guest script.
+     Noto Kufi Arabic is the alternative for a more architectural, signage feel
+     — a native speaker decides. See brand/DESIGN-SYSTEM.md §2. */
+  --font-arabic: "IBM Plex Sans Arabic", "Noto Kufi Arabic", "Geeza Pro",
+    system-ui, sans-serif;
 
   /* --- Fluid type scale --- */
   --step--1: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);

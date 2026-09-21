@@ -820,3 +820,20 @@
   color: var(--stone);
   max-width: 18ch;
 }
+
+/* Coastline — Natural Earth, public domain */
+.mapreg__coast {
+  fill: none;
+  stroke: url(#coastFade);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* Print tooth. Non-interactive, and low enough to read as paper not noise. */
+.mapreg__grain {
+  fill: transparent;
+  opacity: 0.045;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}

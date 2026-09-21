@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { VIEW, placed, formatCoordinates } from "@/lib/geo";
+import { COASTLINE_PATH } from "@/content/coastline";
 import type { PlacedPlace } from "@/lib/geo";
 
 /**
@@ -53,6 +54,35 @@ export function MapRegister() {
         aria-label="Map of places in the MAJDAL archive. Each place is a link; a list of the same places follows."
         preserveAspectRatio="xMidYMid meet"
       >
+        <defs>
+          {/* Print texture: a screen-print / photocopy tooth, generated rather
+              than a bitmap. Kept very low opacity — the brief asks for
+              imperfection that feels physical, not for everything distressed. */}
+          <filter id="grain" x="0" y="0" width="100%" height="100%">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.82"
+              numOctaves={3}
+              stitchTiles="stitch"
+              result="noise"
+            />
+            <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
+            <feComponentTransfer in="mono" result="tooth">
+              <feFuncA type="linear" slope="0.5" intercept="0" />
+            </feComponentTransfer>
+          </filter>
+          {/* The coastline fades inland rather than ending on a hard cut */}
+          <linearGradient id="coastFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--stone)" stopOpacity="0.15" />
+            <stop offset="45%" stopColor="var(--stone)" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="var(--stone)" stopOpacity="0.2" />
+          </linearGradient>
+        </defs>
+
+        {/* The coastline. Natural Earth, public domain — modern physical
+            geography, not a political basemap and not the Mandate rasters. */}
+        <path className="mapreg__coast" d={COASTLINE_PATH} aria-hidden="true" />
+
         {/* Graticule — a survey sheet's rule, not decoration */}
         <g className="mapreg__grid" aria-hidden="true">
           {Array.from({ length: 7 }).map((_, i) => (
@@ -126,6 +156,14 @@ export function MapRegister() {
             </g>
           );
         })}
+        {/* Tooth over the whole sheet, last so it sits above everything */}
+        <rect
+          className="mapreg__grain"
+          width={VIEW.w}
+          height={VIEW.h}
+          filter="url(#grain)"
+          aria-hidden="true"
+        />
       </svg>
 
       {/* The record card */}

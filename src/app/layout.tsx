@@ -2,6 +2,12 @@ import type { Metadata, Viewport } from "next";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { site } from "@/content/site";
+// Open-licensed (SIL OFL) faces, self-hosted — no external font CDN, no
+// third-party request on page load, no licensing cost.
+import "@fontsource-variable/archivo";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-sans-arabic/arabic-400.css";
+import "@fontsource/ibm-plex-sans-arabic/arabic-700.css";
 import "./globals.css";
 
 export const metadata: Metadata = {

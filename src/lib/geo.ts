@@ -8,39 +8,37 @@
 
 import { places, type Place } from "@/content/places";
 
-export const VIEW = { w: 760, h: 1180 } as const;
+export const VIEW = { w: 760, h: 1260 } as const;
 
-/** Padding inside the viewBox so labels never touch the edge. */
-const PAD = { x: 150, y: 110 } as const;
+/**
+ * Fixed geographic frame for the sheet. Deliberately a constant rather than
+ * derived from the places, so adding a place never reframes the map and the
+ * coastline stays registered to it.
+ */
+export const BBOX = {
+  minLat: 31.2,
+  maxLat: 33.3,
+  minLon: 34.2,
+  maxLon: 35.7,
+} as const;
 
-const lats = places.map((p) => p.coordinates.lat);
-const lons = places.map((p) => p.coordinates.lon);
+const PAD = { x: 40, y: 40 } as const;
 
-const bounds = {
-  minLat: Math.min(...lats),
-  maxLat: Math.max(...lats),
-  minLon: Math.min(...lons),
-  maxLon: Math.max(...lons),
-};
-
-/** Mean latitude of the set, for the longitude correction. */
-const meanLat = (bounds.minLat + bounds.maxLat) / 2;
+const meanLat = (BBOX.minLat + BBOX.maxLat) / 2;
 const lonScale = Math.cos((meanLat * Math.PI) / 180);
 
-const spanLat = bounds.maxLat - bounds.minLat || 1;
-const spanLon = (bounds.maxLon - bounds.minLon) * lonScale || 1;
+const spanLat = BBOX.maxLat - BBOX.minLat;
+const spanLon = (BBOX.maxLon - BBOX.minLon) * lonScale;
 
 export type Projected = { x: number; y: number };
 
 export function project(lat: number, lon: number): Projected {
   const usableW = VIEW.w - PAD.x * 2;
   const usableH = VIEW.h - PAD.y * 2;
-
-  // Preserve aspect: fit the wider span and centre the other axis.
   const scale = Math.min(usableW / spanLon, usableH / spanLat);
 
-  const cx = (bounds.minLon + bounds.maxLon) / 2;
-  const cy = (bounds.minLat + bounds.maxLat) / 2;
+  const cx = (BBOX.minLon + BBOX.maxLon) / 2;
+  const cy = (BBOX.minLat + BBOX.maxLat) / 2;
 
   return {
     x: VIEW.w / 2 + (lon - cx) * lonScale * scale,

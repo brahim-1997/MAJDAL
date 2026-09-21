@@ -153,6 +153,9 @@ ol {
 .display {
   font-family: var(--font-display);
   font-weight: 800;
+  /* Archivo Variable has a width axis. Slightly condensed gives the display
+     voice the compressed, signage-like proportion the wordmark has. */
+  font-variation-settings: "wdth" 92;
   text-transform: uppercase;
   letter-spacing: -0.03em;
   line-height: 0.88;
