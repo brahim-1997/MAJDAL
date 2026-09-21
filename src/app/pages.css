@@ -555,3 +555,268 @@
 .spine__premise {
   max-width: 62ch;
 }
+
+/* ============================================================
+   THE REGISTER — the map is made of type
+   ============================================================ */
+.mapreg {
+  position: relative;
+  display: grid;
+  gap: var(--s-5);
+}
+
+.mapreg__svg {
+  /* The cohort is a north-south coastal strip, so the sheet is tall and narrow.
+     Bound it by height and centre it, or it overflows the viewport. */
+  width: 100%;
+  height: auto;
+  max-height: 72vh;
+  border: 1px solid var(--rule);
+  background:
+    radial-gradient(
+      ellipse 70% 55% at 50% 45%,
+      color-mix(in srgb, var(--indigo) 22%, transparent) 0%,
+      transparent 70%
+    ),
+    var(--ink);
+  touch-action: manipulation;
+}
+
+.mapreg__grid line {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+/* The thread: what you actually read, drawn */
+.mapreg__thread {
+  fill: none;
+  stroke: var(--fuchsia);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 6;
+  opacity: 0.75;
+}
+
+.mapreg__place {
+  cursor: pointer;
+  outline: none;
+}
+
+.mapreg__dot {
+  fill: var(--stone);
+  transition: fill var(--dur) var(--ease-out), r var(--dur) var(--ease-out);
+}
+
+.mapreg__name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-anchor: middle;
+  fill: var(--fg-muted);
+  transition: fill var(--dur) var(--ease-out);
+}
+
+.mapreg__ar {
+  font-family: var(--font-arabic);
+  font-size: 23px;
+  text-anchor: middle;
+  fill: var(--fg-faint);
+  direction: rtl;
+  unicode-bidi: isolate;
+  transition: fill var(--dur) var(--ease-out);
+}
+
+/* Hover and focus are the SAME state: pointer and keyboard get parity. */
+.mapreg__place:hover .mapreg__name,
+.mapreg__place:focus-visible .mapreg__name,
+.mapreg__place[data-active="true"] .mapreg__name {
+  fill: var(--off-white);
+}
+
+.mapreg__place:hover .mapreg__ar,
+.mapreg__place:focus-visible .mapreg__ar,
+.mapreg__place[data-active="true"] .mapreg__ar {
+  fill: var(--stone);
+}
+
+.mapreg__place:hover .mapreg__dot,
+.mapreg__place:focus-visible .mapreg__dot,
+.mapreg__place[data-active="true"] .mapreg__dot {
+  fill: var(--fuchsia);
+  r: 5;
+}
+
+.mapreg__place[data-traced="true"] .mapreg__dot {
+  fill: var(--turquoise);
+}
+
+.mapreg__place:focus-visible .mapreg__name {
+  paint-order: stroke;
+  stroke: var(--turquoise);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+
+/* The record card */
+.mapreg__card {
+  border: 1px solid var(--rule);
+  background: var(--bg-raised);
+  padding: var(--s-5);
+  min-height: 12rem;
+}
+
+.mapreg__card[data-open="false"] {
+  display: grid;
+  place-items: center;
+  min-height: 6rem;
+}
+
+.mapreg__card-id {
+  color: var(--fuchsia);
+}
+
+.mapreg__card-name {
+  padding-top: var(--s-2);
+}
+
+.mapreg__card-ar {
+  font-family: var(--font-arabic);
+  direction: rtl;
+  unicode-bidi: isolate;
+  color: var(--fg-muted);
+  font-size: var(--step-2);
+  padding-left: var(--s-3);
+}
+
+.mapreg__card-coords {
+  padding-top: var(--s-3);
+  text-transform: none;
+  letter-spacing: 0.08em;
+}
+
+.mapreg__card-line {
+  padding-block: var(--s-4);
+  max-width: 54ch;
+}
+
+.mapreg__card-link {
+  display: inline-block;
+  margin-top: var(--s-4);
+}
+
+.mapreg__card-empty {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+.mapreg__trace {
+  border-top: 1px solid var(--rule);
+  padding-top: var(--s-4);
+}
+
+/* Desktop: card sits beside the sheet rather than under it */
+@media (min-width: 62rem) {
+  .mapreg__svg {
+    height: 74vh;
+    width: auto;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+  .mapreg {
+    grid-template-columns: 1fr 22rem;
+    grid-template-areas:
+      "sheet card"
+      "sheet trace";
+    align-items: start;
+    gap: var(--s-6);
+  }
+  .mapreg__svg {
+    grid-area: sheet;
+  }
+  .mapreg__card {
+    grid-area: card;
+    position: sticky;
+    top: 92px;
+  }
+  .mapreg__trace {
+    grid-area: trace;
+  }
+}
+
+/* Smaller type on a phone so labels do not collide */
+@media (max-width: 40rem) {
+  .mapreg__name {
+    font-size: 40px;
+  }
+  .mapreg__ar {
+    font-size: 26px;
+  }
+  .mapreg__svg {
+    max-height: 62vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mapreg__dot,
+  .mapreg__name,
+  .mapreg__ar {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   PLACE LIST — the same data, as a register
+   ============================================================ */
+.plist {
+  border-top: 1px solid var(--rule);
+}
+
+.plist__row {
+  border-bottom: 1px solid var(--rule);
+}
+
+.plist__link {
+  display: grid;
+  gap: var(--s-2);
+  padding-block: var(--s-5);
+  transition: padding-inline var(--dur) var(--ease-out),
+    background var(--dur) var(--ease-out);
+}
+
+.plist__link:hover {
+  padding-inline: var(--s-3);
+  background: var(--bg-raised);
+}
+
+.plist__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  align-items: baseline;
+}
+
+.plist__id {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--fuchsia);
+  letter-spacing: 0.1em;
+}
+
+.plist__name {
+  font-size: var(--step-2);
+}
+
+/* Hero additions — the lockup's metadata band */
+.hero__coords {
+  padding-top: var(--s-5);
+  text-transform: none;
+  letter-spacing: 0.1em;
+  color: var(--fg-faint);
+}
+
+.hero__tagline {
+  padding-top: var(--s-5);
+  color: var(--stone);
+  max-width: 18ch;
+}

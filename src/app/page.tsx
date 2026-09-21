@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { ProductCard } from "@/components/ProductCard";
 import { Spine } from "@/components/Spine";
+import { MapRegister } from "@/components/map/MapRegister";
+import { places } from "@/content/places";
 import { JoinRoots } from "@/components/JoinRoots";
 import { TierBadge } from "@/components/TierBadge";
 import { site } from "@/content/site";
@@ -28,7 +30,9 @@ export default function HomePage() {
             <span className="arabic hero__ar">{site.nameArabic}</span>
           </h1>
 
+          <p className="meta hero__coords">{site.origin.label}</p>
           <p className="meta hero__phil">{site.philosophy}</p>
+          <p className="display d5 hero__tagline">{site.tagline}</p>
 
           <div className="hero__story">
             {site.story.map((line) => (
@@ -129,12 +133,47 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ---------- THE SPINE ---------- */}
+      {/* ---------- THE LAND ---------- */}
       <section className="section">
         <div className="shell">
           <Reveal>
             <p className="label">
               <span className="label__index">02</span>
+              <span className="label__name">The land</span>
+            </p>
+          </Reveal>
+
+          <Reveal>
+            <h2 className="display d3" style={{ maxWidth: "18ch" }}>
+              {site.tagline}
+            </h2>
+            <p className="lead muted" style={{ paddingTop: "var(--s-5)", maxWidth: "56ch" }}>
+              {places.length} places, set in type at their own coordinates. Move
+              across the register. What you open is remembered, and joined by a
+              thread.
+            </p>
+          </Reveal>
+
+          <div style={{ paddingTop: "var(--s-8)" }}>
+            <MapRegister />
+          </div>
+
+          <Reveal>
+            <p style={{ paddingTop: "var(--s-7)" }}>
+              <Link href="/map" className="btn btn--ghost">
+                Enter the register
+              </Link>
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------- THE SPINE ---------- */}
+      <section className="section">
+        <div className="shell">
+          <Reveal>
+            <p className="label">
+              <span className="label__index">03</span>
               <span className="label__name">The spine</span>
             </p>
           </Reveal>
@@ -161,7 +200,7 @@ export default function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="label">
-              <span className="label__index">03</span>
+              <span className="label__index">04</span>
               <span className="label__name">Chapter {currentChapter.number}</span>
             </p>
           </Reveal>
@@ -202,7 +241,7 @@ export default function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="label">
-              <span className="label__index">04</span>
+              <span className="label__index">05</span>
               <span className="label__name">The archive</span>
             </p>
           </Reveal>
@@ -237,7 +276,7 @@ export default function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="label">
-              <span className="label__index">05</span>
+              <span className="label__index">06</span>
               <span className="label__name">{site.community}</span>
             </p>
           </Reveal>
