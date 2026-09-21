@@ -70,6 +70,32 @@ Three rules, no exceptions:
    **blocked pending P0 review** (`cultural-research/REVIEWS.md`). We do not
    assume a weaver's phrase is ours to sell.
 
+## 3b. The generational spine — cloth, cactus, seed
+
+MAJDAL's subject is Palestinian resistance held as **continuity**: what
+survived, who carried it, what it cost to keep. Not slogans — nouns with
+sources. Full reasoning in `strategy/RESISTANCE-DOCTRINE.md`, research in
+`cultural-research/dossier-002-sumud-sabr-baladi.md`.
+
+| Core story | Chapter | Object | Documented basis |
+| --- | --- | --- | --- |
+| *They carried it.* | **001 — ROOTS** | The cloth | Majdalawi weaving survived expulsion and kept the town's name |
+| *We carry it.* | **002 — SABR** صبر | The cactus | *Sabr* means patience; the cactus still marks depopulated village sites |
+| *The next generation carries it forward.* | **003 — BALADI** بلدي | The seed | *Baladi* means "my country"; heirloom seeds saved and replanted across generations |
+
+The spine was already latent in the core story. Research supplied the objects;
+we did not reverse-engineer history to fit a line.
+
+**Why this is the answer to "political without being a placard".** *Sumud* —
+the documented Palestinian concept of steadfastness, of remaining present on
+the land — is resistance. The weavers who kept weaving after expulsion were
+practising it. MAJDAL sits inside that tradition rather than illustrating it.
+
+**Blocked pending review.** Chapters 002 and 003 have no garments, no run size
+and no date. Four questions are open and blocking, including the hardest one:
+*does framing resistance as continuity risk softening dispossession into
+heritage?* That goes to a Palestinian reviewer in those words.
+
 ## 4. The code: 48
 
 48 means 1948, and it means عرب ٤٨ — the documented shorthand Palestinians

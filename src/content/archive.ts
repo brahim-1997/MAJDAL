@@ -184,6 +184,97 @@ export const archive: ArchiveEntry[] = [
     openQuestion:
       "Popular coverage often describes tatreez as 3,000 years old. Embroidery in the region is ancient, but the continuity of this specific practice over three millennia is not something we can source rigorously, so MAJDAL does not repeat the claim.",
   },
+  {
+    slug: "sumud",
+    index: "A009",
+    title: "SUMUD",
+    titleArabic: "صمود",
+    period: "1920s – present",
+    tier: "VERIFIED",
+    summary:
+      "Steadfastness. The documented Palestinian concept of resistance as remaining present on the land. It does not translate cleanly.",
+    body: [
+      "Sumud is usually rendered in English as steadfastness or steadfast perseverance. Sources agree that neither word carries its full weight. It describes everyday, largely nonviolent resistance centred on remaining present on the land.",
+      "The term entered political discourse as a national symbol in the 1960s and became a formal strategic concept in the 1970s and 80s. In 1978 the PLO recommended sumud as a way of helping people remain in Palestine. Its practice is traced back further, to resistance during the 1920s and 30s.",
+      "Scholarship describes it not as a fixed definition but as a continuum of practices responsive to changing conditions — broadly, the actions people take against politics of erasure.",
+      "The weavers of al-Majdal who were expelled and kept weaving are an instance of this. We did not have to stretch the definition to reach them.",
+      "MAJDAL does not print this word on a garment. It is a serious political term with a specific history, not a word to use because it sounds good.",
+    ],
+    sources: [
+      "Palquest — Sumud",
+      "Institute for Palestine Studies — To Exist Is To Resist: Sumud, Heroism, and the Everyday",
+      "Wikipedia — Sumud",
+      "Journal of Holy Land and Palestine Studies (2025)",
+    ],
+  },
+  {
+    slug: "the-patience-of-the-cactus",
+    index: "A010",
+    title: "THE PATIENCE OF THE CACTUS",
+    titleArabic: "صبر",
+    period: "1948 – present",
+    tier: "VERIFIED",
+    summary:
+      "Sabr is the Arabic word for patience. It is also the word for the prickly pear cactus, which still stands at the sites of depopulated villages.",
+    body: [
+      "The prickly pear is known colloquially as sabr — the same word as patience, or endurance.",
+      "It was planted as field boundaries and fences. It is still standing. Sources describe efforts to conceal the ruins of more than five hundred depopulated Palestinian villages; the cactus, rooted deep, persisted through them and still shows where those villages stood.",
+      "There is a proverb: saber as-sabbar. The patience of the cactus.",
+      "Al-Majdal is one of those depopulated places. The cloth kept the name and the plant kept the place.",
+    ],
+    sources: [
+      "The Avery Review — صَبْر: Patience as Resistance",
+      "Middle East Eye — Olive tree, za'atar, cactus",
+      "Dazed MENA — Al-Wah'at Collective",
+    ],
+    openQuestion:
+      "The same plant is claimed as a symbol by others — in Hebrew as sabra, for native-born Israelis. We state the Palestinian meaning we work with and do not present the symbol as uncontested. Whether it is appropriate for MAJDAL to use at all is with reviewers.",
+  },
+  {
+    slug: "baladi-my-country",
+    index: "A011",
+    title: "BALADI — MY COUNTRY",
+    titleArabic: "بلدي",
+    period: "2014 – present",
+    tier: "VERIFIED",
+    summary:
+      "The Palestinian word for heirloom seed translates directly as \u201cmy country\u201d. Seeds saved by one generation, replanted by the next.",
+    body: [
+      "Baladi is the term for heirloom seeds. It translates directly as \u201cmy country\u201d.",
+      "In 2014 Vivien Sansour — a Palestinian writer, artist and agricultural conservationist — founded the Palestine Heirloom Seed Library in the village of Battir, a UNESCO World Heritage site. It began when she asked her community for seeds to grow baladi bandora, \u201cmy country\u2019s tomatoes\u201d, a drought-resistant heirloom adapted to the region.",
+      "The collection holds named varieties: Abu Samara wheat, Bamyeh okra, Bandura Baladiye tomato, Bitinjan Battiri eggplant, Fakous, Jadu\u2019i watermelon, Jarjeer, Kousa, Molokhia, Sabanikh, Silq Baladi chard, Yakteen gourd. Seeds carrying generations of cultivation from the westernmost arc of the Fertile Crescent.",
+      "Stewardship now extends into the diaspora, with the stated hope of returning the varieties home.",
+      "This is the most precise available answer to what it means for a generation to carry something forward. It is also somebody else\u2019s work, and MAJDAL will not use it without asking first.",
+    ],
+    sources: [
+      "The Jerusalem Fund — Baladi, Palestinian Heirloom Seeds as a Subversive Archive (2026)",
+      "Palestine Heirloom Seed Library / viviensansour.com",
+      "Organic Seed Alliance (2025)",
+      "Wikipedia — Vivien Sansour",
+    ],
+  },
+  {
+    slug: "the-olive-and-the-key",
+    index: "A012",
+    title: "THE OLIVE AND THE KEY",
+    period: "1948 – present",
+    tier: "CONTESTED",
+    summary:
+      "Two of the most reproduced Palestinian symbols. MAJDAL keeps both out of product on purpose.",
+    body: [
+      "Families customarily pass olive trees down to children and grandchildren, entrusting the next generation with their care. Popular coverage often adds that some Palestinian olive trees are nearly five thousand years old; individual ages of that order are hard to verify, so we do not repeat a number.",
+      "During the Nakba an estimated 750,000 Palestinians were displaced. Many took their house keys with them, expecting to return. The key — miftah — has become a representation of the right of return.",
+      "Both are real and both matter. Both are also among the most reproduced images in Palestinian-themed merchandise, which is precisely the category MAJDAL exists outside of. An olive tree logo is the most predictable move available to this brand, and it is banned in our design system.",
+      "So the olive enters MAJDAL as colour — deep olive, already in the palette — and as the idea of inheritance. The key stays in the archive. If it ever appears it will be a photograph of one family\u2019s actual key, with their consent and their story attached, never a decorative icon.",
+    ],
+    sources: [
+      "Middle East Eye — Olive tree, za'atar, cactus",
+      "Wikipedia — List of national symbols of Palestine",
+      "Days of Palestine",
+    ],
+    openQuestion:
+      "Whether keeping the key out of product reads as restraint or as avoidance of the right of return is a question for a Palestinian reviewer, not for us.",
+  },
 ];
 
 export const getArchiveEntry = (slug: string): ArchiveEntry | undefined =>

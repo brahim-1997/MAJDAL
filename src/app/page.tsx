@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { ProductCard } from "@/components/ProductCard";
+import { Spine } from "@/components/Spine";
 import { JoinRoots } from "@/components/JoinRoots";
 import { TierBadge } from "@/components/TierBadge";
 import { site } from "@/content/site";
@@ -128,12 +129,39 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ---------- CHAPTER 001 ---------- */}
+      {/* ---------- THE SPINE ---------- */}
       <section className="section">
         <div className="shell">
           <Reveal>
             <p className="label">
               <span className="label__index">02</span>
+              <span className="label__name">The spine</span>
+            </p>
+          </Reveal>
+
+          <Reveal>
+            <h2 className="display d3" style={{ maxWidth: "20ch" }}>
+              Resistance held as continuity.
+            </h2>
+            <p className="lead muted" style={{ paddingTop: "var(--s-5)", maxWidth: "56ch" }}>
+              Not a slogan. Three objects, each with a source: a cloth that kept
+              a town&apos;s name, a plant that still marks the villages, a seed
+              whose name means &ldquo;my country&rdquo;.
+            </p>
+          </Reveal>
+
+          <div style={{ paddingTop: "var(--s-8)" }}>
+            <Spine />
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- CHAPTER 001 ---------- */}
+      <section className="section">
+        <div className="shell">
+          <Reveal>
+            <p className="label">
+              <span className="label__index">03</span>
               <span className="label__name">Chapter {currentChapter.number}</span>
             </p>
           </Reveal>
@@ -174,7 +202,7 @@ export default function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="label">
-              <span className="label__index">03</span>
+              <span className="label__index">04</span>
               <span className="label__name">The archive</span>
             </p>
           </Reveal>
@@ -209,7 +237,7 @@ export default function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="label">
-              <span className="label__index">04</span>
+              <span className="label__index">05</span>
               <span className="label__name">{site.community}</span>
             </p>
           </Reveal>

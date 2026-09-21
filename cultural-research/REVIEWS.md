@@ -30,6 +30,17 @@ permanent website page.
 | P1 | Dossier 001 §2 — printable coordinates | Historian / cartographic source | ARCHIVE coordinate graphics |
 | P2 | Tatreez-inspired geometry — confirm our constructions do not replicate a specific regional motif | Tatreez practitioner | Geometry applied to garments |
 
+## Pending reviews required — Dossier 002 (resistance, land, seed)
+
+| Priority | Scope | Reviewer type needed | Blocks |
+| --- | --- | --- | --- |
+| P0 | **Does framing resistance as *continuity* soften dispossession into heritage?** Put to the reviewer in exactly those words | Palestinian researcher / political historian | The entire spine, Chapters 002 and 003 |
+| P0 | Is it appropriate for a commercial brand to use *sumud*? | Palestinian researcher | Any printed use of صمود |
+| P0 | Is *sabr* / the cactus appropriate as a chapter name and motif, given it is claimed by more than one group? | Palestinian researcher | Chapter 002 |
+| P0 | Is *baladi* appropriate as a chapter name, and must the Palestine Heirloom Seed Library be consulted before we use the seed concept at all? Assume yes until told otherwise | Palestinian agricultural / cultural institution | Chapter 003, THE SEED activation |
+| P1 | Is keeping the key out of product correct, or does it read as avoidance of the right of return? | Palestinian researcher | Archive entry A012 framing |
+| P1 | Transliteration and orthography of صمود, صبر, بلدي | Native Arabic speaker | Any printed use |
+
 ## Standing rule
 
 An unanswered P0 is a production stop, not a risk to be accepted. If a P0

@@ -494,3 +494,64 @@
 .backlink:hover {
   color: var(--fg);
 }
+
+/* ============================================================
+   THE SPINE — cloth / cactus / seed
+   ============================================================ */
+.spine {
+  border-top: 1px solid var(--rule);
+}
+
+.spine__row {
+  border-bottom: 1px solid var(--rule);
+}
+
+.spine__link {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-5);
+  align-items: start;
+  padding-block: var(--s-6);
+  transition:
+    padding-inline var(--dur) var(--ease-out),
+    background var(--dur) var(--ease-out);
+}
+
+.spine__link:hover {
+  padding-inline: var(--s-3);
+  background: var(--bg-raised);
+}
+
+.spine__num {
+  color: var(--fuchsia);
+  padding-top: 0.35em;
+}
+
+.spine__body {
+  display: grid;
+  gap: var(--s-2);
+}
+
+/* Each line of the core story steps further right — they carried it,
+   we carry it, the next generation carries it forward. */
+.spine__line {
+  font-size: var(--step-2);
+}
+
+.spine__row:nth-child(2) .spine__line {
+  color: var(--fg-muted);
+  padding-left: clamp(var(--s-3), 3vw, var(--s-7));
+}
+
+.spine__row:nth-child(3) .spine__line {
+  color: var(--fg-faint);
+  padding-left: clamp(var(--s-5), 6vw, var(--s-10));
+}
+
+.spine__meta {
+  color: var(--turquoise);
+}
+
+.spine__premise {
+  max-width: 62ch;
+}

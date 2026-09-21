@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { chapters } from "@/content/chapters";
+import { Spine } from "@/components/Spine";
 
 export const metadata: Metadata = {
   title: "Chapters",
@@ -16,15 +17,31 @@ export default function ChaptersPage() {
         <div className="shell">
           <h1 className="display phead__title">CHAPTERS</h1>
           <p className="lead muted phead__lead">
-            Chapters, not seasons. Each one takes a subject, documents it, and
-            produces garments as its artefacts. A chapter closes and does not
-            return.
+            Chapters, not seasons. Each one takes a line of the story and the
+            documented object that carries it — a cloth, a plant, a seed. A
+            chapter closes and does not return.
           </p>
         </div>
       </header>
 
       <section className="section">
         <div className="shell">
+          <h2 className="label">
+            <span className="label__index">01</span>
+            <span className="label__name">The spine</span>
+          </h2>
+          <p className="lead muted" style={{ maxWidth: "58ch", paddingBottom: "var(--s-7)" }}>
+            They carried it. We carry it. The next generation carries it
+            forward. Each line has an object behind it, and each object has a
+            source.
+          </p>
+          <Spine />
+
+          <h2 className="label" style={{ marginTop: "var(--s-10)" }}>
+            <span className="label__index">02</span>
+            <span className="label__name">All chapters</span>
+          </h2>
+
           <ul className="alist">
             {chapters.map((chapter, i) => (
               <Reveal as="li" key={chapter.slug} className="aitem" delay={i * 60}>
@@ -38,7 +55,10 @@ export default function ChaptersPage() {
                   </span>
                   <span className="aitem__summary">{chapter.premise}</span>
                   <span className="meta">
-                    {chapter.runSize} pieces · {chapter.subject}
+                    {chapter.runSize > 0
+                      ? `${chapter.runSize} pieces · `
+                      : "Run size not set · "}
+                    {chapter.subject}
                   </span>
                 </Link>
               </Reveal>

@@ -51,6 +51,34 @@ THE READING is the load-bearing one: it is cheap, it is monthly, it creates a
 reason to belong that has nothing to do with buying, and it directly serves
 the research the brand depends on.
 
+## 3b. Underground mechanics — earned access, not hype
+
+The UK underground brands run one engine: **make people do something to belong,
+then let them distribute it.** Earned access, physical activation, community
+distribution. Full extraction in `strategy/UK-UNDERGROUND-PLAYBOOK.md`.
+
+MAJDAL keeps the engine and changes the act. A password-gated scramble over a
+garment about erased villages would be grotesque. So:
+
+| Mechanic | MAJDAL's version | Chapter |
+| --- | --- | --- |
+| **THE PASSWORD IS A FACT** | The chapter window opens to whoever can answer an archive question — *how many metres made one dress?* You learn the history to get in, and members teach each other | 001 |
+| **THE EXCHANGE** | Bring a garment you no longer wear; it goes to a verified recipient, logged in the impact ledger; you get chapter access | 002 |
+| **THE SEED** | Chapter 003 carries baladi seed. Members plant it and photograph what grows a season later | 003 |
+
+One new mechanic per chapter. A brand running every tactic at once looks like
+it is *performing* being underground, which is the opposite of being it.
+
+**The test:** if an activation would work equally well for a brand with no
+cultural subject, it is a hype tactic and we do not run it.
+
+**Guards.** The gate is on the window, never on the knowledge — the archive
+stays public and free. The question is never a trick and never timed to
+seconds. And before THE EXCHANGE runs, a recipient must confirm **in writing**
+that they want garments rather than cash; used-clothing donation is often
+unhelpful and can undercut local markets. If they want cash, we run the same
+activation and send money instead.
+
 ## 4. Growth — in order
 
 1. **Fifty people who actually care.** Direct, personal invitations. No ads.

@@ -50,6 +50,12 @@ export default async function ChapterPage({
                 <span className="arabic phead__ar">{chapter.nameArabic}</span>
               ) : null}
             </h1>
+            <p className="display d5" style={{ paddingTop: "var(--s-5)" }}>
+              {chapter.storyLine}
+            </p>
+            <p className="meta spine__meta" style={{ paddingTop: "var(--s-3)" }}>
+              {chapter.object}
+            </p>
             <p className="lead muted" style={{ paddingTop: "var(--s-5)", maxWidth: "48ch" }}>
               {chapter.premise}
             </p>
@@ -57,7 +63,7 @@ export default async function ChapterPage({
               <span className="status" data-status={chapter.status}>
                 {chapter.status}
               </span>
-              {"  "}· {chapter.runSize} pieces ·{" "}
+              {chapter.runSize > 0 ? `  · ${chapter.runSize} pieces` : ""} ·{" "}
               {chapter.opensAt ?? "Opening date not announced"}
             </p>
           </div>
@@ -86,8 +92,13 @@ export default async function ChapterPage({
                   ["Chapter", chapter.number],
                   ["Name", chapter.name],
                   ["Subject", chapter.subject],
-                  ["Run size", `${chapter.runSize} pieces`],
-                  ["Garments", String(items.length)],
+                  [
+                    "Run size",
+                    chapter.runSize > 0
+                      ? `${chapter.runSize} pieces`
+                      : "Not set — no purchase order yet",
+                  ],
+                  ["Garments", items.length > 0 ? String(items.length) : "Not designed yet"],
                   ["Status", chapter.status],
                 ].map(([k, v]) => (
                   <div className="factlist__row" key={k}>
@@ -109,13 +120,31 @@ export default async function ChapterPage({
               <span className="label__name">The garments</span>
             </h2>
           </Reveal>
-          <div className="pgrid">
-            {items.map((product, i) => (
-              <Reveal as="div" key={product.slug} delay={i * 60}>
-                <ProductCard product={product} />
-              </Reveal>
-            ))}
-          </div>
+          {items.length === 0 ? (
+            <Reveal>
+              <div className="empty">
+                <p className="display d5">NOT DESIGNED YET.</p>
+                <p className="muted" style={{ paddingTop: "var(--s-4)", maxWidth: "62ch" }}>
+                  This chapter has no garments, no run size and no date. The
+                  research comes first, and the cultural questions behind this
+                  chapter are still open — they are listed in the archive entry
+                  and they are blocking.
+                </p>
+                <p className="muted" style={{ paddingTop: "var(--s-4)", maxWidth: "62ch" }}>
+                  We would rather publish the subject we are working on than
+                  stage a countdown to something that does not exist.
+                </p>
+              </div>
+            </Reveal>
+          ) : (
+            <div className="pgrid">
+              {items.map((product, i) => (
+                <Reveal as="div" key={product.slug} delay={i * 60}>
+                  <ProductCard product={product} />
+                </Reveal>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>
