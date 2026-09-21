@@ -33,15 +33,15 @@ export default async function ArchiveEntryPage({
   if (!entry) notFound();
 
   return (
-    <article className="section">
+    <article className="paper">
       <div className="shell">
         <Link href="/archive" className="backlink">
           ← The Archive
         </Link>
 
-        <header style={{ paddingBottom: "var(--s-7)" }}>
-          <p className="meta" style={{ paddingBottom: "var(--s-4)" }}>
-            {entry.index} · {entry.period}
+        <header className="rechead">
+          <p className="rechead__id">
+            {entry.index} — {entry.category} — {entry.location}
           </p>
           <h1 className="display d3">
             {entry.title}
@@ -52,7 +52,8 @@ export default async function ArchiveEntryPage({
           <p style={{ paddingTop: "var(--s-5)" }}>
             <TierBadge tier={entry.tier} />
           </p>
-          <p className="lead muted" style={{ paddingTop: "var(--s-5)", maxWidth: "60ch" }}>
+          <p className="meta">{entry.period}</p>
+          <p className="lead muted" style={{ paddingTop: "var(--s-3)", maxWidth: "60ch" }}>
             {entry.summary}
           </p>
         </header>

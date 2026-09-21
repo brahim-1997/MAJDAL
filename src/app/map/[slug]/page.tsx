@@ -58,15 +58,15 @@ export default async function PlacePage({
   };
 
   return (
-    <article className="section">
+    <article className="paper">
       <div className="shell">
         <Link href="/map" className="backlink">
           ← The Land
         </Link>
 
-        <header style={{ paddingBottom: "var(--s-7)" }}>
-          <p className="meta" style={{ paddingBottom: "var(--s-4)" }}>
-            {place.id} · {place.district} district
+        <header className="rechead">
+          <p className="rechead__id">
+            {place.id} — PLACE — {place.district} district
           </p>
           <h1 className="display d3">{place.name}</h1>
           <p className="arabic phead__ar">{place.nameArabic}</p>

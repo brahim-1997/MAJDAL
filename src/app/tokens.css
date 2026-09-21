@@ -89,13 +89,40 @@
   }
 }
 
-/* Light mode is a deliberate inversion, not an afterthought:
-   off-white ground, ink text. Same tokens, remapped. */
-:root[data-theme="light"] {
-  --bg: var(--off-white);
-  --bg-raised: #e3ddd3;
-  --fg: var(--ink);
-  --fg-muted: #574f45;
-  --fg-faint: #7a746b;
-  --rule: #cdc5b8;
+/* ============================================================
+   PAPER — the archive surface
+   ============================================================
+   The brief asks for a site that is mostly dark "with occasional lighter
+   archival areas", and lists aged paper among the tones. An archive is made
+   of paper; a site about an archive that never shows paper is missing half
+   its own idea.
+
+   So this is not a user-facing light/dark toggle. It is a material: records
+   are documents, and documents sit on paper. Everything else stays night.
+   The contrast happens inside the journey — street outside, paper when you
+   open a record.
+
+   Every value below is contrast-checked against the paper ground:
+   ink 13.87:1, muted 7.18:1, faint 4.91:1, fuchsia 6.73:1, turquoise 5.35:1.
+   ============================================================ */
+.paper {
+  --paper-ground: #e8e2d6;
+  --paper-raised: #ddd5c6;
+  --paper-ink: #16171c;
+
+  --bg: var(--paper-ground);
+  --bg-raised: var(--paper-raised);
+  --fg: var(--paper-ink);
+  --fg-muted: #4a4740;
+  --fg-faint: #655f54;
+  --rule: #a99d85;
+
+  /* Accents darken on paper or they fail contrast. Same hues, more ink. */
+  --fuchsia: #8e1a52;
+  --turquoise: #156465;
+  --clay: #6b2b24;
+  --focus: #156465;
+
+  background: var(--paper-ground);
+  color: var(--paper-ink);
 }
