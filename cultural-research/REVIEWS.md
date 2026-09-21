@@ -41,6 +41,18 @@ permanent website page.
 | P1 | Is keeping the key out of product correct, or does it read as avoidance of the right of return? | Palestinian researcher | Archive entry A012 framing |
 | P1 | Transliteration and orthography of صمود, صبر, بلدي | Native Arabic speaker | Any printed use |
 
+## Pending reviews required — Dossier 003 (maps, archives, rights)
+
+| Priority | Scope | Reviewer type needed | Blocks |
+| --- | --- | --- | --- |
+| P0 | **Is a commercial streetwear brand mapping depopulated villages appropriate at all — and if so, under what conditions?** Ask this first, in these words | Palestinian researcher | The entire map programme |
+| P0 | Source base cartography via the Israeli National Library digitisation, or Palestinian-held copies? The maps are a colonial survey instrument — a political question, not only a legal one | Palestinian researcher | Any raster map use |
+| P0 | Public-domain status of the 1940s survey sheets **and** of the specific scans | Counsel | Any raster map use |
+| P0 | ODbL share-alike boundary for a commercial site; confirm intent to publish our derived place dataset under ODbL | Counsel | Any Palestine Open Maps derived data |
+| P0 | Approach Institute for Palestine Studies re *All That Remains*: credit, permission, payment | Founder | Any village-level dataset |
+| P0 | Moderation policy, a named human moderator, and a response-time commitment | Founder | All community submission |
+| P1 | Wordmark vocalisation — `مَجْدَل` vs `مجدل` — and whether harakat read as careful or foreign in contemporary signage | Native speaker / typographer | Wordmark lockup |
+
 ## Standing rule
 
 An unanswered P0 is a production stop, not a risk to be accepted. If a P0
