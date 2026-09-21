@@ -157,6 +157,13 @@ pretending a good hoodie is unrepeatable is fake scarcity.
 2. Never copy another brand's logo, type, slogans, graphics, campaigns or
    distinctive identity — including ADISH, who have worked with Majdalawi cloth.
    Extract principles, build original MAJDAL implementations.
+   **Known collision: Phrase Studios (Ghent, 2023) already releases numbered
+   chapters of heavyweight cotton that are not restocked, each built around
+   "a phrase, a place, a feeling".** MAJDAL reached chapters independently, but
+   that is invisible to anyone seeing both. So: a MAJDAL chapter is always
+   described as **a subject, documented** — never as an idea or a feeling — and
+   the headline proposition is the record, never "heavyweight cotton in numbered
+   chapters". See `strategy/WEB-PATTERNS-UK-UNDERGROUND.md` §5.
 3. Never claim impact we cannot evidence.
 4. Never manufacture scarcity.
 5. Never make every post a sales post.

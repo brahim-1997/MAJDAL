@@ -97,6 +97,12 @@ performance and accessibility budget on the first thirty seconds.
 makes the *brand* feel discovered. The second is durable; the first wears off on
 the second visit and becomes an obstacle on the tenth.
 
+**The precedent.** This is not a theory. **Places+Faces began in 2013 as a place
+to dump an archive of backstage photographs** — a Tumblr — and became zines, a
+magazine, club nights and then product. The most culturally credible brand in
+the UK underground set was built archive-first, product-second. See
+`strategy/WEB-PATTERNS-UK-UNDERGROUND.md` §1.
+
 **The deciding argument.** Apply the brief's own test — *could another generic
 streetwear brand easily copy this?* Concept 1: yes, in a weekend. Concept 3:
 yes, expensively, with any content. **Concept 2: not without doing the
