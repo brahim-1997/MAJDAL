@@ -1,0 +1,10 @@
+{
+  "$comment": "MAJDAL IMPACT LEDGER. Append-only. Never edit a settled entry — issue a correction entry instead. NEVER commit example or placeholder figures to this file: it is the public record, and a demo number here becomes a false public claim. It is empty because nothing has been sold yet. That is the correct state.",
+  "policyVersion": "1.0.0",
+  "currency": "EUR",
+  "commitmentPercent": 15,
+  "lastUpdated": "2026-09-21",
+  "recipients": [],
+  "accruals": [],
+  "transfers": []
+}

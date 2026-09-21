@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MAJDAL Impact Ledger",
+  "type": "object",
+  "required": [
+    "policyVersion",
+    "currency",
+    "commitmentPercent",
+    "lastUpdated",
+    "recipients",
+    "accruals",
+    "transfers"
+  ],
+  "properties": {
+    "policyVersion": { "type": "string" },
+    "currency": { "type": "string", "enum": ["EUR"] },
+    "commitmentPercent": { "type": "number", "minimum": 0, "maximum": 100 },
+    "lastUpdated": { "type": "string", "format": "date" },
+    "recipients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "verification"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^R-[0-9]{4}$" },
+          "name": { "type": "string" },
+          "location": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["organisation", "cooperative", "fund", "individual", "practitioner"]
+          },
+          "publicUrl": { "type": "string" },
+          "verification": {
+            "type": "object",
+            "required": ["status", "method"],
+            "properties": {
+              "status": { "type": "string", "enum": ["unverified", "verified"] },
+              "method": { "type": "string" },
+              "verifiedOn": { "type": "string" },
+              "verifiedBy": { "type": "string" },
+              "notes": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "accruals": {
+      "type": "array",
+      "description": "The 15% owed, computed from eligible sales. Money owed, not money moved.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "periodStart",
+          "periodEnd",
+          "chapterSlug",
+          "eligibleRevenueCents",
+          "accruedCents"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^A-[0-9]{4}$" },
+          "periodStart": { "type": "string" },
+          "periodEnd": { "type": "string" },
+          "chapterSlug": { "type": "string" },
+          "unitsSold": { "type": "integer", "minimum": 0 },
+          "eligibleRevenueCents": { "type": "integer", "minimum": 0 },
+          "accruedCents": { "type": "integer", "minimum": 0 },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "transfers": {
+      "type": "array",
+      "description": "Money actually sent. A transfer is only counted as delivered when its evidence is verified.",
+      "items": {
+        "type": "object",
+        "required": ["id", "date", "recipientId", "amountCents", "status", "reference"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^T-[0-9]{4}$" },
+          "date": { "type": "string" },
+          "recipientId": { "type": "string", "pattern": "^R-[0-9]{4}$" },
+          "amountCents": { "type": "integer", "minimum": 1 },
+          "status": { "type": "string", "enum": ["pending", "sent", "verified", "failed"] },
+          "reference": { "type": "string", "description": "Bank or payment reference. Redact account numbers." },
+          "evidence": {
+            "type": "object",
+            "properties": {
+              "receiptRef": { "type": "string" },
+              "recipientConfirmedOn": { "type": "string" },
+              "confirmedBy": { "type": "string" },
+              "publicUrl": { "type": "string" }
+            }
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

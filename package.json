@@ -1,0 +1,27 @@
+{
+  "name": "majdal",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MAJDAL — rooted in history. Built for tomorrow.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "impact:validate": "node scripts/validate-impact-ledger.mjs",
+    "check": "npm run typecheck && npm run impact:validate && npm run build"
+  },
+  "dependencies": {
+    "next": "^16.3.5",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": { "node": ">=20.9.0" }
+}

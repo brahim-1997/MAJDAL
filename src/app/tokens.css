@@ -1,0 +1,95 @@
+/* ============================================================
+   MAJDAL DESIGN TOKENS
+   Source of truth for the design system. See brand/DESIGN-SYSTEM.md
+   for the reasoning behind these values before changing any of them.
+   ============================================================ */
+
+:root {
+  /* --- Ground: ~95% of every surface lives here --- */
+  --ink: #0b0b0b;
+  --ink-raised: #141414;
+  --ink-hairline: #262626;
+  --stone: #b8b0a4;
+  --stone-dim: #7a746b;
+  --off-white: #ede8e0;
+  --olive: #3a4029;
+  --olive-bright: #4d5636;
+  --clay: #6b2b24;
+
+  /* --- ARCHIVE accents: documented Majdalawi silk threads.
+         Never more than ~5% of a surface. See DESIGN-SYSTEM.md §1. --- */
+  --indigo: #1b2a4a;
+  --fuchsia: #b4256b;
+  --turquoise: #1f8a8c;
+
+  /* --- Semantic --- */
+  --bg: var(--ink);
+  --bg-raised: var(--ink-raised);
+  --fg: var(--off-white);
+  --fg-muted: var(--stone);
+  --fg-faint: var(--stone-dim);
+  --rule: var(--ink-hairline);
+  --focus: var(--turquoise);
+
+  /* --- Type families.
+         Swap these two to install licensed faces; nothing else changes. --- */
+  --font-display: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue",
+    "Arial Narrow", sans-serif;
+  --font-text: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Roboto Mono", Menlo, monospace;
+  --font-arabic: "Noto Kufi Arabic", "Noto Naskh Arabic", "Geeza Pro",
+    "Segoe UI", system-ui, sans-serif;
+
+  /* --- Fluid type scale --- */
+  --step--1: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
+  --step-0: clamp(0.9rem, 0.87rem + 0.15vw, 1rem);
+  --step-1: clamp(1.05rem, 0.98rem + 0.35vw, 1.3rem);
+  --step-2: clamp(1.3rem, 1.1rem + 0.9vw, 1.9rem);
+  --step-3: clamp(1.7rem, 1.3rem + 1.9vw, 2.9rem);
+  --step-4: clamp(2.2rem, 1.4rem + 3.6vw, 4.4rem);
+  --step-5: clamp(2.9rem, 1.3rem + 7vw, 7rem);
+  --step-6: clamp(3.4rem, 0.5rem + 12vw, 11rem);
+
+  /* --- Space: 4px base --- */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 2.5rem;
+  --s-8: 3rem;
+  --s-9: 4rem;
+  --s-10: 5rem;
+  --s-11: 6rem;
+  --s-12: 8rem;
+
+  /* --- Layout --- */
+  --max-w: 1600px;
+  --max-prose: 68ch;
+  --gutter: 20px;
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur: 320ms;
+  --dur-slow: 560ms;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --gutter: 32px;
+  }
+}
+
+/* Light mode is a deliberate inversion, not an afterthought:
+   off-white ground, ink text. Same tokens, remapped. */
+:root[data-theme="light"] {
+  --bg: var(--off-white);
+  --bg-raised: #e3ddd3;
+  --fg: var(--ink);
+  --fg-muted: #574f45;
+  --fg-faint: #7a746b;
+  --rule: #cdc5b8;
+}
