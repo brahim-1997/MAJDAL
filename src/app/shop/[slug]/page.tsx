@@ -159,6 +159,59 @@ export default async function ProductPage({
                 </p>
               </div>
 
+              {/* --- Care --- */}
+              <div style={{ paddingTop: "var(--s-7)" }}>
+                <hr className="rule" />
+                <p className="meta" style={{ paddingTop: "var(--s-4)" }}>
+                  Care
+                </p>
+                <ul className="srclist">
+                  {product.care.map((c) => (
+                    <li key={c.slice(0, 20)} style={{ textTransform: "none", letterSpacing: "0.02em", lineHeight: 1.6 }}>
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* --- Edition: only when one genuinely exists --- */}
+              <div className="factlist" style={{ marginTop: "var(--s-6)" }}>
+                <div className="factlist__row">
+                  <span className="factlist__k">Edition</span>
+                  <span className="factlist__v">
+                    {product.edition
+                      ? `${product.edition.of} pieces — ${product.edition.note}`
+                      : "Not a numbered edition"}
+                  </span>
+                </div>
+                <div className="factlist__row">
+                  <span className="factlist__k">Availability</span>
+                  <span className="factlist__v">Prototype — not connected to stock</span>
+                </div>
+              </div>
+
+              {/* --- Buying info --- */}
+              <p className="meta" style={{ paddingTop: "var(--s-7)" }}>
+                Before you buy
+              </p>
+              <ul className="ftr__links" style={{ paddingTop: "var(--s-3)" }}>
+                <li>
+                  <Link href="/support/size-guide" className="link">
+                    Size guide
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/support/shipping" className="link">
+                    Shipping
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/support/returns" className="link">
+                    Returns
+                  </Link>
+                </li>
+              </ul>
+
               {/* --- Notes --- */}
               {product.notes.length > 0 ? (
                 <div style={{ paddingTop: "var(--s-7)" }}>

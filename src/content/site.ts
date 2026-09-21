@@ -32,3 +32,33 @@ export const nav: NavItem[] = [
   { href: "/shop", label: "Shop", index: "06" },
   { href: "/impact", label: "Impact", index: "07" },
 ];
+
+/** Secondary navigation. Support and legal must always be reachable. */
+export const secondaryNav: { group: string; items: NavItem[] }[] = [
+  {
+    group: "Take part",
+    items: [
+      { href: "/roots", label: "Join THE ROOTS", index: "" },
+      { href: "/roots/carry", label: "What do you carry?", index: "" },
+      { href: "/archive", label: "Enter the archive", index: "" },
+    ],
+  },
+  {
+    group: "Support",
+    items: [
+      { href: "/support/size-guide", label: "Size guide", index: "" },
+      { href: "/support/shipping", label: "Shipping", index: "" },
+      { href: "/support/returns", label: "Returns", index: "" },
+      { href: "/support/contact", label: "Contact", index: "" },
+    ],
+  },
+  {
+    group: "The brand",
+    items: [
+      { href: "/about", label: "About", index: "" },
+      { href: "/impact", label: "Impact", index: "" },
+      { href: "/legal/privacy", label: "Privacy", index: "" },
+      { href: "/legal/terms", label: "Terms", index: "" },
+    ],
+  },
+];

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { nav, site } from "@/content/site";
+import { nav, secondaryNav, site } from "@/content/site";
 
 export function SiteFooter() {
   return (
@@ -28,39 +28,32 @@ export function SiteFooter() {
             </ul>
           </nav>
 
-          <div>
-            <p className="meta ftr__heading">Impact</p>
-            <p className="muted ftr__text">
-              {site.impactPercent}% of every eligible product sale is committed to
-              supporting people in Palestine, published to the piece in a public
-              ledger.
-            </p>
-            <Link href="/impact" className="link">
-              Read the ledger
-            </Link>
-          </div>
+          {secondaryNav.map((group) => (
+            <nav key={group.group} aria-label={group.group}>
+              <p className="meta ftr__heading">{group.group}</p>
+              <ul className="ftr__links">
+                {group.items.map((item) => (
+                  <li key={item.href + item.label}>
+                    <Link href={item.href} className="link">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+        </div>
 
-          <div>
-            <p className="meta ftr__heading">The Roots</p>
-            <p className="muted ftr__text">
-              The community comes before the shop. Free, and earned by
-              participation rather than purchase.
-            </p>
-            <Link href="/roots" className="link">
-              Join THE ROOTS
-            </Link>
-          </div>
-
-          <div>
-            <p className="meta ftr__heading">Sources</p>
-            <p className="muted ftr__text">
-              Every cultural claim on this site is tiered and sourced. Where the
-              record is unresolved, we say so.
-            </p>
-            <Link href="/archive" className="link">
-              The Archive
-            </Link>
-          </div>
+        <div className="ftr__note">
+          <p className="muted">
+            {site.impactPercent}% of eligible product sales is committed to
+            supporting people in Palestine. Public reporting begins once
+            verified transfers are made.
+          </p>
+          <p className="meta faint" style={{ paddingTop: "var(--s-3)" }}>
+            The one real address for MAJDAL is {site.url.replace("https://", "")}.
+            We will never ask for payment anywhere else.
+          </p>
         </div>
 
         <div className="ftr__base">

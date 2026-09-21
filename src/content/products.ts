@@ -39,6 +39,12 @@ export type Product = {
   notes: string[];
   /** Placeholder slots — real photography pending. */
   imageCount: number;
+  care: string[];
+  /**
+   * Real edition size, or null when there is no numbered edition. Never
+   * invent one: a number here becomes a scarcity claim on a product page.
+   */
+  edition: { of: number; note: string } | null;
 };
 
 export const products: Product[] = [
@@ -74,6 +80,13 @@ export const products: Product[] = [
       "Run of 480 across Chapter 001. No restock of a closed chapter.",
     ],
     imageCount: 4,
+    care: [
+      "Wash cold, inside out, with like colours.",
+      "Do not tumble dry — 480 GSM loopback holds water and will pull out of shape.",
+      "Dry flat, away from direct heat.",
+      "Do not iron the woven label or the colour-block seams.",
+    ],
+    edition: null,
   },
   {
     slug: "roots-tee",
@@ -103,6 +116,12 @@ export const products: Product[] = [
     sizes: ["S", "M", "L", "XL", "XXL"],
     notes: ["Run of 480 across Chapter 001."],
     imageCount: 3,
+    care: [
+      "Wash cold, inside out.",
+      "Tumble dry low or dry flat.",
+      "Iron reverse, avoiding the hem mark.",
+    ],
+    edition: null,
   },
   {
     slug: "archive-tee",
@@ -136,6 +155,12 @@ export const products: Product[] = [
       "No coordinates are printed on this garment. The surveyed position of the historic town centre is not yet verified, and an approximate figure would be a fabrication. See cultural-research/al-majdal-dossier.md §2.",
     ],
     imageCount: 4,
+    care: [
+      "Wash cold, inside out, to protect the print.",
+      "Do not tumble dry.",
+      "Iron reverse only. Never iron directly onto the print.",
+    ],
+    edition: null,
   },
   {
     slug: "majdal-cap",
@@ -165,6 +190,12 @@ export const products: Product[] = [
       "Arabic embroidery is blocked pending native-speaker review of the wordmark (P0 in cultural-research/REVIEWS.md).",
     ],
     imageCount: 3,
+    care: [
+      "Spot clean only.",
+      "Do not machine wash — it will break the structured crown.",
+      "Air dry, shaped.",
+    ],
+    edition: null,
   },
 ];
 

@@ -37,6 +37,16 @@ export default function ImpactPage() {
         <div className="shell">
           {/* ---------- HEADLINE: the verified figure only ---------- */}
           <Reveal>
+            <div className="callout" style={{ marginBottom: "var(--s-6)" }}>
+              <p className="callout__h">System under preparation</p>
+              <p className="muted">
+                MAJDAL intends to allocate {site.impactPercent}% of eligible
+                product sales to support people in Palestine. Public reporting
+                will begin once verified transfers are made. No transfer has been
+                made, because nothing has been sold.
+              </p>
+            </div>
+
             <div className="impact__headline">
               <span className="meta">Confirmed received by recipients</span>
               <span className="impact__n">{formatMoney(totals.verifiedCents)}</span>

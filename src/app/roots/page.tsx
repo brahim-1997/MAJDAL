@@ -164,6 +164,37 @@ export default function RootsPage() {
           </div>
 
           <Reveal>
+            <div className="split" style={{ marginTop: "var(--s-10)", alignItems: "center" }}>
+              <div>
+                <h2 className="display d2">WHAT DO YOU CARRY?</h2>
+                <p className="lead muted" style={{ paddingTop: "var(--s-5)", maxWidth: "52ch" }}>
+                  An object. A photograph. A place. A name. A sentence somebody
+                  said once and nobody wrote down. The archive is the part of
+                  this brand that only the people in it can build.
+                </p>
+                <p style={{ paddingTop: "var(--s-6)" }}>
+                  <Link href="/roots/carry" className="btn">
+                    Send it to the archive
+                  </Link>
+                </p>
+              </div>
+              <div className="factlist">
+                {[
+                  ["Read by", "A person"],
+                  ["Credit", "Your choice"],
+                  ["Withdraw", "Any time"],
+                  ["Published", "Only with permission"],
+                ].map(([k, v]) => (
+                  <div className="factlist__row" key={k}>
+                    <span className="factlist__k">{k}</span>
+                    <span className="factlist__v">{v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal>
             <div className="callout" style={{ marginTop: "var(--s-9)" }}>
               <p className="callout__h">Status</p>
               <p className="muted">

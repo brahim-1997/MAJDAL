@@ -8,6 +8,38 @@
 
 export type Tier = "VERIFIED" | "CONTESTED" | "INTERPRETATION";
 
+/** What kind of record this is. Drives filtering and the archive ID prefix. */
+export type Category =
+  | "PLACE"
+  | "OBJECT"
+  | "TEXTILE"
+  | "PHOTOGRAPH"
+  | "DOCUMENT"
+  | "MEMORY"
+  | "STORY"
+  | "COMMUNITY";
+
+export const CATEGORIES: Category[] = [
+  "PLACE",
+  "OBJECT",
+  "TEXTILE",
+  "PHOTOGRAPH",
+  "DOCUMENT",
+  "MEMORY",
+  "STORY",
+  "COMMUNITY",
+];
+
+/**
+ * Rights on any asset attached to a record. Required, because an asset with
+ * no known rights cannot be published — see cultural-research/PROTOCOL.md.
+ */
+export type Rights = {
+  status: "cleared" | "public-domain" | "permission-pending" | "none-held";
+  holder?: string;
+  note?: string;
+};
+
 export type ArchiveEntry = {
   slug: string;
   index: string;
@@ -15,10 +47,21 @@ export type ArchiveEntry = {
   titleArabic?: string;
   /** Period or date the entry concerns. */
   period: string;
+  category: Category;
+  /** Place the record concerns. Links to the map register where one exists. */
+  location: string;
+  /** Map place slug, when this record belongs to a place on the register. */
+  placeSlug?: string;
   tier: Tier;
   summary: string;
   body: string[];
   sources: string[];
+  tags: string[];
+  /** Named contributor, where a person gave this. Undefined = MAJDAL research. */
+  contributor?: string;
+  /** Rights on attached media. No media yet, so none-held is the honest state. */
+  rights: Rights;
+  chapterSlugs: string[];
   /** Set when the record is genuinely unresolved. Rendered as an open question. */
   openQuestion?: string;
 };
@@ -29,6 +72,12 @@ export const archive: ArchiveEntry[] = [
     index: "A001",
     title: "TWO THOUSAND LOOMS",
     period: "Late Ottoman period – 1940s",
+    category: "TEXTILE",
+    location: "AL-MAJDAL",
+    placeSlug: "al-majdal",
+    tags: ["looms", "industry", "gaza district"],
+    chapterSlugs: ["001-roots"],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "VERIFIED",
     summary:
       "Al-Majdal was the primary textile and weaving centre of the Gaza District. By the 1940s around 2,000 looms were working in the town.",
@@ -48,6 +97,12 @@ export const archive: ArchiveEntry[] = [
     index: "A002",
     title: "EIGHT METRES",
     period: "Traditional practice",
+    category: "TEXTILE",
+    location: "AL-MAJDAL",
+    placeSlug: "al-majdal",
+    tags: ["cloth", "labour", "thobe"],
+    chapterSlugs: ["001-roots"],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "VERIFIED",
     summary:
       "Cloth was sold in eight-metre pieces — the length needed for a single thobe. One piece took a weaver one to two months.",
@@ -64,6 +119,12 @@ export const archive: ArchiveEntry[] = [
     title: "THE NAMED CLOTHS",
     titleArabic: "الأقمشة",
     period: "Traditional practice",
+    category: "TEXTILE",
+    location: "AL-MAJDAL",
+    placeSlug: "al-majdal",
+    tags: ["malak", "ikhdari", "jiljileh", "naming"],
+    chapterSlugs: ["001-roots"],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "VERIFIED",
     summary:
       "The weavers of al-Majdal named their fabrics. Malak — silk. Ikhdari — bands of red and green. Jiljileh — dark red bands. And others: heaven and hell, breath of the soul, father of two hundred.",
@@ -85,6 +146,12 @@ export const archive: ArchiveEntry[] = [
     index: "A004",
     title: "BLACK, INDIGO, FUCHSIA, TURQUOISE",
     period: "Traditional practice",
+    category: "TEXTILE",
+    location: "AL-MAJDAL",
+    placeSlug: "al-majdal",
+    tags: ["colour", "silk", "indigo"],
+    chapterSlugs: ["001-roots"],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "VERIFIED",
     summary:
       "Majdalawi cloth is documented as black and indigo cotton combined with fuchsia and turquoise silk — a bold stripe with a sheen.",
@@ -102,6 +169,12 @@ export const archive: ArchiveEntry[] = [
     index: "A005",
     title: "TAKEN IN 1948",
     period: "1948 – c.1950",
+    category: "PLACE",
+    location: "AL-MAJDAL",
+    placeSlug: "al-majdal",
+    tags: ["1948", "expulsion", "ashkelon"],
+    chapterSlugs: ["001-roots"],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "CONTESTED",
     summary:
       "Al-Majdal held around 11,000 people. It was taken in 1948 and its remaining residents were expelled in stages, most to Gaza. Accounts of the exact timeline differ.",
@@ -125,6 +198,11 @@ export const archive: ArchiveEntry[] = [
     index: "A006",
     title: "THE CLOTH KEPT THE NAME",
     period: "1948 – present",
+    category: "TEXTILE",
+    location: "GAZA",
+    tags: ["majdalawi", "survival", "diaspora"],
+    chapterSlugs: ["001-roots"],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "VERIFIED",
     summary:
       "The weavers who were expelled kept weaving. The style is still called Majdalawi — of al-Majdal.",
@@ -149,6 +227,11 @@ export const archive: ArchiveEntry[] = [
     title: "WHY 48",
     titleArabic: "عرب ٤٨",
     period: "1948 – present",
+    category: "STORY",
+    location: "PALESTINE",
+    tags: ["48", "continuity", "naming"],
+    chapterSlugs: ["001-roots"],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "VERIFIED",
     summary:
       "Palestinians who remained inside the 1949 armistice line are colloquially known as 48 Arabs — عرب ٤٨. The 48 refers to 1948.",
@@ -167,6 +250,11 @@ export const archive: ArchiveEntry[] = [
     index: "A008",
     title: "TATREEZ IS A DIFFERENT CRAFT",
     period: "Traditional practice – 2021",
+    category: "TEXTILE",
+    location: "PALESTINE",
+    tags: ["tatreez", "embroidery", "unesco"],
+    chapterSlugs: [],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "VERIFIED",
     summary:
       "Palestinian embroidery was inscribed by UNESCO on 15 December 2021. It is a distinct practice from Majdalawi weaving and MAJDAL does not merge the two.",
@@ -190,6 +278,11 @@ export const archive: ArchiveEntry[] = [
     title: "SUMUD",
     titleArabic: "صمود",
     period: "1920s – present",
+    category: "STORY",
+    location: "PALESTINE",
+    tags: ["sumud", "steadfastness", "land"],
+    chapterSlugs: ["002-sabr"],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "VERIFIED",
     summary:
       "Steadfastness. The documented Palestinian concept of resistance as remaining present on the land. It does not translate cleanly.",
@@ -213,6 +306,11 @@ export const archive: ArchiveEntry[] = [
     title: "THE PATIENCE OF THE CACTUS",
     titleArabic: "صبر",
     period: "1948 – present",
+    category: "PLACE",
+    location: "PALESTINE",
+    tags: ["sabr", "cactus", "village sites"],
+    chapterSlugs: ["002-sabr"],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "VERIFIED",
     summary:
       "Sabr is the Arabic word for patience. It is also the word for the prickly pear cactus, which still stands at the sites of depopulated villages.",
@@ -236,6 +334,11 @@ export const archive: ArchiveEntry[] = [
     title: "BALADI — MY COUNTRY",
     titleArabic: "بلدي",
     period: "2014 – present",
+    category: "OBJECT",
+    location: "BATTIR",
+    tags: ["seeds", "baladi", "agriculture"],
+    chapterSlugs: ["003-baladi"],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "VERIFIED",
     summary:
       "The Palestinian word for heirloom seed translates directly as \u201cmy country\u201d. Seeds saved by one generation, replanted by the next.",
@@ -258,6 +361,11 @@ export const archive: ArchiveEntry[] = [
     index: "A012",
     title: "THE OLIVE AND THE KEY",
     period: "1948 – present",
+    category: "OBJECT",
+    location: "PALESTINE",
+    tags: ["olive", "key", "symbols"],
+    chapterSlugs: [],
+    rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "CONTESTED",
     summary:
       "Two of the most reproduced Palestinian symbols. MAJDAL keeps both out of product on purpose.",

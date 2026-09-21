@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
-import { TierBadge } from "@/components/TierBadge";
 import { archive } from "@/content/archive";
+import { ArchiveBrowser } from "@/components/archive/ArchiveBrowser";
 
 export const metadata: Metadata = {
   title: "The Archive",
@@ -54,21 +54,7 @@ export default function ArchivePage() {
             </div>
           </Reveal>
 
-          <ul className="alist" style={{ marginTop: "var(--s-8)" }}>
-            {archive.map((entry, i) => (
-              <Reveal as="li" key={entry.slug} className="aitem" delay={i * 40}>
-                <Link href={`/archive/${entry.slug}`} className="aitem__link">
-                  <span className="aitem__head">
-                    <span className="aitem__index">{entry.index}</span>
-                    <span className="display aitem__title">{entry.title}</span>
-                    <TierBadge tier={entry.tier} />
-                  </span>
-                  <span className="aitem__summary">{entry.summary}</span>
-                  <span className="meta">{entry.period}</span>
-                </Link>
-              </Reveal>
-            ))}
-          </ul>
+          <ArchiveBrowser entries={archive} />
         </div>
       </section>
     </>
