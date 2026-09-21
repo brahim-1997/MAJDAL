@@ -6,9 +6,11 @@
 
 :root {
   /* --- Ground: ~95% of every surface lives here --- */
-  --ink: #0b0b0b;
-  --ink-raised: #141414;
-  --ink-hairline: #262626;
+  /* Not a default tinted near-black: the documented Majdalawi ground is
+     black AND indigo cotton, so the brand black carries indigo in it. */
+  --ink: #07080d;
+  --ink-raised: #10121a;
+  --ink-hairline: #21242f;
   --stone: #b8b0a4;
   --stone-dim: #7a746b;
   --off-white: #ede8e0;

@@ -3,6 +3,7 @@ import { Reveal } from "@/components/Reveal";
 import { ProductCard } from "@/components/ProductCard";
 import { Spine } from "@/components/Spine";
 import { MapRegister } from "@/components/map/MapRegister";
+import { Loom } from "@/components/map/Loom";
 import { places } from "@/content/places";
 import { JoinRoots } from "@/components/JoinRoots";
 import { TierBadge } from "@/components/TierBadge";
@@ -56,7 +57,6 @@ export default function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="label">
-              <span className="label__index">01</span>
               <span className="label__name">The premise</span>
             </p>
           </Reveal>
@@ -138,7 +138,6 @@ export default function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="label">
-              <span className="label__index">02</span>
               <span className="label__name">The land</span>
             </p>
           </Reveal>
@@ -147,14 +146,21 @@ export default function HomePage() {
             <h2 className="display d3" style={{ maxWidth: "18ch" }}>
               {site.tagline}
             </h2>
-            <p className="lead muted" style={{ paddingTop: "var(--s-5)", maxWidth: "56ch" }}>
-              {places.length} places, set in type at their own coordinates. Move
-              across the register. What you open is remembered, and joined by a
-              thread.
+          </Reveal>
+
+          <div style={{ paddingTop: "var(--s-7)" }}>
+            <Loom />
+          </div>
+
+          <Reveal>
+            <p className="lead muted" style={{ paddingTop: "var(--s-8)", maxWidth: "56ch" }}>
+              The same land, as a register you can read: {places.length} places
+              set in type at their own coordinates. What you open is remembered,
+              and joined by a thread.
             </p>
           </Reveal>
 
-          <div style={{ paddingTop: "var(--s-8)" }}>
+          <div style={{ paddingTop: "var(--s-7)" }}>
             <MapRegister />
           </div>
 
@@ -173,7 +179,6 @@ export default function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="label">
-              <span className="label__index">03</span>
               <span className="label__name">The spine</span>
             </p>
           </Reveal>
@@ -200,7 +205,6 @@ export default function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="label">
-              <span className="label__index">04</span>
               <span className="label__name">Chapter {currentChapter.number}</span>
             </p>
           </Reveal>
@@ -241,7 +245,6 @@ export default function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="label">
-              <span className="label__index">05</span>
               <span className="label__name">The archive</span>
             </p>
           </Reveal>
@@ -276,7 +279,6 @@ export default function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="label">
-              <span className="label__index">06</span>
               <span className="label__name">{site.community}</span>
             </p>
           </Reveal>

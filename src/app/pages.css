@@ -837,3 +837,75 @@
   pointer-events: none;
   mix-blend-mode: screen;
 }
+
+/* ============================================================
+   THE LOOM — the land, woven
+   ============================================================ */
+.loom {
+  position: relative;
+  border: 1px solid var(--rule);
+  background:
+    radial-gradient(
+      ellipse 68% 52% at 52% 44%,
+      color-mix(in srgb, var(--indigo) 30%, transparent) 0%,
+      transparent 72%
+    ),
+    var(--bg);
+  overflow: hidden;
+}
+
+.loom__stage {
+  width: 100%;
+  height: clamp(22rem, 62vh, 40rem);
+}
+
+.loom__stage canvas {
+  display: block;
+}
+
+.loom__caption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: var(--s-5);
+  max-width: 44ch;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--bg) 92%, transparent),
+    transparent
+  );
+}
+
+.loom__line {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variation-settings: "wdth" 92;
+  font-size: var(--step-2);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.loom__note {
+  padding-top: var(--s-3);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+
+/* Without WebGL the stage collapses and the caption still reads as a statement
+   above the register beneath it. Nothing is lost. */
+.loom[data-status="unavailable"] .loom__stage {
+  height: 0;
+}
+
+.loom[data-status="unavailable"] {
+  border: 0;
+  background: none;
+}
+
+.loom[data-status="unavailable"] .loom__caption {
+  position: static;
+  padding: 0 0 var(--s-6);
+  background: none;
+  max-width: 56ch;
+}
