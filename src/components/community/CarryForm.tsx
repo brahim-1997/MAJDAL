@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CONSENT_TERMS, KINDS, type MemorySubmission } from "@/content/community";
 import { track } from "@/lib/analytics";
 
@@ -25,6 +25,12 @@ export function CarryForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [state, setState] = useState<"idle" | "checking" | "not-open">("idle");
   const [touched, setTouched] = useState(false);
+
+  // Arriving from an empty sleeve on the homepage preselects that kind.
+  useEffect(() => {
+    const k = new URLSearchParams(window.location.search).get("kind");
+    if (k && KINDS.some((x) => x.value === k)) setKind(k as MemorySubmission["kind"]);
+  }, []);
 
   const validate = (): Errors => {
     const e: Errors = {};

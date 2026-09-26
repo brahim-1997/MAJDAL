@@ -1,63 +1,78 @@
 /* ============================================================
-   MAJDAL DESIGN TOKENS
-   Source of truth for the design system. See brand/DESIGN-SYSTEM.md
-   for the reasoning behind these values before changing any of them.
+   MAJDAL — BRUTALIST STREET ARCHIVE — TOKENS
+   Palette set by founder decision, 2026-09-26. Measured, not eyeballed:
+
+     bone  / black   17.42  any text
+     acid  / black   17.21  any text        — use almost never
+     bone  / blue     5.31  any text
+     bone  / olive    5.64  any text
+     blue  / bone     5.31  any text
+     red   / black    4.42  LARGE TYPE ONLY
+     red   / bone     3.94  LARGE TYPE ONLY
+     black / red      4.42  LARGE TYPE ONLY
+
+   So: red never carries small text. Red is display type, fills behind
+   large type, marks, borders and THE THREAD.
    ============================================================ */
 
 :root {
-  /* --- Ground: ~95% of every surface lives here --- */
-  /* Not a default tinted near-black: the documented Majdalawi ground is
-     black AND indigo cotton, so the brand black carries indigo in it. */
-  --ink: #07080d;
-  --ink-raised: #10121a;
-  --ink-hairline: #21242f;
-  --stone: #b8b0a4;
-  --stone-dim: #7a746b;
-  --off-white: #ede8e0;
-  --olive: #3a4029;
-  --olive-bright: #4d5636;
-  --clay: #6b2b24;
+  /* --- The six --- */
+  --black: #050505;
+  --bone: #f1ede2;
+  --red: #e3261a;
+  --blue: #1747ff;
+  --acid: #c7ff00;
+  --olive: #596044;
 
-  /* --- ARCHIVE accents: documented Majdalawi silk threads.
-         Never more than ~5% of a surface. See DESIGN-SYSTEM.md §1. --- */
-  --indigo: #1b2a4a;
-  --fuchsia: #b4256b;
-  --turquoise: #1f8a8c;
+  /* Hierarchy tints of bone on black — all pass AA as text. */
+  --bone-72: #afaca4; /* 8.99:1 */
+  --bone-55: #87857f; /* 5.52:1 */
+  --bone-20: #33322f; /* rules, not text */
 
-  /* --- Semantic --- */
-  --bg: var(--ink);
-  --bg-raised: var(--ink-raised);
-  --fg: var(--off-white);
-  --fg-muted: var(--stone);
-  --fg-faint: var(--stone-dim);
-  --rule: var(--ink-hairline);
-  --focus: var(--turquoise);
+  /* --- Semantic (night is the default ground) --- */
+  --bg: var(--black);
+  --bg-raised: #0f0f0e;
+  --fg: var(--bone);
+  --fg-muted: var(--bone-72);
+  --fg-faint: var(--bone-55);
+  --rule: var(--bone-20);
+  --focus: var(--blue);
+  --signal: var(--red);
 
-  /* --- Type families.
-         Swap these two to install licensed faces; nothing else changes. --- */
-  --font-display: "Archivo Variable", ui-sans-serif, system-ui, "Helvetica Neue",
-    Arial, sans-serif;
-  --font-text: "Archivo Variable", ui-sans-serif, system-ui, "Helvetica Neue",
-    Arial, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  /* IBM Plex Sans Arabic: chosen so Arabic and Latin carry comparable optical
-     weight rather than Arabic reading as a smaller guest script.
-     Noto Kufi Arabic is the alternative for a more architectural, signage feel
-     — a native speaker decides. See brand/DESIGN-SYSTEM.md §2. */
-  --font-arabic: "IBM Plex Sans Arabic", "Noto Kufi Arabic", "Geeza Pro",
-    system-ui, sans-serif;
+  /* --- Legacy aliases, so older records keep resolving while the
+         system migrates. New work uses the six names above. --- */
+  --ink: var(--black);
+  --ink-raised: var(--bg-raised);
+  --ink-hairline: var(--bone-20);
+  --off-white: var(--bone);
+  --stone: var(--bone-72);
+  --stone-dim: var(--bone-55);
+  --fuchsia: var(--red);
+  --turquoise: var(--blue);
+  --indigo: var(--blue);
+  --clay: var(--red);
 
-  /* --- Fluid type scale --- */
-  --step--1: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
-  --step-0: clamp(0.9rem, 0.87rem + 0.15vw, 1rem);
-  --step-1: clamp(1.05rem, 0.98rem + 0.35vw, 1.3rem);
-  --step-2: clamp(1.3rem, 1.1rem + 0.9vw, 1.9rem);
-  --step-3: clamp(1.7rem, 1.3rem + 1.9vw, 2.9rem);
-  --step-4: clamp(2.2rem, 1.4rem + 3.6vw, 4.4rem);
-  --step-5: clamp(2.9rem, 1.3rem + 7vw, 7rem);
-  --step-6: clamp(3.4rem, 0.5rem + 12vw, 11rem);
+  /* --- Type ---
+     One family carries three behaviours through its width axis:
+     wdth 62 = condensed industrial, 100 = grotesk text, 125 = wide stamp. */
+  --font-display: "Archivo Variable", "Arial Narrow", Impact, sans-serif;
+  --font-text: "Archivo Variable", ui-sans-serif, system-ui, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --font-arabic: "IBM Plex Sans Arabic", "Noto Kufi Arabic", "Geeza Pro", sans-serif;
+  /* Pencil annotation. Used a handful of times, only for marginal notes. */
+  --font-hand: "Reenie Beanie", "Comic Sans MS", cursive;
 
-  /* --- Space: 4px base --- */
+  --step--2: 0.68rem;
+  --step--1: clamp(0.72rem, 0.7rem + 0.1vw, 0.8rem);
+  --step-0: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+  --step-1: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);
+  --step-2: clamp(1.5rem, 1.1rem + 1.6vw, 2.4rem);
+  --step-3: clamp(2.2rem, 1.3rem + 3.6vw, 4.2rem);
+  --step-4: clamp(3rem, 1.2rem + 7vw, 7.5rem);
+  --step-5: clamp(4.5rem, 0.8rem + 14vw, 15rem);
+  --step-6: clamp(6rem, -1rem + 28vw, 30rem);
+
+  /* --- Space --- */
   --s-1: 0.25rem;
   --s-2: 0.5rem;
   --s-3: 0.75rem;
@@ -71,58 +86,58 @@
   --s-11: 6rem;
   --s-12: 8rem;
 
-  /* --- Layout --- */
-  --max-w: 1600px;
-  --max-prose: 68ch;
-  --gutter: 20px;
+  --max-w: 1680px;
+  --max-prose: 64ch;
+  --gutter: 16px;
 
-  /* --- Motion --- */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-fast: 180ms;
-  --dur: 320ms;
-  --dur-slow: 560ms;
+  /* --- Hard edges --- */
+  --radius: 0;
+  --border: 2px solid currentColor;
+  --shift: 4px; /* misregistration distance */
+
+  /* --- Motion: cuts, not glides --- */
+  --ease-out: cubic-bezier(0.2, 0.9, 0.1, 1);
+  --dur-fast: 90ms;
+  --dur: 160ms;
+  --dur-slow: 420ms;
+
+  /* --- Layers --- */
+  --z-thread: 1;
+  --z-content: 2;
+  --z-header: 50;
+  --z-overlay: 90;
+  --z-overture: 100;
 }
 
 @media (min-width: 48rem) {
   :root {
-    --gutter: 32px;
+    --gutter: 28px;
   }
 }
 
 /* ============================================================
-   PAPER — the archive surface
-   ============================================================
-   The brief asks for a site that is mostly dark "with occasional lighter
-   archival areas", and lists aged paper among the tones. An archive is made
-   of paper; a site about an archive that never shows paper is missing half
-   its own idea.
-
-   So this is not a user-facing light/dark toggle. It is a material: records
-   are documents, and documents sit on paper. Everything else stays night.
-   The contrast happens inside the journey — street outside, paper when you
-   open a record.
-
-   Every value below is contrast-checked against the paper ground:
-   ink 13.87:1, muted 7.18:1, faint 4.91:1, fuchsia 6.73:1, turquoise 5.35:1.
+   PAPER — records, documents, the tech pack.
+   Bone ground, black ink. Red stays large; blue and olive can be text.
    ============================================================ */
 .paper {
-  --paper-ground: #e8e2d6;
-  --paper-raised: #ddd5c6;
-  --paper-ink: #16171c;
+  --bg: var(--bone);
+  --bg-raised: #e6e1d4;
+  --fg: var(--black);
+  --fg-muted: #3d3b36;
+  --fg-faint: #5c5a53;
+  --rule: #b9b3a4;
+  --focus: var(--blue);
+  background: var(--bone);
+  color: var(--black);
+}
 
-  --bg: var(--paper-ground);
-  --bg-raised: var(--paper-raised);
-  --fg: var(--paper-ink);
-  --fg-muted: #4a4740;
-  --fg-faint: #655f54;
-  --rule: #a99d85;
-
-  /* Accents darken on paper or they fail contrast. Same hues, more ink. */
-  --fuchsia: #8e1a52;
-  --turquoise: #156465;
-  --clay: #6b2b24;
-  --focus: #156465;
-
-  background: var(--paper-ground);
-  color: var(--paper-ink);
+.olive-ground {
+  --bg: var(--olive);
+  --bg-raised: #4d533a;
+  --fg: var(--bone);
+  --fg-muted: #dcd8cc;
+  --fg-faint: #cfcabd;
+  --rule: #7c8266;
+  background: var(--olive);
+  color: var(--bone);
 }

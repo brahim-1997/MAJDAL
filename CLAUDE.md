@@ -54,9 +54,17 @@ npm run impact:validate  # ledger invariants only
   `brand/DESIGN-SYSTEM.md` before changing a value.
 - Content: `src/content/*.ts` — typed. Products, chapters, archive, site.
 - Impact: `impact/ledger.json` (append-only) → `src/lib/impact.ts` → `/impact`.
-- Fuchsia and turquoise are **documented Majdalawi silk colours**, capped at
-  ~5% of any surface. At 50% they become generic streetwear and the reference
-  dies. This is the rule most likely to be broken; enforce it.
+- Interface palette (founder decision, 2026-09-26): black, bone, signal red,
+  electric blue, acid green (almost never), archive olive. **Red never carries
+  small text** — 4.42:1 on black, 3.94:1 on bone. Red is display type, fills,
+  marks and THE THREAD. This is the rule most likely to be broken; enforce it.
+- Red and blue are brand language, not heritage. Never call them Majdalawi or
+  Palestinian colours.
+- Fuchsia and turquoise are **documented Majdalawi silk colours**. They live in
+  the cloth — garment colourways and archive records — capped at ~5% of a
+  garment. At 50% they become generic streetwear and the reference dies.
+- three.js is the one heavy dependency, for THE LAND. It is dynamically
+  imported, desktop-pointer only, with a static map fallback. Keep it that way.
 
 ## Deliberately unfinished, and why
 

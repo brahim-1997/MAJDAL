@@ -5,6 +5,7 @@ import { Reveal } from "@/components/Reveal";
 import { formatPrice, getProduct, products } from "@/content/products";
 import { getChapter } from "@/content/chapters";
 import { site } from "@/content/site";
+import { GarmentFlat } from "@/components/product/GarmentFlat";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -59,22 +60,19 @@ export default async function ProductPage({
         </Link>
 
         <div className="pdp">
-          {/* --- Images --- */}
-          <div className="pdp__frames">
-            {Array.from({ length: product.imageCount }).map((_, i) => (
-              <div className="pdp__frame" key={i}>
-                <span className="meta">
-                  Image {i + 1} of {product.imageCount} — pending
-                </span>
-              </div>
-            ))}
+          {/* --- The object, drawn --- */}
+          <div className="pdp__draw">
+            <Reveal>
+              <GarmentFlat product={product} callouts />
+            </Reveal>
           </div>
 
           {/* --- Info --- */}
           <div className="pdp__info">
             <Reveal>
-              <p className="meta">
-                {chapter ? `Chapter ${chapter.number} — ${chapter.name}` : "MAJDAL"}
+              <p className="pdp__no">Object {product.object}</p>
+              <p className="meta" style={{ paddingTop: "var(--s-2)" }}>
+                {chapter ? `Chapter ${chapter.number} — ${chapter.name}` : "MAJDAL"} — code {site.code}
               </p>
               <h1 className="display d4" style={{ paddingTop: "var(--s-3)" }}>
                 {product.name}

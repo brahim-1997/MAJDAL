@@ -92,7 +92,8 @@ textile — durable, with a characteristic sheen.
 Black and indigo grounds cut with hot fuchsia and turquoise. This gives MAJDAL
 a historically grounded accent pair that no competitor can claim, and it saves
 the brand from the washed-neutral sameness of every other heavyweight label.
-See `brand/DESIGN-SYSTEM.md` — these are the ARCHIVE accents.
+See `brand/DESIGN-SYSTEM.md` §1 — they live in the cloth (garment colourways),
+capped at ~5% of a garment.
 
 `VERIFIED` — **Scale of a piece.** Cloth was commonly sold in **eight-metre
 pieces**, the quantity needed for a single thobe. A weaver took **one to two

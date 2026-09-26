@@ -1,3 +1,6 @@
+> **Superseded** by `brand/DESIGN-SYSTEM.md` v1.0 (brutalist street archive,
+> 2026-09-26). Kept for the record of how the system got here.
+
 # 04 — DESIGN SYSTEM v2
 
 Extends `brand/DESIGN-SYSTEM.md` (v0.1, shipped). Implemented in

@@ -9,6 +9,16 @@
 
 export type ProductStatus = "coming" | "available" | "sold-out" | "closed";
 
+/** The garment's actual colours, for tech-flat drawings. Product data, not UI. */
+export type Swatch = {
+  body: string;
+  band?: string;
+  trim?: string;
+  print?: string;
+  /** Hairline accents that are part of the garment's real spec. */
+  hairlines?: string[];
+};
+
 export type Colourway = {
   name: string;
   /** Arabic source term, where documented. */
@@ -19,10 +29,16 @@ export type Colourway = {
   appliedAs: string;
   /** False until a named reviewer clears the name. Gates display of the name. */
   clearedForProduction: boolean;
+  swatch: Swatch;
 };
+
+export type GarmentKind = "hoodie" | "tee" | "cap";
 
 export type Product = {
   slug: string;
+  /** OBJECT number in the MAJDAL catalogue. */
+  object: string;
+  kind: GarmentKind;
   name: string;
   /** Short editorial line. */
   line: string;
@@ -50,6 +66,8 @@ export type Product = {
 export const products: Product[] = [
   {
     slug: "roots-hoodie",
+    object: "001",
+    kind: "hoodie",
     name: "ROOTS COLOUR-BLOCK HOODIE",
     line: "Loom logic on the body: woven bands rebuilt as panels.",
     chapterSlug: "001-roots",
@@ -65,6 +83,7 @@ export const products: Product[] = [
       appliedAs:
         "Deep olive body, dark red chest and sleeve band, washed black hood and cuffs. The band sits where the woven stripe sat.",
       clearedForProduction: true,
+      swatch: { body: "#4b5236", band: "#6b2b24", trim: "#1c1c1a" },
     },
     spec: [
       { label: "Weight", value: "480 GSM loopback cotton" },
@@ -90,6 +109,8 @@ export const products: Product[] = [
   },
   {
     slug: "roots-tee",
+    object: "002",
+    kind: "tee",
     name: "ROOTS HEAVYWEIGHT TEE",
     line: "The plain one. Built to outlive the chapter.",
     chapterSlug: "001-roots",
@@ -105,6 +126,7 @@ export const products: Product[] = [
       appliedAs:
         "Washed black body with a single dark red band across the back yoke.",
       clearedForProduction: true,
+      swatch: { body: "#1c1c1a", band: "#6b2b24" },
     },
     spec: [
       { label: "Weight", value: "260 GSM single jersey" },
@@ -125,6 +147,8 @@ export const products: Product[] = [
   },
   {
     slug: "archive-tee",
+    object: "003",
+    kind: "tee",
     name: "ARCHIVE TEE",
     line: "The record, printed as a record.",
     chapterSlug: "001-roots",
@@ -140,6 +164,7 @@ export const products: Product[] = [
       appliedAs:
         "Off-white body, washed black print, with turquoise and fuchsia hairlines — the silk threads documented in Majdalawi cloth, used at the smallest possible scale.",
       clearedForProduction: true,
+      swatch: { body: "#ede8e0", print: "#1c1c1a", hairlines: ["#1f8a8c", "#b4256b"] },
     },
     spec: [
       { label: "Weight", value: "260 GSM single jersey" },
@@ -164,6 +189,8 @@ export const products: Product[] = [
   },
   {
     slug: "majdal-cap",
+    object: "004",
+    kind: "cap",
     name: "MAJDAL CAP",
     line: "Wordmark, two scripts, equal weight.",
     chapterSlug: "001-roots",
@@ -177,6 +204,7 @@ export const products: Product[] = [
         "Not a fabric name. Majdalawi cloth is documented as black and indigo cotton cut with fuchsia and turquoise silk; this is a direct reference to that ground, named plainly rather than borrowing a weaver's term.",
       appliedAs: "Indigo crown, washed black brim, off-white embroidery.",
       clearedForProduction: true,
+      swatch: { body: "#1b2a4a", trim: "#1c1c1a", print: "#ede8e0" },
     },
     spec: [
       { label: "Construction", value: "6-panel, structured, mid-profile" },

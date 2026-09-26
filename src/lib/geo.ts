@@ -64,3 +64,28 @@ export function formatCoordinates(p: Place): string {
   const figure = `${Math.abs(lat).toFixed(2)}° ${ns}  ${Math.abs(lon).toFixed(2)}° ${ew}`;
   return precision === "approximate" ? `${figure} · approx.` : figure;
 }
+
+/** Inverse of project(): viewBox coordinates back to latitude/longitude. */
+export function unproject(x: number, y: number): { lat: number; lon: number } {
+  const usableW = VIEW.w - PAD.x * 2;
+  const usableH = VIEW.h - PAD.y * 2;
+  const scale = Math.min(usableW / spanLon, usableH / spanLat);
+  const cx = (BBOX.minLon + BBOX.maxLon) / 2;
+  const cy = (BBOX.minLat + BBOX.maxLat) / 2;
+  return {
+    lon: cx + (x - VIEW.w / 2) / (lonScale * scale),
+    lat: cy - (y - VIEW.h / 2) / scale,
+  };
+}
+
+/** Great-circle distance in kilometres. */
+export function distanceKm(a: { lat: number; lon: number }, b: { lat: number; lon: number }) {
+  const R = 6371;
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(b.lat - a.lat);
+  const dLon = toRad(b.lon - a.lon);
+  const h =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}

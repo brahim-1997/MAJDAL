@@ -6,6 +6,8 @@ import { site } from "@/content/site";
 // third-party request on page load, no licensing cost.
 import "@fontsource-variable/archivo";
 import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/700.css";
+import "@fontsource/reenie-beanie/400.css";
 import "@fontsource/ibm-plex-sans-arabic/arabic-400.css";
 import "@fontsource/ibm-plex-sans-arabic/arabic-700.css";
 import "./globals.css";
@@ -48,7 +50,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B0B0B",
+  themeColor: "#050505",
   width: "device-width",
   initialScale: 1,
 };
@@ -70,11 +72,21 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        {/* Marks the overture as seen before first paint, so it plays once per
+            session and never flashes for a returning visitor. Fails safe. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var k='majdal-overture';if(sessionStorage.getItem(k)){document.documentElement.dataset.seen='1'}else{sessionStorage.setItem(k,'1')}}catch(e){document.documentElement.dataset.seen='1'}",
+          }}
+        />
+      </head>
       <body>
         {/* Without JS the IntersectionObserver never fires, so revealed
             content would stay at opacity 0. Content is never gated on motion. */}
         <noscript>
-          <style>{`.reveal{opacity:1 !important;transform:none !important}`}</style>
+          <style>{`.reveal > *{clip-path:none !important}`}</style>
         </noscript>
         <a href="#main" className="skip-link">
           Skip to content

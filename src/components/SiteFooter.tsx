@@ -1,69 +1,63 @@
 import Link from "next/link";
+import { Barcode } from "@/components/brut/Barcode";
 import { nav, secondaryNav, site } from "@/content/site";
 
 export function SiteFooter() {
   return (
     <footer className="ftr">
-      <div className="shell">
-        <div className="ftr__top">
-          <p className="display d3 ftr__wordmark">
-            {site.name}
-            {" "}
-            <span className="arabic ftr__ar">{site.nameArabic}</span>
-          </p>
-          <p className="meta">{site.philosophy}</p>
+      <div className="ftr__giant display" aria-hidden="true">
+        {site.name}
+      </div>
+
+      <div className="shell ftr__body">
+        <div className="ftr__card">
+          <p className="ftr__head meta">Index</p>
+          <ul className="ftr__links">
+            {nav.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="ftr__link">
+                  <span className="ftr__n">{item.index}</span>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <div className="ftr__grid">
-          <nav aria-label="Footer">
-            <p className="meta ftr__heading">Index</p>
+        {secondaryNav.map((group) => (
+          <nav key={group.group} className="ftr__card" aria-label={group.group}>
+            <p className="ftr__head meta">{group.group}</p>
             <ul className="ftr__links">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="link">
+              {group.items.map((item) => (
+                <li key={item.href + item.label}>
+                  <Link href={item.href} className="ftr__link">
                     {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </nav>
+        ))}
 
-          {secondaryNav.map((group) => (
-            <nav key={group.group} aria-label={group.group}>
-              <p className="meta ftr__heading">{group.group}</p>
-              <ul className="ftr__links">
-                {group.items.map((item) => (
-                  <li key={item.href + item.label}>
-                    <Link href={item.href} className="link">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
+        <div className="ftr__card ftr__card--code">
+          <p className="ftr__head meta">Code</p>
+          <Barcode value="MAJDAL-48" />
+          <p className="ftr__ar arabic">{site.nameArabic}</p>
         </div>
+      </div>
 
-        <div className="ftr__note">
-          <p className="muted">
-            {site.impactPercent}% of eligible product sales is committed to
-            supporting people in Palestine. Public reporting begins once
-            verified transfers are made.
-          </p>
-          <p className="meta faint" style={{ paddingTop: "var(--s-3)" }}>
-            The one real address for MAJDAL is {site.url.replace("https://", "")}.
-            We will never ask for payment anywhere else.
-          </p>
-        </div>
-
-        <div className="ftr__base">
-          <p className="meta">
-            {site.code} — 1948, and everyone who has carried this since
-          </p>
-          <p className="meta faint">
-            © {new Date().getFullYear()} {site.name}
-          </p>
-        </div>
+      <div className="shell ftr__base">
+        <p className="ftr__statement">
+          {site.impactPercent}% of eligible product sales is intended to support people
+          in Palestine. Public reporting begins once verified transfers are made.
+        </p>
+        <p className="meta">
+          The one real address is {site.url.replace("https://", "")}. MAJDAL will never
+          ask for payment anywhere else.
+        </p>
+        <p className="meta">
+          {site.philosophy} — © {new Date().getFullYear()} {site.name}
+        </p>
       </div>
     </footer>
   );
