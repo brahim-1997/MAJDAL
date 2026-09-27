@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: "#080808",
   width: "device-width",
   initialScale: 1,
 };
@@ -71,14 +71,16 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Marks the overture as seen before first paint, so it plays once per
-            session and never flashes for a returning visitor. Fails safe. */}
+        {/* Before first paint: mark JS as present, and arm the homepage intro
+            — once per session, never under reduced motion. Any key, click,
+            touch or wheel ends it on its final frame. Fails safe: if anything
+            throws, the page is simply the poster. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{var k='majdal-overture';if(sessionStorage.getItem(k)){document.documentElement.dataset.seen='1'}else{sessionStorage.setItem(k,'1')}}catch(e){document.documentElement.dataset.seen='1'}",
+              "try{var d=document.documentElement;d.classList.add('js');var k='majdal-intro';if(location.pathname==='/'&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem(k)){sessionStorage.setItem(k,'1');d.dataset.intro='play';var e=['keydown','pointerdown','wheel','touchstart'],f=function(){d.dataset.intro='done';e.forEach(function(n){removeEventListener(n,f)})};e.forEach(function(n){addEventListener(n,f,{passive:true})});setTimeout(f,6400)}}catch(x){}",
           }}
         />
       </head>

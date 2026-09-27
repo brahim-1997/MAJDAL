@@ -3,32 +3,36 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { currentChapter } from "@/content/chapters";
+import { logoSrc } from "@/components/brand/Logo";
 import { nav, site } from "@/content/site";
 
 /**
- * The header floats over the page as a set of stuck-on labels, and swaps its
- * own ink to match whatever ground is underneath: bone on night, ink on
- * paper, bone on olive, black tags on signal red.
- *
- * This replaced a mix-blend-mode: difference header. Difference inverts
- * perfectly over black and bone — 95% of the site — but over the olive
- * archive it rendered at 2.09:1, and over red it turned cyan, a colour that
- * is not in the palette. Reading the ground and choosing is always legible.
+ * The header is a strip of labels stuck over the page. It reads the ground
+ * underneath and changes ink to match: bone logo on night, green and olive
+ * and red; ink logo on paper. Reading the ground is always legible — a blend
+ * mode is not (difference measured 2.09:1 over olive in the last system).
  */
-type Ground = "night" | "paper" | "olive" | "red";
+type Ground = "night" | "paper" | "green" | "olive" | "red";
+
+const GROUNDS: [string, Ground][] = [
+  ["paper", "paper"],
+  ["green-ground", "green"],
+  ["deep-ground", "green"],
+  ["olive-ground", "olive"],
+  ["red-ground", "red"],
+];
 
 function groundAt(y: number): Ground {
   const cands = document.querySelectorAll<HTMLElement>(
-    ".paper, .olive-ground, .joinsec, [data-ground]",
+    ".paper, .green-ground, .deep-ground, .olive-ground, .red-ground, [data-ground]",
   );
   let best: HTMLElement | null = null;
   let bestH = Infinity;
   for (const el of cands) {
     if (el.closest(".hdr, .navover")) continue;
     const r = el.getBoundingClientRect();
-    if (!r.height || r.top > y || r.bottom < y) continue;
-    // The most specific ground wins: a receipt on a black section is paper.
+    if (!r.height || r.top > y || r.bottom < y || r.left > 40 || r.right < 40) continue;
+    // The most specific ground wins: a paper record on a night page is paper.
     if (r.height < bestH) {
       best = el;
       bestH = r.height;
@@ -37,20 +41,9 @@ function groundAt(y: number): Ground {
   if (!best) return "night";
   const g = best.dataset.ground as Ground | undefined;
   if (g) return g;
-  if (best.classList.contains("paper")) return "paper";
-  if (best.classList.contains("olive-ground")) return "olive";
-  if (best.classList.contains("joinsec")) return "red";
+  for (const [cls, ground] of GROUNDS) if (best.classList.contains(cls)) return ground;
   return "night";
 }
-
-const PRIMARY = [
-  { href: "/map", label: "The land" },
-  { href: "/archive", label: "Archive" },
-  { href: "/roots", label: "Roots" },
-  { href: `/chapters/${currentChapter.slug}`, label: `Chapter ${currentChapter.number}` },
-  { href: "/shop", label: "Shop" },
-  { href: "/impact", label: "Impact" },
-];
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -59,7 +52,7 @@ export function SiteHeader() {
 
   useEffect(() => {
     let raf = 0;
-    const probe = () => setGround(groundAt(36));
+    const probe = () => setGround(groundAt(30));
     const on = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(probe);
@@ -67,10 +60,13 @@ export function SiteHeader() {
     probe();
     window.addEventListener("scroll", on, { passive: true });
     window.addEventListener("resize", on);
+    // The film changes its own ground without scrolling past a boundary.
+    window.addEventListener("majdal:ground", on);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("scroll", on);
       window.removeEventListener("resize", on);
+      window.removeEventListener("majdal:ground", on);
     };
   }, [pathname]);
 
@@ -91,33 +87,31 @@ export function SiteHeader() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
+  const tone = ground === "paper" ? "ink" : "bone";
+  const primary = nav.filter((n) => n.href !== "/");
+
   return (
     <>
       <header className="hdr" data-ground={ground}>
-        <Link href="/" className="hdr__mark" aria-label={`${site.name} — home`}>
-          <span className="hdr__latin">{site.name}</span>
-          <span className="hdr__ar arabic" aria-hidden="true">
-            {site.nameArabic}
-          </span>
+        <Link href="/" className="hdr__mark" aria-label={`${site.name} ${site.nameArabic} — home`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={logoSrc("stacked", tone)} width={267} height={229} alt="" className="hdr__logo" />
         </Link>
 
         <nav className="hdr__nav" aria-label="Primary">
-          <ul>
-            {PRIMARY.map((item) => (
+          <ol>
+            {primary.map((item) => (
               <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="hdr__link"
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                >
-                  <span aria-hidden="true">[</span>
+                <Link href={item.href} className="hdr__link" aria-current={isActive(item.href) ? "page" : undefined}>
+                  <span className="hdr__n" aria-hidden="true">{item.index}</span>
                   {item.label}
-                  <span aria-hidden="true">]</span>
                 </Link>
               </li>
             ))}
-          </ul>
+          </ol>
         </nav>
+
+        <p className="hdr__code" aria-hidden="true">/48</p>
 
         <button
           type="button"
@@ -126,29 +120,25 @@ export function SiteHeader() {
           aria-controls="mobile-nav"
           onClick={() => setOpen((v) => !v)}
         >
-          [{open ? "Close" : "Menu"}]
+          {open ? "Close" : "Index"}
         </button>
       </header>
 
       <div id="mobile-nav" className="navover" hidden={!open}>
         <nav aria-label="Menu">
-          <ul>
-            {nav.map((item, i) => (
-              <li key={item.href} style={{ "--i": i } as React.CSSProperties}>
-                <Link
-                  href={item.href}
-                  className="navover__link"
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                >
+          <ol>
+            {nav.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="navover__link" aria-current={isActive(item.href) ? "page" : undefined}>
                   <span className="navover__n">{item.index}</span>
                   <span className="display navover__label">{item.label}</span>
                 </Link>
               </li>
             ))}
-          </ul>
+          </ol>
         </nav>
         <p className="navover__foot meta">
-          {site.code} — {site.origin.label}
+          {site.tagline} — 0048 — {site.origin.label}
         </p>
         <button type="button" className="btn navover__close" onClick={() => setOpen(false)}>
           Close

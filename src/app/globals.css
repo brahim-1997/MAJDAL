@@ -1,5 +1,6 @@
 @import "./tokens.css";
 @import "./components.css";
+@import "./home.css";
 @import "./pages.css";
 
 /* ============================================================
@@ -28,7 +29,7 @@ img, picture, video, svg, canvas { display: block; max-width: 100%; }
 button, input, select, textarea { font: inherit; color: inherit; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; }
-::selection { background: var(--acid); color: var(--black); }
+::selection { background: var(--red); color: var(--paper); }
 
 /* ============================================================
    ACCESSIBILITY — anti-design is a hierarchy decision, never a
@@ -45,12 +46,13 @@ ul, ol { list-style: none; }
   left: var(--gutter);
   z-index: 200;
   padding: var(--s-3) var(--s-4);
-  background: var(--acid);
+  background: var(--paper);
   color: var(--black);
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: var(--step--1);
   text-transform: uppercase;
+  border: 2px solid var(--black);
 }
 .skip-link:focus { top: var(--s-3); }
 
@@ -88,13 +90,13 @@ ul, ol { list-style: none; }
 .rule { border: 0; border-top: 2px solid var(--fg); }
 .section { position: relative; padding-block: clamp(var(--s-9), 9vw, var(--s-12)); }
 .section--tight { padding-block: var(--s-8); }
-
-/* Anything placed inside a section sits above that section's thread. */
 .section > .shell,
 .paper > .shell { position: relative; z-index: var(--z-content); }
 
 /* ============================================================
-   TYPE BEHAVIOURS
+   TYPE
+   Three weights of information on any surface: display, record,
+   reading. Display may be huge, cropped, rotated. Reading may not.
    ============================================================ */
 .display {
   font-family: var(--font-display);
@@ -119,12 +121,6 @@ ul, ol { list-style: none; }
   letter-spacing: 0.02em;
 }
 
-/* Outlined: the second pass through the press. */
-.outline {
-  color: transparent;
-  -webkit-text-stroke: 2px var(--fg);
-}
-
 .arabic {
   font-family: var(--font-arabic);
   direction: rtl;
@@ -133,6 +129,7 @@ ul, ol { list-style: none; }
   line-height: 1.3;
 }
 
+/* The record voice: what a label on a box says. */
 .meta {
   font-family: var(--font-mono);
   font-size: var(--step--1);
@@ -141,9 +138,10 @@ ul, ol { list-style: none; }
   color: var(--fg-muted);
 }
 
+/* Pencil on a document. */
 .hand {
   font-family: var(--font-hand);
-  font-size: 1.55em;
+  font-size: 1.6em;
   line-height: 1;
   text-transform: none;
   letter-spacing: 0;
@@ -152,9 +150,8 @@ ul, ol { list-style: none; }
 .lead { font-size: var(--step-1); line-height: 1.4; }
 .muted { color: var(--fg-muted); }
 .faint { color: var(--fg-faint); }
-.red { color: var(--red); }
 
-/* A label: a technical tag, the way a box gets marked. */
+/* A section label: the way a box in an archive gets marked. */
 .label {
   display: flex;
   flex-wrap: wrap;
@@ -162,38 +159,30 @@ ul, ol { list-style: none; }
   align-items: baseline;
   padding-bottom: var(--s-3);
   margin-bottom: var(--s-7);
-  border-bottom: 2px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
   font-family: var(--font-mono);
   font-size: var(--step--1);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-weight: 400;
 }
-.label__index {
-  background: var(--fg);
-  color: var(--bg);
-  padding: 0 var(--s-2);
-  font-weight: 700;
-}
+.label__index { font-weight: 700; }
+.label__index::after { content: " /"; font-weight: 400; color: var(--fg-faint); }
 .label__name { color: var(--fg); }
 
 /* ============================================================
    REVEAL — a scanner pass, not a fade.
+   The CHILDREN are clipped, never the observed element: a clip on the
+   target gives it a zero-height box and IntersectionObserver would never
+   report it. Negative insets leave room for tape and overhangs.
    ============================================================ */
-/* The CHILDREN are clipped, never the observed element: a clip-path on the
-   target itself gives it a zero-height visual box, and IntersectionObserver
-   then never reports it as visible — so nothing would ever reveal. */
-/* Negative insets: the revealed state must leave room for things that are
-   meant to overhang their box — offset print shadows, tape, rotated stamps.
-   inset(0) would clip them all away. Hidden = a zero-height band at the top. */
 .reveal > * {
   clip-path: inset(-48px -48px calc(100% + 48px) -48px);
-  transition: clip-path var(--dur-slow) steps(6, end);
+  transition: clip-path var(--dur-slow) steps(8, end);
 }
 .reveal[data-shown="true"] > * { clip-path: inset(-48px); }
 
 /* ============================================================
-   CONTROLS — labels, stickers, industrial switches. Square.
+   CONTROLS — square, printed, legible.
    ============================================================ */
 .btn {
   display: inline-flex;
@@ -212,10 +201,10 @@ ul, ol { list-style: none; }
   border-radius: 0;
   transition: transform var(--dur-fast) steps(2), box-shadow var(--dur-fast) steps(2);
 }
-/* Hover misregisters the print: the plate shifts, the red shows. */
+/* Hover: the plate shifts out of register and the second ink shows. */
 .btn:hover {
-  transform: translate(calc(var(--shift) * -1), calc(var(--shift) * -1));
-  box-shadow: var(--shift) var(--shift) 0 var(--red);
+  transform: translate(-3px, -3px);
+  box-shadow: 3px 3px 0 var(--mark);
 }
 .btn:active { transform: none; box-shadow: none; }
 .btn--ghost { background: transparent; color: var(--fg); }
@@ -224,41 +213,59 @@ ul, ol { list-style: none; }
 .link {
   text-decoration: underline;
   text-decoration-thickness: 2px;
-  text-underline-offset: 0.18em;
-  text-decoration-color: var(--red);
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--mark);
 }
 .link:hover { background: var(--fg); color: var(--bg); text-decoration-color: var(--fg); }
 
-/* [BRACKET] tags */
+/* A boxed label. No brackets: the box is the mark. */
 .tag {
   display: inline-block;
+  border: 1px solid currentColor;
+  padding: 0 0.45em;
   font-family: var(--font-mono);
   font-size: var(--step--1);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   white-space: nowrap;
 }
-.tag::before { content: "["; }
-.tag::after { content: "]"; }
 
-/* The acid sticker. Rare by design: at most one per screen. */
-.sticker {
+/* ============================================================
+   THE ARCHIVE VOCABULARY
+   ============================================================ */
+
+/* Archive ID: MJ-0048-A001. Always mono, always boxed, always black ink
+   on paper or paper ink on night. */
+.docid {
   display: inline-block;
-  background: var(--acid);
-  color: var(--black);
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-variation-settings: "wdth" 62;
-  text-transform: uppercase;
-  line-height: 0.9;
-  padding: var(--s-2) var(--s-3) var(--s-1);
-  transform: rotate(-3deg);
-  box-shadow: 3px 3px 0 var(--black);
+  background: var(--fg);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: var(--step--1);
+  letter-spacing: 0.04em;
+  padding: 1px var(--s-2);
+  white-space: nowrap;
 }
-.sticker:hover { transform: rotate(-1deg) scale(1.03); }
 
-/* Rubber stamp. Colour is a border, so small text stays legible. */
+/* SOURCE / MAP / OBJECT / LOCATION / DATE — tiny technical fields. */
+.kv { display: grid; gap: 2px 0; font-family: var(--font-mono); font-size: var(--step--2); text-transform: uppercase; letter-spacing: 0.08em; }
+.kv div { display: grid; grid-template-columns: 7.5em 1fr; gap: var(--s-2); }
+.kv dt { color: var(--fg-faint); }
+.kv dd { color: var(--fg); overflow-wrap: anywhere; }
+
+/* Vertical label running along an edge. */
+.vlabel {
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+/* Rubber stamp: colour is the border and the ink, so it stays legible. */
 .stamp {
   display: inline-block;
   border: 3px double currentColor;
@@ -269,11 +276,25 @@ ul, ol { list-style: none; }
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: var(--step--1);
-  transform: rotate(-6deg);
-  mix-blend-mode: normal;
+  line-height: 1.2;
+  rotate: -4deg;
 }
-.stamp--blue { color: var(--blue); }
-.stamp--red { color: var(--red); font-size: var(--step-1); }
+.stamp--green { color: var(--green); }
+.stamp--red { color: var(--red); }
+
+/* Registration mark: a crosshair in a ring, the printer's alignment. */
+.reg {
+  --size: 22px;
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background:
+    linear-gradient(currentColor, currentColor) center / 1px 140% no-repeat,
+    linear-gradient(currentColor, currentColor) center / 140% 1px no-repeat;
+  overflow: visible;
+}
 
 /* Tape holding a document down. */
 .taped { position: relative; }
@@ -286,15 +307,15 @@ ul, ol { list-style: none; }
   height: 22px;
   translate: -50% 0;
   rotate: -4deg;
-  background: rgba(241, 237, 226, 0.55);
-  border-left: 1px dashed rgba(5, 5, 5, 0.2);
-  border-right: 1px dashed rgba(5, 5, 5, 0.2);
+  background: rgba(233, 228, 216, 0.55);
+  border-left: 1px dashed rgba(8, 8, 8, 0.2);
+  border-right: 1px dashed rgba(8, 8, 8, 0.2);
   z-index: 3;
   pointer-events: none;
 }
 
 /* ============================================================
-   TEXTURE — strategic, never blanket.
+   TEXTURE — strategic, never blanket, never behind body text.
    ============================================================ */
 .grain { position: relative; }
 .grain::after {
@@ -303,25 +324,9 @@ ul, ol { list-style: none; }
   inset: 0;
   pointer-events: none;
   z-index: 4;
-  opacity: 0.16;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Scanner lines, for things that have been through a copier. */
-.scanlines::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 4;
-  background: repeating-linear-gradient(0deg, rgba(5,5,5,0.07) 0 1px, transparent 1px 3px);
-}
-
-/* Halftone: dots for tone, the way a cheap print does it. */
-.halftone {
-  background-image: radial-gradient(currentColor 28%, transparent 30%);
-  background-size: 6px 6px;
+  opacity: 0.2;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ============================================================

@@ -75,7 +75,21 @@ better first cohort for the map than the 418 depopulated villages: major
 Palestinian cities, far better documented, far less ethically fraught as a
 commercial brand's first cartographic act. Good instinct.
 
-## 3. The olive leaves — a rule to change deliberately
+## 3. The olive — founder decision, 2026-09-27
+
+The founder has made the olive tree one of MAJDAL's six permanent symbols.
+That supersedes the narrower rule below, which is kept for the record. What
+survives of it is the reason it was written — the lazy version stays banned:
+
+- The tree is **MAJDAL's own drawing** (`scripts/draw-olive.mjs`): an old
+  tree, split trunk, roots — not a generic olive-branch icon, not an
+  environmental logo.
+- It carries **no assigned meaning**. Where the site says what it stands
+  for, it says so as MAJDAL's interpretation.
+- Still banned: olive as a repeating background pattern, olive wreaths, an
+  olive pasted on every section, olive + red/green as a flag.
+
+### 3a. The earlier rule (superseded)
 
 `brand/DESIGN-SYSTEM.md` §7 currently bans an olive pictogram: *"an olive tree
 logo is the single most predictable move available to this brand and it is
@@ -100,6 +114,15 @@ is the condition of the exemption, and it is now the rule.
 olive tree illustration as a hero image, olive + red/green as a colour scheme.
 
 ## 4. The lockups
+
+**Implemented 2026-09-27.** The founder instructed that the supplied logo be
+used exactly. `scripts/extract-logo.mjs` crops the primary and stacked
+lockups and the mark from `brand/assets/majdal-logo-sheet.jpg` without
+redrawing anything. The coordinates line is not extracted (§1.1). The ®
+remains on the primary lockup as supplied — **§1.2 still stands**: until
+registration is granted it should be ™, and the change is the founder's to
+make on the artwork. Swapping in corrected artwork is one file and one
+command.
 
 | Lockup | Use |
 | --- | --- |

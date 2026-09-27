@@ -58,3 +58,16 @@ permanent website page.
 An unanswered P0 is a production stop, not a risk to be accepted. If a P0
 cannot be answered in time for a chapter, the affected garment ships with
 MAJDAL's own naming in MAJDAL's own voice, or it does not ship.
+
+## Corrections log
+
+| Date | What was wrong or changed | What the record says now | Where |
+| --- | --- | --- | --- |
+| 2026-09-27 | Archive record A012 stated that an olive tree was banned from the design system. The founder has since made the olive tree one of the six brand symbols, and the logo carries olive leaves. | A012 keeps its original argument, adds a dated correction in the record itself, and states that the tree is MAJDAL's own drawing with no assigned meaning. | `src/content/archive.ts` A012; `brand/IDENTITY-LOGO.md` §3; `brand/DESIGN-SYSTEM.md` §4 |
+| 2026-09-27 | New: American Colony photographs (Library of Congress) enter the archive as catalogued objects. Their titles use the word "primitive". | Titles printed verbatim with a note that the word is the photographer's. Framing question added below. | `src/content/sources.ts`; `cultural-research/SOURCES.md` §Archive assets |
+
+## Pending reviews required — archive photographs
+
+| Priority | Scope | Reviewer type needed | Blocks |
+| --- | --- | --- | --- |
+| P1 | How should MAJDAL frame American Colony Photo Department images — a foreign studio's commercial view of Palestine — when they are among the only photographs of al-Majdal's looms? Is printing the catalogue title with a note the right handling of "primitive"? | Palestinian researcher / archivist | Display of the LOC photographs once on file |

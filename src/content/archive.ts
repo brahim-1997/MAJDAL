@@ -368,12 +368,13 @@ export const archive: ArchiveEntry[] = [
     rights: { status: "none-held", note: "No media attached to this record yet." },
     tier: "CONTESTED",
     summary:
-      "Two of the most reproduced Palestinian symbols. MAJDAL keeps both out of product on purpose.",
+      "Two of the most reproduced Palestinian symbols. The key stays out of product. The olive enters only as MAJDAL\u2019s own drawing of a tree \u2014 corrected 27 September 2026.",
     body: [
       "Families customarily pass olive trees down to children and grandchildren, entrusting the next generation with their care. Popular coverage often adds that some Palestinian olive trees are nearly five thousand years old; individual ages of that order are hard to verify, so we do not repeat a number.",
       "During the Nakba an estimated 750,000 Palestinians were displaced. Many took their house keys with them, expecting to return. The key — miftah — has become a representation of the right of return.",
-      "Both are real and both matter. Both are also among the most reproduced images in Palestinian-themed merchandise, which is precisely the category MAJDAL exists outside of. An olive tree logo is the most predictable move available to this brand, and it is banned in our design system.",
-      "So the olive enters MAJDAL as colour — deep olive, already in the palette — and as the idea of inheritance. The key stays in the archive. If it ever appears it will be a photograph of one family\u2019s actual key, with their consent and their story attached, never a decorative icon.",
+      "Both are real and both matter. Both are also among the most reproduced images in Palestinian-themed merchandise, which is precisely the category MAJDAL exists outside of.",
+      "Correction, 27 September 2026. This record used to say that an olive tree was banned from MAJDAL\u2019s design system. That is no longer true, and we are saying so here rather than editing it away. The founder\u2019s logo carries olive leaves beside the tower, and the olive tree is now one of MAJDAL\u2019s six drawn symbols.",
+      "What did not change is the reason the rule existed. The tree MAJDAL draws is its own drawing of an old tree \u2014 split trunk, exposed roots \u2014 not a stock olive branch, not a pattern, not a flag. It carries no meaning we have assigned to it; where the site says what it stands for, it says so as our interpretation. The key stays in the archive. If it ever appears it will be a photograph of one family\u2019s actual key, with their consent and their story attached, never a decorative icon.",
     ],
     sources: [
       "Middle East Eye — Olive tree, za'atar, cactus",

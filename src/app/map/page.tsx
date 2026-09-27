@@ -1,56 +1,79 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MapRegister } from "@/components/map/MapRegister";
+import { ArchivePhoto } from "@/components/archive/ArchivePhoto";
+import { archiveId } from "@/components/archive/RecordCard";
+import { MapExplorer, type ExplorerLayer } from "@/components/map/MapExplorer";
 import { Reveal } from "@/components/Reveal";
 import { TierBadge } from "@/components/TierBadge";
-import { placesByLatitude } from "@/content/places";
+import { getArchiveEntry } from "@/content/archive";
+import { getPlace, placesByLatitude } from "@/content/places";
 import { formatCoordinates } from "@/lib/geo";
+import { resolveSources } from "@/lib/sources";
 
 export const metadata: Metadata = {
   title: "The Land",
   description:
-    "Every place has a memory. An interactive register of places in the MAJDAL archive — each one sourced, tiered, and incomplete on purpose.",
+    "Every place has a memory. SHEET 00 — al-Majdal and the coast — drawn by MAJDAL from public-domain data, with a register of places, each one sourced, tiered and incomplete on purpose.",
 };
 
 export default function MapPage() {
   const register = placesByLatitude();
+  const photos = resolveSources("photograph");
+  const maps = resolveSources("map");
+  const majdal = getPlace("al-majdal");
+  const records = (majdal?.archiveSlugs ?? []).map(getArchiveEntry).filter((e): e is NonNullable<typeof e> => Boolean(e));
+
+  const historical: ExplorerLayer[] = maps.map((m, i) => ({
+    id: m.id,
+    label: `Map 0${i + 1}`,
+    note: `${m.title.split(" — ")[0]} · ${m.date} · ${m.hold ? "on hold for review" : m.onFile ? "on file" : "not yet on file"}`,
+    href: m.url,
+    available: m.shown,
+  }));
 
   return (
     <>
-      <header className="phead">
-        <div className="shell">
-          <h1 className="display phead__title">THE LAND</h1>
-          <p className="arabic phead__ar">الأرض</p>
-          <p className="lead muted phead__lead">
-            Every place has a memory. This is a register, not a basemap — the
-            places are set in type at their own coordinates, and each one carries
-            its sources and its evidence tier.
-          </p>
-        </div>
-      </header>
-
-      <section className="section">
-        <div className="shell">
-          <MapRegister />
-        </div>
+      <section className="land" aria-labelledby="land-title">
+        <h1 id="land-title" className="visually-hidden">
+          The Land — SHEET 00, al-Majdal and the coast
+        </h1>
+        <MapExplorer
+          historical={historical}
+          archivePanel={
+            <div className="explore__archive">
+              <p className="meta">Photographs held: {photos.length}. Records: {records.length}.</p>
+              <ul className="explore__photos">
+                {photos.map((s) => (
+                  <li key={s.id}>
+                    <ArchivePhoto source={s} compact />
+                  </li>
+                ))}
+              </ul>
+              <ul className="explore__records">
+                {records.map((e) => (
+                  <li key={e.slug}>
+                    <Link href={`/archive/${e.slug}`} className="link">
+                      {archiveId(e)} — {e.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          }
+        />
       </section>
 
       <section className="section">
         <div className="shell">
-          <Reveal>
-            <h2 className="label">
-              <span className="label__index">—</span>
-              <span className="label__name">The register</span>
-            </h2>
-          </Reveal>
-
-          <Reveal>
-            <p className="lead muted" style={{ maxWidth: "58ch", paddingBottom: "var(--s-7)" }}>
-              The same places, listed north to south as a survey sheet would
-              order them. This is not a fallback for the map — it is the map,
-              in a different shape.
-            </p>
-          </Reveal>
+          <p className="label">
+            <span className="label__index">01</span>
+            <span className="label__name">The register</span>
+            <span className="muted">North to south, as a survey sheet orders them</span>
+          </p>
+          <p className="lead muted register__lead">
+            The same places as the sheet, in a different shape. This is not a fallback for the map — it is the
+            map, written out.
+          </p>
 
           <ul className="plist">
             {register.map((p, i) => (
@@ -62,10 +85,8 @@ export default function MapPage() {
                     <span className="arabic muted">{p.nameArabic}</span>
                     <TierBadge tier={p.tier} />
                   </span>
-                  <span className="muted" style={{ maxWidth: "68ch" }}>
-                    {p.line}
-                  </span>
-                  <span className="meta" style={{ textTransform: "none", letterSpacing: "0.08em" }}>
+                  <span className="muted plist__line">{p.line}</span>
+                  <span className="meta plist__coords">
                     {p.district} district · {formatCoordinates(p)}
                   </span>
                 </Link>
@@ -73,22 +94,45 @@ export default function MapPage() {
             ))}
           </ul>
 
-          <Reveal>
-            <div className="callout" style={{ marginTop: "var(--s-9)" }}>
-              <p className="callout__h">What this register is not</p>
-              <p className="muted">
-                It is six places, not a gazetteer. Walid Khalidi&apos;s{" "}
-                <em>All That Remains</em> documents 418 Palestinian villages
-                depopulated in 1948; mapping them is a research programme, and
-                doing it thinly would be worse than not doing it.
-              </p>
-              <p className="muted" style={{ paddingTop: "var(--s-3)" }}>
-                Coordinates here are modern city positions, marked approximate.
-                They are not surveyed fixes on historic town centres, and we say
-                so rather than implying a precision we do not have.
-              </p>
-            </div>
-          </Reveal>
+          <div className="register__sources">
+            <p className="label">
+              <span className="label__index">02</span>
+              <span className="label__name">Historical sheets</span>
+              <span className="muted">Named, sourced — and shown only as themselves</span>
+            </p>
+            <ul className="sheetlist">
+              {maps.map((m, i) => (
+                <li key={m.id} className="sheetlist__row">
+                  <span className="docid">Map 0{i + 1}</span>
+                  <span className="sheetlist__title">{m.title}</span>
+                  <dl className="kv">
+                    <div><dt>Date</dt><dd>{m.date}</dd></div>
+                    <div><dt>Made by</dt><dd>{m.creator}</dd></div>
+                    <div><dt>Source</dt><dd>{m.holder}</dd></div>
+                    <div><dt>Rights</dt><dd>{m.rights}</dd></div>
+                    <div><dt>Status</dt><dd>{m.hold ? `On hold — ${m.hold}` : m.shown ? "On file" : "Not yet on file — the layer stays off until it is"}</dd></div>
+                    {m.toConfirm ? <div><dt>To confirm</dt><dd>{m.toConfirm}</dd></div> : null}
+                  </dl>
+                  <a href={m.url} className="link" target="_blank" rel="noopener noreferrer">
+                    View at the holder<span className="visually-hidden"> (opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="callout">
+            <p className="callout__h">What this map is not</p>
+            <p className="muted">
+              It is six places, not a gazetteer. Walid Khalidi&apos;s <em>All That Remains</em> documents 418
+              Palestinian villages depopulated in 1948; mapping them is a research programme, and doing it thinly
+              would be worse than not doing it.
+            </p>
+            <p className="muted">
+              Coordinates are modern city positions, marked approximate. The coast is Natural Earth 1:10m, lightly
+              smoothed for drawing. SHEET 00 is a drawing, not a survey.
+            </p>
+          </div>
         </div>
       </section>
     </>

@@ -1,5 +1,5 @@
-> **Superseded** by `brand/DESIGN-SYSTEM.md` v1.0 (brutalist street archive,
-> 2026-09-26). Kept for the record of how the system got here.
+> **Superseded** by `brand/DESIGN-SYSTEM.md` (v2.0, the found archive,
+> 2026-09-27). Kept for the record of how the system got here.
 
 # 04 — DESIGN SYSTEM v2
 

@@ -1,167 +1,170 @@
-# MAJDAL DESIGN SYSTEM v1.0 — BRUTALIST STREET ARCHIVE
+# MAJDAL DESIGN SYSTEM v2.0 — THE FOUND ARCHIVE
+
+Controlled brutalism. Anti-design with a reason. A found archive that
+entered street culture.
 
 The system is implemented as code in `src/app/tokens.css`. That file is the
 source of truth; this document explains the reasoning so nobody "improves" a
 token without understanding what it is doing.
 
-v1.0 replaces v0.1 (quiet editorial, silk accents in the UI) and
-`docs/04-DESIGN-SYSTEM-V2.md`. Founder decision, 2026-09-26: the site is a
-street archive, not a catalogue. Brutalism, anti-design, collision — with
-the evidence rules untouched.
+v2.0 replaces v1.0 (signal red / electric blue / acid) by founder decision,
+2026-09-27. What changed and why: the brutalist collision read as a generic
+brutalist template. v2.0 builds the identity from **six permanent symbols**
+and an earthy printed palette, and removes every effect that had no reason.
+
+## 0. The six symbols
+
+Everything on the site supports these. If an element supports none of them,
+it goes.
+
+| # | Symbol | Where it lives | Rule |
+| --- | --- | --- | --- |
+| 01 | **The map** | `MapSheet` — SHEET 00, drawn by MAJDAL | 2D only. A document, never a 3D terrain or globe |
+| 02 | **The olive tree** | `public/olive/*.svg`, `Olive` | Our drawing, not a symbol with an assigned meaning |
+| 03 | **The red thread** | `Thread`, `PxPath`, the sheet's thread layer | One continuous line; brand graphic, never a claimed route |
+| 04 | **48** | `/48`, `0048`, chapter code | Small and exact. Never graffiti-sized |
+| 05 | **Archive numbers** | `MJ-0048-A001`, `LC-DIG-matpc-19868` | Real IDs only. Catalogue references are copied, never invented |
+| 06 | **The logo** | `public/brand/majdal-*.webp` | The founder's artwork, never redrawn (§7) |
+
+The grammar, printed on the site as MAJDAL's interpretation:
+**map = place · olive tree = roots · red thread = continuity · archive =
+memory · clothing = the present · community = the future.**
 
 ## 1. Colour
 
-### The six
-
 | Token | Value | Job |
 | --- | --- | --- |
-| `--black` | `#050505` | Night. Default ground. |
-| `--bone` | `#F1EDE2` | Paper. Text on night; ground for documents. |
-| `--red` | `#E3261A` | Signal. THE THREAD, 48, display type, fills, stamps. |
-| `--blue` | `#1747FF` | Electric. Focus ring, VERIFIED, overprint plates. |
-| `--acid` | `#C7FF00` | Almost never. One sticker, the skip link. |
-| `--olive` | `#596044` | Archive ground. The boxes of material. |
+| `--black` | `#080808` | Ground. ~55% of every page |
+| `--paper` | `#E9E4D8` | Type on black; the ground of every document. ~25% |
+| `--green` | `#173F2A` | Land, the olive tree, the ROOTS page. With olive, ~10% |
+| `--green-deep` | `#0D2419` | Dark green ground |
+| `--olive` | `#4B5130` | Archive ground, stamps |
+| `--red` | `#B8211C` | The thread, marks, annotation, one red page. ~7% |
+| `--stone` | `#A49C8C` | Secondary text on black. ~3% |
 
-Tints of bone on black for hierarchy: `--bone-72` (8.99:1), `--bone-55`
-(5.52:1), `--bone-20` (rules only, never text).
+No acid, no electric blue, no purple, no pink, no gradients, no neon. The
+palette must never assemble into a flag: red and green do not meet.
 
-### Contrast — measured, not eyeballed
+### Contrast — measured
 
 | Pair | Ratio | Allowed |
 | --- | --- | --- |
-| bone / black | 17.42 | any text |
-| acid / black | 17.21 | any text |
-| bone / blue, blue / bone | 5.31 | any text |
-| bone / olive | 5.64 | any text |
-| red / black, black / red | 4.42 | **large type only** |
-| red / bone | 3.94 | **large type only** |
+| paper / black | 15.79 | any text |
+| stone / black | 7.36 | any text |
+| `#857F73` / black | 5.04 | any text (faint) |
+| **red / black** | **3.12** | **display type and marks only** |
+| red / paper | 5.06 | any text — red annotation lives on paper |
+| paper / red | 5.06 | any text |
+| paper / green | 9.30 | any text |
+| paper / olive | 6.57 | any text |
+| red / green, red / olive | 1.84, 1.30 | **never** |
 
-**Red never carries small text.** Red is display type, fills behind large
-type, borders, marks, and the thread. This is the rule most likely to be
-broken. A red caption is a bug.
-
-### The silk colours moved — they did not disappear
-
-Majdalawi cloth is recorded as black and indigo cotton cut with fuchsia and
-turquoise silk (dossier, `VERIFIED` with sources). Those colours now live
-where they belong: **in the cloth.** They appear in product colourway data
-(`src/content/products.ts`, e.g. the ARCHIVE tee hairlines) and in archive
-records — not as interface accents.
-
-The 5% rule still holds for them: on a garment, fuchsia and turquoise never
-exceed ~5% of the surface. They are the silk thread in a cotton cloth.
-
-Signal red and electric blue are **brand language**, not heritage. Never
-describe them as Majdalawi colours, Palestinian colours, or as carrying any
-historical meaning.
+**On black, red is never small text.** On paper, red may annotate.
 
 ### Grounds
 
-Colour scopes are classes that redefine the semantic tokens (`--bg`, `--fg`,
-`--fg-muted`, `--fg-faint`, `--rule`):
+A class redefines the semantic tokens; components on it inherit legible
+colours. `.paper`, `.green-ground`, `.deep-ground`, `.olive-ground`,
+`.red-ground`. The header reads the ground under it and swaps the logo
+between bone (dark grounds) and ink (paper).
 
-- default — night (bone on black)
-- `.paper` — records, documents, tech drawings (black on bone)
-- `.olive-ground` — the archive boxes (bone on olive)
-- `.joinsec` — red field with a black panel for the form
+Rhythm: sometimes a red-focused moment (Chapter 001 — red display type on
+black), sometimes a green page (the roots), sometimes only black and paper.
+**A green field and a red field never touch**: stacked full-bleed with black
+and paper they read as a flag.
 
-A component placed on a ground inherits correct text colours without
-knowing where it is. Components that always sit on paper (product frames,
-`.pdp__draw`) set paper tokens themselves.
+## 2. Typography
 
-## 2. Typography — type is the artwork
-
-| Variable | Face | Behaviour |
+| Voice | Face | Use |
 | --- | --- | --- |
-| `--font-display` | Archivo Variable | `wdth 62`, 900, uppercase, `line-height .84` — condensed industrial |
-| `--font-text` | Archivo Variable | `wdth 100` — grotesk text |
-| `.wide` | Archivo Variable | `wdth 125` — wide stamp |
-| `--font-mono` | IBM Plex Mono | metadata, coordinates, ledgers, labels |
-| `--font-arabic` | IBM Plex Sans Arabic | Arabic at display scale, isolated direction |
-| `--font-hand` | Reenie Beanie | pencil marginalia, a handful of times |
+| Display | Archivo Variable, `wdth 62`, 900 | Headlines. May be huge, cropped, stacked |
+| Stamp | Archivo Variable, `wdth 125` | Short labels, stamps |
+| Record | IBM Plex Mono | Archive IDs, SOURCE / MAP / OBJECT / LOCATION / DATE |
+| Reading | Archivo Variable, `wdth 100` | Body text |
+| Arabic | IBM Plex Sans Arabic | Display Arabic, isolated direction |
+| Pencil | Reenie Beanie | A note written on a document. Rare |
 
-All self-hosted via `@fontsource`, all OFL. One variable family carries three
-behaviours through its width axis, so the display system costs one file.
+Contrast of scale is the identity: MAJDAL huge → مجدل → ARCHIVE 001 →
+tiny SOURCE lines. Do not make everything huge; do not rotate every word.
+Anything a reader must read sits upright on a solid ground at `--step-0`+.
 
-Rules:
+All Arabic is blocked from print until native-speaker review.
 
-- Display type may be cropped, rotated, outlined, and run off the viewport.
-  Body text may not. Anything a reader must read sits upright, on a solid
-  ground, at `--step-0` or above.
-- Arabic is never stretched, faux-bolded, mirrored, or used as texture behind
-  Latin. The hover overprint of مجدل in the hero is a second plate, not a
-  pattern. **All Arabic is blocked from print until native-speaker review.**
-- Scale: `--step--2` → `--step-6` (`clamp(6rem, -1rem + 28vw, 30rem)`).
+## 3. The map — the main visual experience
 
-## 3. Layout — anti-grid, with an index
+- **SHEET 00** is a survey-style drawing by MAJDAL: neatline, graticule every
+  5′, water-lined sea and lakes, rivers, the place register, scale bar,
+  north arrow, legend, and a margin that says *a drawing, not a historical
+  survey*. Data: Natural Earth (public domain).
+- **Historical sheets** (PEF 1880; Survey of Palestine 1940s) are separate
+  objects in `src/content/sources.ts`, shown only as themselves, and **on
+  hold** under dossier 003's P0 reviews even once the files exist.
+- **Motion**: the camera is the SVG viewBox — pan, zoom, crop. Ink reveals
+  through a dissolving noise mask. Place names appear one at a time. Hard
+  cuts between scenes. No 3D, no terrain, no globe, no particles, no glow.
 
-- The page is a sequence of grounds: SIGNAL → COLLISION → MAP → MEMORY →
-  ARCHIVE → PEOPLE → PRODUCT → IMPACT → JOIN.
-- Break the grid with overlap, rotation, and overflow — but every section
-  keeps one legible reading line. If a reader cannot find the next sentence,
-  the collision went too far.
-- 0px radius everywhere. 2px borders. `--shift: 4px` misregistration.
-- Horizontal overflow is clipped per section, never on the page. A phone must
-  never scroll sideways (checked at 390px on every route before shipping).
+The film (`MapFilm`) is scroll-driven — the reader holds the crank. Reduced
+motion gets the same scenes as hard cuts. Screen readers get the film in
+words. A skip link jumps past it.
 
-## 4. Signature elements
+## 4. The olive tree
 
-- **THE THREAD** (`src/components/brut/Thread.tsx`). A 3px red line drawn by
-  scroll. Each section's thread enters where the previous one exited. On the
-  product drawings it becomes the seam (`.gf__seam`). It is the one continuous
-  object on the site.
-- **The ground-aware header.** The header reads which ground sits under it
-  (night / paper / olive / red) and swaps its chips. It replaced a
-  `mix-blend-mode: difference` header that measured 2.09:1 over olive.
-- **Stamps, tags, stickers, tape.** `.stamp`, `.tag` (`[BRACKETS]`),
-  `.sticker` (acid — one per page at most), `.taped`. Structural, not
-  decorative: each carries a label that is true.
-- **Barcode.** A real Code 39 encoding of `MAJDAL-48`. A scanner reads it.
-- **Tier marks.** Colour is the border: `VERIFIED` blue, `CONTESTED` red
-  double, `INTERPRETATION` dashed. The words are always printed too — colour
-  is never the only signal.
-- **Textures** (`.grain`, `.scanlines`, `.halftone`) are used on a few
-  surfaces, never behind body text.
+Generated once by `scripts/draw-olive.mjs` (seeded) and committed:
 
-Experimental labels (`[THE LAND]`, `[THE THREAD]`, `WHAT DO YOU CARRY?`) are
-brand language and read as such. Anything that looks like a historical claim
-must be one, with a source.
+- **woodcut** — the identity drawing: split twisted trunk with a hollow,
+  carved bark, exposed roots, low wide limbs, leaf masses with carved leaves
+- **pencil** — the same tree as outlines (kept for print studies)
+- **mark** — silhouette for 16–64px
 
-## 5. Motion — cuts, not glides
+Rendered as a CSS mask over `currentColor`, so it prints in any ink. It
+appears where it means something: growing from al-Majdal on the map, as the
+ROOTS stamp, on the green page, in the footer. Never as a repeating pattern,
+never as a wreath, never pasted on every section.
 
-- Durations 90 / 160 / 420ms. Stepped timing (`steps(6)`) for reveals: a
-  scanner wipe, not a fade.
-- **Reveal rule:** clip the *children* of `.reveal`, observe the parent.
-  Clipping the observed element stops IntersectionObserver from ever firing.
-  Insets are negative (`-48px`) so tape and offset shadows survive.
-- THE LAND: three.js, dynamically imported, desktop pointer only. Touch,
-  reduced motion, and no-WebGL get the static map on paper. The map is the
-  content; WebGL is the enhancement.
-- `prefers-reduced-motion: reduce` removes clips, drift, jitter and the
-  overture. `<noscript>` shows everything.
-- No scroll-jacking. The sticky map scene scrolls with the page.
+## 5. Brutalism and anti-design — what they are allowed to be
 
-## 6. Photography
+Brutalism comes from hard edges, black grounds, big type, strong rules, raw
+structure, monospace records, physical texture. Anti-design comes from
+breaking composition on purpose: a title leaving the viewport, a map taking
+70% of the screen, Arabic interrupting Latin, a tiny note in a huge empty
+space, documents overlapping on a table.
 
-- There is none yet, and the frames say so. No stock photography, ever.
-- Products are shown as **objects**: technical drawings generated from the
-  colourway data, captioned "not product photography".
-- Archival material is presented as document: grain, full frame, captioned
-  with source and date. Never faked to look old.
-- Never use images of suffering to sell a garment.
+**Removed in v2.0 and not to return:** acid stickers, blue outline type,
+bracketed `[LABELS]`, random red rectangles, huge circles, "ARCHIVE THIS",
+barcodes, glitch jitter, misregistered blue plates.
 
-## 7. Graphic language on garments
+## 6. Motion
 
-- **Coordinates and place names** set as data — blocked from print until
-  verified (dossier §2).
-- **The 48 mark:** small and quiet on the garment — woven label, size tab,
-  inner neck. Loud on the website, quiet on the body.
-- **Loom logic:** colour-blocking derived from woven bands, aligned to panel
-  seams. The Majdalawi reference lives in the construction, not in a print.
-- No cultural claim reaches a garment without Gate 2 review.
+Paper, ink, scanning, folding, cutting, layering. Durations 90 / 180 /
+480ms, stepped timing for scans. The homepage intro is a CSS timeline armed
+in `<head>` once per session, skipped by any input, absent under reduced
+motion. `.reveal` clips children, never the observed element.
 
-## 8. Logo
+## 7. The logo
 
-Wordmark only: `MAJDAL` and `مجدل`, usable independently or stacked. No
-emblem, no olive tree. The Arabic wordmark is blocked pending native-speaker
-review (P0).
+The official logo is the founder's artwork (`brand/assets/majdal-logo-sheet.jpg`).
+`scripts/extract-logo.mjs` crops the three lockups — primary, stacked, mark —
+and turns the black ground into transparency: alpha from brightness, colour
+un-premultiplied, so on black it is pixel-identical to the sheet. The ink
+version is the same alpha in black, for paper grounds. Nothing is redrawn.
+
+- Header: stacked lockup. Hero intro, film end card, footer: primary.
+- Protection zone: the height of the M on all sides.
+- Never stretch, rotate, recolour outside bone/ink, or add effects.
+- The coordinates line under the primary lockup on the sheet is **not** used:
+  it points ~70 km north of al-Majdal. See `brand/IDENTITY-LOGO.md` §1.
+
+## 8. Photography
+
+None of MAJDAL's own yet, and no stock, ever. Archive photographs are shown
+only when the file is on file and not on hold, framed with their full
+catalogue record. Until then the frame is empty and says so. Catalogue
+titles are printed verbatim; where the wording is the photographer's and not
+ours, a note says so.
+
+## 9. Graphic language on garments
+
+- The small logo, the olive tree embroidered, the thread as the seam, the
+  inside label *They carried it. We carry it.* — proposed for sampling, not
+  final, and no cultural claim reaches a garment without Gate 2.
+- 48 stays quiet on the body: woven label, size tab, inner neck.

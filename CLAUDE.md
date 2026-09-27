@@ -54,17 +54,27 @@ npm run impact:validate  # ledger invariants only
   `brand/DESIGN-SYSTEM.md` before changing a value.
 - Content: `src/content/*.ts` — typed. Products, chapters, archive, site.
 - Impact: `impact/ledger.json` (append-only) → `src/lib/impact.ts` → `/impact`.
-- Interface palette (founder decision, 2026-09-26): black, bone, signal red,
-  electric blue, acid green (almost never), archive olive. **Red never carries
-  small text** — 4.42:1 on black, 3.94:1 on bone. Red is display type, fills,
-  marks and THE THREAD. This is the rule most likely to be broken; enforce it.
-- Red and blue are brand language, not heritage. Never call them Majdalawi or
-  Palestinian colours.
+- Palette (founder decision, 2026-09-27): black `#080808`, paper `#E9E4D8`,
+  green `#173F2A`, deep green `#0D2419`, olive `#4B5130`, red `#B8211C`, stone
+  `#A49C8C`. No acid, no electric blue, no purple, no pink, no gradients.
+  **Red never carries small text on black** (3.12:1); on paper it may annotate
+  (5.06:1). Red never touches green or olive. This is the rule most likely to
+  be broken; enforce it.
+- Red and green are brand language, not a flag. Never call them Majdalawi
+  colours, and never let the page assemble into a flag.
 - Fuchsia and turquoise are **documented Majdalawi silk colours**. They live in
   the cloth — garment colourways and archive records — capped at ~5% of a
-  garment. At 50% they become generic streetwear and the reference dies.
-- three.js is the one heavy dependency, for THE LAND. It is dynamically
-  imported, desktop-pointer only, with a static map fallback. Keep it that way.
+  garment.
+- **The logo is the founder's artwork** (`brand/assets/majdal-logo-sheet.jpg`),
+  extracted by `scripts/extract-logo.mjs`, never redrawn. See
+  `brand/DESIGN-SYSTEM.md` §7.
+- **The six symbols**: the map, the olive tree, the red thread, 48, archive
+  numbers, the logo. An element that supports none of them goes.
+- **No 3D.** The map is a 2D sheet (`MapSheet`); motion is pan, zoom, ink,
+  cuts. three.js was removed on 2026-09-27; do not bring it back.
+- Archive assets live in `src/content/sources.ts` with their catalogue
+  records. A frame shows an image only when the file is in `/public` and the
+  source is not on `hold`. The survey sheets are on hold under dossier 003.
 
 ## Deliberately unfinished, and why
 

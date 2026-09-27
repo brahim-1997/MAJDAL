@@ -60,3 +60,45 @@ is the standard in `PROTOCOL.md`; several claims currently rest on
 search summaries of those sources rather than the sources as read. Until that
 reconciliation happens, treat the dossier's `VERIFIED` tier as
 *provisionally verified*.
+
+## Archive assets — photographs and map sheets
+
+Recorded 2026-09-27. The records below are in `src/content/sources.ts`, which
+is what the site renders. **None of the files is on file yet**: the build
+environment's egress policy blocks `loc.gov`, `tile.loc.gov`,
+`palopenmaps.org`, `commons.wikimedia.org`, `upload.wikimedia.org` and
+`archive.org`, so every detail below comes from search-result summaries of
+the holders' catalogue pages. **Open each catalogue page and confirm the
+record before the file goes live.**
+
+| ID | Object | Holder / reference | Date | Rights (as stated) | Site status |
+| --- | --- | --- | --- | --- | --- |
+| `loc-matpc-19868` | "Majdel village & its primitive weaving. A native weaving establishment" — men working at looms in al-Majdal | Library of Congress, Matson Collection, LC-DIG-matpc-19868 — <https://www.loc.gov/resource/matpc.19868> | 1934–1939 | No known restrictions on publication | Shown once on file |
+| `loc-matpc-19871` | "… A native weaving establishment, closer" — a man at a loom | LC-DIG-matpc-19871 — <https://www.loc.gov/resource/matpc.19871> | 1934–1939 | No known restrictions on publication | Shown once on file |
+| `loc-matpc-19865` | "… Majdel market showing town mosque" | LC-DIG-matpc-19865 — <https://www.loc.gov/resource/matpc.19865> | 1934–1939 | No known restrictions on publication | Shown once on file |
+| `pom-al-majdal` | "[Al Majdal] Survey of Palestine" sheet | Palestine Open Maps — <https://palopenmaps.org/en/maps/al-majdal-gaza>; also National Library of Israel | 1940s | Public domain, per Palestine Open Maps | **On hold** — dossier 003 P0 |
+| `pef-swp-1880` | Map of Western Palestine in 26 sheets — the sheet covering Askalan and el Mejdel (number to confirm) | PEF / Conder & Kitchener; scans on Wikimedia Commons | 1880 | Public domain (published 1880) | **On hold** — dossier 003 P0 |
+
+**On the catalogue titles.** "Primitive" is the 1930s photographer's word. The
+site prints catalogue titles verbatim — changing a holder's record would be
+its own kind of invention — and says beside every one that the word is not
+ours.
+
+**On the American Colony photographs generally.** They are a foreign
+photographic studio's view of Palestine, made for sale. They are also some of
+the only photographs of al-Majdal's looms at work. Whether and how MAJDAL
+should frame them is a question for the Gate 2 reviewer; until then they are
+shown as catalogued objects with their provenance, never as mood imagery and
+never cropped into texture.
+
+### How to put an asset on file
+
+1. Download the highest-resolution file the holder offers.
+2. Save it to `public/archive/` under the exact name in `sources.ts`
+   (`loc-matpc-19868.jpg` …; map sheets in `public/archive/maps/`).
+   Optimise first: long edge ≤ 2400px, JPEG quality ~82.
+3. Confirm the catalogue record against `sources.ts`; correct anything that
+   differs, and fill in any `toConfirm`.
+4. Rebuild. The build checks for the file; the empty frame becomes the
+   object. An asset with a `hold` stays hidden until its review is answered
+   and the `hold` line is removed in the same commit as the review record.

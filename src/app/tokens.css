@@ -1,65 +1,64 @@
 /* ============================================================
-   MAJDAL — BRUTALIST STREET ARCHIVE — TOKENS
-   Palette set by founder decision, 2026-09-26. Measured, not eyeballed:
+   MAJDAL — TOKENS
+   A found archive that entered street culture.
+   Palette: founder decision, 2026-09-27. Measured, not eyeballed:
 
-     bone  / black   17.42  any text
-     acid  / black   17.21  any text        — use almost never
-     bone  / blue     5.31  any text
-     bone  / olive    5.64  any text
-     blue  / bone     5.31  any text
-     red   / black    4.42  LARGE TYPE ONLY
-     red   / bone     3.94  LARGE TYPE ONLY
-     black / red      4.42  LARGE TYPE ONLY
+     paper  / black    15.79   any text
+     stone  / black     7.36   any text (secondary)
+     #857F73 / black    5.04   any text (faint)
+     red    / black     3.12   LARGE TYPE AND MARKS ONLY
+     red    / paper     5.06   any text — red annotation lives on paper
+     paper  / red       5.06   any text
+     paper  / green     9.30   any text
+     paper  / deep      12.90  any text
+     paper  / olive     6.57   any text
+     red    / green     1.84   NEVER
+     red    / olive     1.30   NEVER
 
-   So: red never carries small text. Red is display type, fills behind
-   large type, marks, borders and THE THREAD.
+   Ratio, per page, roughly: 55% black · 25% paper · 10% green/olive ·
+   7% red · 3% stone. Some sections break it on purpose: one red page,
+   one green page. That is rhythm, not permission.
    ============================================================ */
 
 :root {
-  /* --- The six --- */
-  --black: #050505;
-  --bone: #f1ede2;
-  --red: #e3261a;
-  --blue: #1747ff;
-  --acid: #c7ff00;
-  --olive: #596044;
+  /* --- The palette --- */
+  --black: #080808;
+  --paper: #e9e4d8;
+  --green: #173f2a;
+  --green-deep: #0d2419;
+  --olive: #4b5130;
+  --red: #b8211c;
+  --stone: #a49c8c;
 
-  /* Hierarchy tints of bone on black — all pass AA as text. */
-  --bone-72: #afaca4; /* 8.99:1 */
-  --bone-55: #87857f; /* 5.52:1 */
-  --bone-20: #33322f; /* rules, not text */
+  /* Night hierarchy */
+  --stone-dim: #857f73; /* 5.04:1 on black */
+  --night-rule: #2b2a27; /* rules, never text */
 
-  /* --- Semantic (night is the default ground) --- */
+  /* --- Semantic: night is the default ground --- */
   --bg: var(--black);
-  --bg-raised: #0f0f0e;
-  --fg: var(--bone);
-  --fg-muted: var(--bone-72);
-  --fg-faint: var(--bone-55);
-  --rule: var(--bone-20);
-  --focus: var(--blue);
-  --signal: var(--red);
+  --bg-raised: #121210;
+  --fg: var(--paper);
+  --fg-muted: var(--stone);
+  --fg-faint: var(--stone-dim);
+  --rule: var(--night-rule);
+  --focus: var(--paper);
+  --mark: var(--red); /* red marks: underlines, ticks, the thread */
+  --verified: var(--paper);
 
-  /* --- Legacy aliases, so older records keep resolving while the
-         system migrates. New work uses the six names above. --- */
+  /* Legacy names, so older records keep resolving. New work uses the
+     palette names above. */
+  --bone: var(--paper);
   --ink: var(--black);
-  --ink-raised: var(--bg-raised);
-  --ink-hairline: var(--bone-20);
-  --off-white: var(--bone);
-  --stone: var(--bone-72);
-  --stone-dim: var(--bone-55);
-  --fuchsia: var(--red);
-  --turquoise: var(--blue);
-  --indigo: var(--blue);
-  --clay: var(--red);
+  --off-white: var(--paper);
 
   /* --- Type ---
      One family carries three behaviours through its width axis:
-     wdth 62 = condensed industrial, 100 = grotesk text, 125 = wide stamp. */
+     wdth 62 = condensed industrial, 100 = grotesk, 125 = wide stamp. */
   --font-display: "Archivo Variable", "Arial Narrow", Impact, sans-serif;
   --font-text: "Archivo Variable", ui-sans-serif, system-ui, Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
   --font-arabic: "IBM Plex Sans Arabic", "Noto Kufi Arabic", "Geeza Pro", sans-serif;
-  /* Pencil annotation. Used a handful of times, only for marginal notes. */
+  /* Pencil, for notes written on documents. Rare. */
   --font-hand: "Reenie Beanie", "Comic Sans MS", cursive;
 
   --step--2: 0.68rem;
@@ -93,20 +92,20 @@
   /* --- Hard edges --- */
   --radius: 0;
   --border: 2px solid currentColor;
-  --shift: 4px; /* misregistration distance */
 
-  /* --- Motion: cuts, not glides --- */
+  /* --- Motion: paper, ink, cuts --- */
   --ease-out: cubic-bezier(0.2, 0.9, 0.1, 1);
+  --ease-paper: cubic-bezier(0.3, 0.1, 0.1, 1);
   --dur-fast: 90ms;
-  --dur: 160ms;
-  --dur-slow: 420ms;
+  --dur: 180ms;
+  --dur-slow: 480ms;
 
   /* --- Layers --- */
   --z-thread: 1;
   --z-content: 2;
   --z-header: 50;
   --z-overlay: 90;
-  --z-overture: 100;
+  --z-intro: 100;
 }
 
 @media (min-width: 48rem) {
@@ -116,28 +115,72 @@
 }
 
 /* ============================================================
-   PAPER — records, documents, the tech pack.
-   Bone ground, black ink. Red stays large; blue and olive can be text.
+   GROUNDS — a class redefines the semantic tokens, so anything
+   placed on it inherits legible colours without knowing where it is.
    ============================================================ */
+
+/* PAPER — documents, records, maps. Black ink; red annotation allowed. */
 .paper {
-  --bg: var(--bone);
-  --bg-raised: #e6e1d4;
+  --bg: var(--paper);
+  --bg-raised: #dfd9cb;
   --fg: var(--black);
-  --fg-muted: #3d3b36;
-  --fg-faint: #5c5a53;
-  --rule: #b9b3a4;
-  --focus: var(--blue);
-  background: var(--bone);
+  --fg-muted: #3f3c36; /* 8.66:1 */
+  --fg-faint: #5a564e; /* 5.76:1 */
+  --rule: #bdb6a6;
+  --focus: var(--black);
+  --verified: var(--green);
+  background: var(--paper);
   color: var(--black);
 }
 
+/* GREEN — the land. Paper type only; red never touches it. */
+.green-ground {
+  --bg: var(--green);
+  --bg-raised: #1d4a33;
+  --fg: var(--paper);
+  --fg-muted: #c9c4b6; /* 6.77:1 */
+  --fg-faint: #c9c4b6;
+  --rule: #35604a;
+  --focus: var(--paper);
+  --mark: var(--paper);
+  background: var(--green);
+  color: var(--paper);
+}
+.deep-ground {
+  --bg: var(--green-deep);
+  --bg-raised: #133021;
+  --fg: var(--paper);
+  --fg-muted: var(--stone); /* 6.01:1 */
+  --fg-faint: var(--stone);
+  --rule: #24402f;
+  --focus: var(--paper);
+  --mark: var(--paper);
+  background: var(--green-deep);
+  color: var(--paper);
+}
 .olive-ground {
   --bg: var(--olive);
-  --bg-raised: #4d533a;
-  --fg: var(--bone);
-  --fg-muted: #dcd8cc;
-  --fg-faint: #cfcabd;
-  --rule: #7c8266;
+  --bg-raised: #555b39;
+  --fg: var(--paper);
+  --fg-muted: #dcd7ca;
+  --fg-faint: #dcd7ca;
+  --rule: #6b7150;
+  --focus: var(--paper);
+  --mark: var(--paper);
   background: var(--olive);
-  color: var(--bone);
+  color: var(--paper);
+}
+
+/* RED — one page at a time. Paper type; black only at display size. */
+.red-ground {
+  --bg: var(--red);
+  --bg-raised: #a51d19;
+  --fg: var(--paper);
+  --fg-muted: var(--paper);
+  --fg-faint: var(--paper);
+  --rule: #d7675f;
+  --focus: var(--paper);
+  --mark: var(--black);
+  background: var(--red);
+  color: var(--paper);
 }

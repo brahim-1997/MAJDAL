@@ -37,7 +37,7 @@ function Hoodie({ p, back, id }: { p: Product; back?: boolean; id: string }) {
             <rect x="174" y="148" width="26" height="22" fill={sw.trim} />
           </>
         ) : null}
-        {!back ? <path d="M80 40 C78 14 122 14 120 40 C110 50 90 50 80 40 Z" fill="#050505" opacity="0.85" /> : null}
+        {!back ? <path d="M80 40 C78 14 122 14 120 40 C110 50 90 50 80 40 Z" fill="#080808" opacity="0.85" /> : null}
       </g>
       <path d={HOODIE} className="gf__line" />
       <path d="M42 46 L40 88 M158 46 L160 88" className="gf__line gf__thin" />
@@ -145,8 +145,17 @@ export function calloutsFor(p: Product): Callout[] {
   ];
 }
 
-export function GarmentFlat({ product, callouts = false }: { product: Product; callouts?: boolean }) {
-  const id = `gf-${product.slug}`;
+export function GarmentFlat({
+  product,
+  callouts = false,
+  uid,
+}: {
+  product: Product;
+  callouts?: boolean;
+  /** Distinguishes two drawings of the same object on one page: clip-path ids must be unique. */
+  uid?: string;
+}) {
+  const id = `gf-${product.slug}-${uid ?? (callouts ? "c" : "p")}`;
   const cap = product.kind === "cap";
   const vb = cap ? "0 0 200 200" : "0 0 440 250";
   const notes = callouts ? calloutsFor(product) : [];
