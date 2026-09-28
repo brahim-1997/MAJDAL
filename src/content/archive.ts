@@ -384,6 +384,43 @@ export const archive: ArchiveEntry[] = [
     openQuestion:
       "Whether keeping the key out of product reads as restraint or as avoidance of the right of return is a question for a Palestinian reviewer, not for us.",
   },
+  {
+    slug: "the-watermelon",
+    index: "A013",
+    title: "THE WATERMELON",
+    titleArabic: "بطيخ",
+    period: "1967 – present",
+    category: "OBJECT",
+    location: "PALESTINE",
+    tags: ["watermelon", "flag", "colours", "symbols", "street"],
+    chapterSlugs: [],
+    rights: { status: "none-held", note: "No media attached. The watermelons on the site are MAJDAL’s own woven drawing." },
+    tier: "CONTESTED",
+    summary:
+      "Red flesh, black seeds, white pith, green rind: the four colours of the Palestinian flag. How the fruit came to stand in for the flag is part record, part story, and the two are not the same.",
+    body: [
+      "Record. In August 1967 Israeli Military Order 101 prohibited displaying flags or political symbols in the occupied West Bank without army approval. Displaying the Palestinian flag stayed banned there until the Oslo Accords of 1993.",
+      "Record, as one artist remembers it. In 1980 the army closed an exhibition at 79 Gallery in Ramallah showing work by Sliman Mansour, Nabil Anani and Issam Badr. Mansour told The National in 2021 that the artists were told the flag and its colours were forbidden; when Badr asked about a flower in red, green, black and white, the officer answered that even a watermelon would be confiscated. Mansour’s own point: the watermelon was mentioned, but by the Israeli officer.",
+      "Disputed. A story is widely repeated that young men in Gaza were arrested for carrying sliced watermelons. It entered print in The New York Times in 1993; the paper later added an editor’s note that the anecdote should have been omitted or marked unconfirmed. Decolonize Palestine reports that people active in the first intifada’s popular committees could not recall watermelons being used as a symbol at all.",
+      "Record. In 2007 the Palestinian artist Khaled Hourani made The Story of the Watermelon, a silkscreen series for the Subjective Atlas of Palestine. In 2013 he isolated one print and titled it The Colours of the Palestinian Flag.",
+      "Record. From 2021, and at scale from 2023, the watermelon spread online as a sign of solidarity where the flag or the word Palestine was restricted or suppressed. In June 2023 the organisation Zazim put watermelons on 16 taxis in Tel Aviv with the words: This is not a Palestinian flag.",
+      "Disputed, differently. Writing in Rowaq Arabi in 2024, Yasmine Rishmawi asks whether the watermelon trend, however well meant, also helps erase Palestinian identity — a fruit in place of a people, easy to share, easy to empty.",
+      "Interpretation — ours. MAJDAL uses the watermelon because the flag was banned and people found a way around the ban, and because it is how the street recognises Palestine now. We weave it rather than print it: a clothing brand from a weaving town, putting the colours back into cloth. We print this record beside it so the fruit never stands alone.",
+    ],
+    sources: [
+      "B’Tselem — Military order 101",
+      "Human Rights Watch — Born Without Civil Rights (2019)",
+      "The National — How the watermelon became a symbol of Palestinian resistance (2021)",
+      "The New York Times, John Kifner (October 1993), with its later editor’s note",
+      "Decolonize Palestine — Myth: Palestinians used watermelons as symbols during the first intifada",
+      "Hyperallergic — How Watermelon Became a Symbol of Palestinian Resistance",
+      "Time — How the Watermelon Became a Symbol of Palestinian Solidarity (2023)",
+      "The Times of Israel — Activists use images of watermelons to protest police crackdown on Palestinian flags (2023)",
+      "Yasmine Rishmawi, Rowaq Arabi 29(3) (2024) — The Watermelon Question",
+    ],
+    openQuestion:
+      "Is a streetwear brand using the watermelon part of the circumvention it came from, or part of the flattening Rishmawi describes? That is for a Palestinian reviewer to answer, not us. Until Gate 2, the watermelon stays on the website and off the garments.",
+  },
 ];
 
 export const getArchiveEntry = (slug: string): ArchiveEntry | undefined =>

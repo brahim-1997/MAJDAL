@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
-import { Olive } from "@/components/olive/Olive";
 import { nav, secondaryNav, site } from "@/content/site";
 
 /**
@@ -13,8 +12,7 @@ export function SiteFooter() {
       <div className="shell ftr__top">
         <Logo lockup="primary" tone="bone" className="ftr__logo" />
         <div className="ftr__side">
-          <p className="ftr__tagline wide">{site.tagline}</p>
-          <Olive variant="mark" className="ftr__olive" />
+          <p className="ftr__tagline ext">{site.story.join(" ")}</p>
           <p className="meta ftr__code">0048 · {site.origin.label}</p>
         </div>
       </div>
@@ -59,8 +57,9 @@ export function SiteFooter() {
           The one real address is {site.url.replace("https://", "")}. MAJDAL will never ask for payment anywhere else.
         </p>
         <p className="meta">
-          Archive photographs and map sheets are credited where they appear. Map drawings: MAJDAL, from Natural
-          Earth (public domain). Olive tree: drawn by MAJDAL.
+          Archive photographs and map sheets are credited where they appear. The land: real elevation from NASA SRTM
+          and NOAA ETOPO1 via AWS Terrain Tiles, outline from Natural Earth (public domain). The woven watermelon, the
+          drawings and the olive tree: MAJDAL.
         </p>
         <p className="meta">
           {site.philosophy} — © {new Date().getFullYear()} {site.name}

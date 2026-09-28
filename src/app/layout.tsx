@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { SeedCursor } from "@/components/street/SeedCursor";
 import { site } from "@/content/site";
 // Open-licensed (SIL OFL) faces, self-hosted — no external font CDN, no
-// third-party request on page load, no licensing cost.
-import "@fontsource-variable/archivo";
+// third-party request on page load, no licensing cost. Archivo with both
+// axes: weight 100–900 and width 62–125%.
+import "@fontsource-variable/archivo/wdth.css";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/700.css";
 import "@fontsource/reenie-beanie/400.css";
@@ -88,6 +90,7 @@ export default function RootLayout({
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
+        <SeedCursor />
         <script
           type="application/ld+json"
           // Static, hand-built object — no user input reaches this.

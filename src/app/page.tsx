@@ -1,16 +1,16 @@
 import Link from "next/link";
-import { Logo } from "@/components/brand/Logo";
 import { archiveId } from "@/components/archive/RecordCard";
-import { LandFilm } from "@/components/land/LandFilm";
-import { Olive } from "@/components/olive/Olive";
-import { ProductCard } from "@/components/ProductCard";
-import { Reveal } from "@/components/Reveal";
+import { GarmentFlat } from "@/components/product/GarmentFlat";
+import { StickerWall, type Sticker } from "@/components/street/StickerWall";
+import { Ticker } from "@/components/street/Ticker";
 import { TierBadge } from "@/components/TierBadge";
+import { WovenHero } from "@/components/weave/WovenHero";
 import { getArchiveEntry } from "@/content/archive";
 import { currentChapter } from "@/content/chapters";
 import { KINDS } from "@/content/community";
-import { productsInChapter } from "@/content/products";
+import { formatPrice, productsInChapter } from "@/content/products";
 import { site } from "@/content/site";
+import { WATERMELON } from "@/content/watermelon";
 import { formatMoney, getImpactTotals, ledger } from "@/lib/impact";
 
 const entry = (slug: string) => {
@@ -19,262 +19,283 @@ const entry = (slug: string) => {
   return e;
 };
 
+const STATUS: Record<string, string> = {
+  coming: "Not open",
+  available: "Available",
+  "sold-out": "Sold out",
+  closed: "Closed",
+};
+
+// Where each sticker lands on the wall (percent of the wall) and how it leans.
+const PLACES: [number, number, number, "white" | "black"][] = [
+  [0, 4, -7, "white"],
+  [30, 0, 4, "black"],
+  [70, 12, -3, "white"],
+  [3, 56, 5, "black"],
+  [29, 46, -5, "white"],
+  [73, 62, 8, "black"],
+];
+
 export default function HomePage() {
   const objects = productsInChapter(currentChapter.slug);
   const totals = getImpactTotals();
   const looms = entry("two-thousand-looms");
   const metres = entry("eight-metres");
+  const melon = entry("the-watermelon");
+  const stickers: Sticker[] = KINDS.filter((k) => k.value !== "other").map((k, i) => {
+    const [x, y, tilt, tone] = PLACES[i % PLACES.length]!;
+    return {
+      href: `/roots/carry?kind=${k.value}`,
+      label: k.label,
+      code: `MJ-0048-C${String(i + 1).padStart(3, "0")}`,
+      tone,
+      tilt,
+      x,
+      y,
+    };
+  });
 
   return (
     <>
-      <h1 className="visually-hidden">MAJDAL, مجدل — the land remains.</h1>
+      <Ticker
+        className="ticker--top"
+        speed={48}
+        items={[
+          `Chapter ${currentChapter.number} — ${currentChapter.name} — not open`,
+          `${site.impactPercent}% of eligible sales to people in Palestine`,
+          `Ledger ${formatMoney(totals.verifiedCents)} — nothing sold yet`,
+          "The Roots — free",
+          "0048",
+        ]}
+      />
 
-      {/* 01 — THE LAND: a flight over the whole land */}
-      <LandFilm poster="/land/poster.webp">
-        <div className="lfo lfo--title" data-r="0:0.11">
-          <p className="lfo__h display">
-            <span className="blk">The land</span>
-            <span className="blk blk--in">remains.</span>
+      {/* 01 — THE CLOTH */}
+      <WovenHero>
+        <Link href={`/archive/${melon.slug}`} className="hero__file" data-cursor="Read">
+          <span>File {archiveId(melon)}</span>
+          <span>The watermelon</span>
+          <TierBadge tier={melon.tier} />
+        </Link>
+        <h1 id="hero-title" className="hero__h">
+          <span className="hero__small">They carried it.</span>
+          <span className="hero__big">We carry</span>
+          <span className="hero__big hero__big--red">it.</span>
+        </h1>
+        <div className="hero__foot">
+          <p className="hero__note">
+            A watermelon, woven. Every square is one crossing of two threads — over or under, the decision a weaver
+            makes at every crossing. <span className="hero__hint">Move across the cloth.</span>
           </p>
-          <p className="lfo__scroll">Scroll — fly the land ↓</p>
-        </div>
-        <dl className="lfo lfo--data kv" data-r="0:0.11">
-          <div><dt>Land</dt><dd>Galilee to the Naqab</dd></div>
-          <div><dt>Relief</dt><dd>Real elevation · vertical ×7</dd></div>
-          <div><dt>Code</dt><dd>0048</dd></div>
-        </dl>
-        <p className="lfo lfo--memory display" data-r="0.13:0.25">
-          <span className="blk">Every place</span>
-          <span className="blk">has a</span>
-          <span className="blk blk--in">memory.</span>
-        </p>
-        <div className="lfo lfo--majdal" data-r="0.53:0.645">
-          <p className="lfo__id">
-            <span className="docid">{archiveId(looms)}</span> <TierBadge tier={looms.tier} />
-          </p>
-          <p className="display lfo__name">
-            <b>Al-Majdal</b> <span className="arabic">مجدل</span>
-          </p>
-          <p className="lfo__line">The weaving town. Around 2,000 looms worked here by the 1940s, most of them inside people&rsquo;s houses.</p>
-        </div>
-        <div className="lfo lfo--thread" data-r="0.66:0.78">
-          <p className="display">The thread</p>
-          <p className="lfo__small">Sewn place to place. A brand line — not a road, not a route.</p>
-        </div>
-        <p className="lfo lfo--carried display" data-r="0.79:0.905">
-          <span className="blk">They carried it.</span>
-          <span className="blk blk--in">We carry it.</span>
-        </p>
-        <div className="lfo lfo--end" data-r="0.915:1.01">
-          <p className="display lfo__next">
-            <span className="blk">The next generation</span>
-            <span className="blk blk--red">carries it forward.</span>
-          </p>
-          <Logo lockup="primary" tone="bone" className="lfo__logo" alt="" />
-        </div>
-        <p className="lfo__credit">
-          Elevation: NASA SRTM &amp; NOAA ETOPO1 via AWS Terrain Tiles · Outline: Natural Earth · Vertical scale ×7 · Public domain
-        </p>
-        <span className="lfo__ruler" aria-hidden="true" />
-      </LandFilm>
-
-      {/* 02 — MANIFESTO */}
-      <section className="section manifesto paper" aria-labelledby="manifesto-title">
-        <div className="shell">
-          <p className="label">
-            <span className="label__index">02</span>
-            <span className="label__name">What MAJDAL is</span>
-          </p>
-          <h2 id="manifesto-title" className="display manifesto__h">
-            <span className="manifesto__l1">Not a brand that puts</span>
-            <span className="manifesto__l2">Palestine on clothes.</span>
-            <span className="manifesto__l3 blk">A clothing brand</span>
-            <span className="manifesto__l4">descended from a</span>
-            <span className="manifesto__l5">clothing town.</span>
-          </h2>
-        </div>
-      </section>
-
-      {/* 03 — AL-MAJDAL, IN NUMBERS */}
-      <section className="section numbers" aria-labelledby="numbers-title">
-        <div className="shell">
-          <p className="label">
-            <span className="label__index">03</span>
-            <span className="label__name" id="numbers-title">Al-Majdal, in numbers</span>
-            <span className="muted">From the archive — with sources</span>
-          </p>
-          <ol className="numbers__grid">
-            <li>
-              <span className="numbers__n display">2,000</span>
-              <span className="numbers__l">Looms working in al-Majdal by the 1940s</span>
-              <Link href={`/archive/${looms.slug}`} className="numbers__src">{archiveId(looms)} · {looms.tier}</Link>
-            </li>
-            <li>
-              <span className="numbers__n display">8&nbsp;m</span>
-              <span className="numbers__l">Of cloth in one piece</span>
-              <Link href={`/archive/${metres.slug}`} className="numbers__src">{archiveId(metres)} · {metres.tier}</Link>
-            </li>
-            <li>
-              <span className="numbers__n display">1–2</span>
-              <span className="numbers__l">Months of work to weave it</span>
-              <Link href={`/archive/${metres.slug}`} className="numbers__src">{archiveId(metres)} · {metres.tier}</Link>
-            </li>
-            <li>
-              <span className="numbers__n display numbers__n--red">1</span>
-              <span className="numbers__l">Dress</span>
-              <Link href={`/archive/${metres.slug}`} className="numbers__src">{archiveId(metres)} · {metres.tier}</Link>
-            </li>
-          </ol>
-          <p className="meta numbers__note">
-            Sources cited on each record. Verified at Gate 1; a named Palestinian reviewer has not yet checked them.
-          </p>
-        </div>
-      </section>
-
-      {/* 04 — THE OLIVE */}
-      <section className="section olivesec green-ground" aria-labelledby="olive-title">
-        <div className="olivesec__tree">
-          <Olive label="An old olive tree, drawn as a traditional engraving: a wide billowing crown, a twisted split trunk, roots." />
-        </div>
-        <div className="shell olivesec__text">
-          <p className="label">
-            <span className="label__index">04</span>
-            <span className="label__name">The olive</span>
-          </p>
-          <h2 id="olive-title" className="display olivesec__h">Roots</h2>
-          <p className="olivesec__lead">Old trees. Slow work. Roots before fruit.</p>
-          <p className="olivesec__body">
-            The olive tree is how MAJDAL draws patience: it stays where it is planted, it takes its time, and it is
-            handed on. We build the same way — slowly, in the open, with receipts.
-          </p>
-          <p className="olivesec__tier">
-            <span className="tier" data-tier="INTERPRETATION">INTERPRETATION</span>
-            <Link href="/archive/the-olive-and-the-key" className="link">
-              Read the record — {archiveId(entry("the-olive-and-the-key"))}
+          <p className="hero__cta">
+            <Link href={`/chapters/${currentChapter.slug}`} className="sbtn sbtn--red" data-cursor="Open">
+              Chapter {currentChapter.number} <span aria-hidden="true">→</span>
+            </Link>
+            <Link href="/roots" className="sbtn sbtn--ghost" data-cursor="Join">
+              Join The Roots <span aria-hidden="true">→</span>
             </Link>
           </p>
         </div>
+        <span className="hero__sticker" aria-hidden="true">
+          مجدل
+        </span>
+      </WovenHero>
+
+      <Ticker
+        className="ticker--red"
+        speed={30}
+        items={[...site.story]}
+      />
+
+      {/* 02 — THE DROP */}
+      <section className="drop paper" aria-labelledby="drop-title">
+        <header className="drop__head">
+          <p className="stag">02 — The drop</p>
+          <h2 id="drop-title" className="drop__h">
+            <span className="drop__n">{currentChapter.number}</span>
+            <span className="drop__name">{currentChapter.name}</span>
+          </h2>
+          <dl className="drop__facts">
+            <div><dt>Status</dt><dd className="schip schip--black">Not open</dd></div>
+            <div><dt>Opens</dt><dd>{currentChapter.opensAt ?? "No date set"}</dd></div>
+            <div><dt>Run</dt><dd>{currentChapter.runSize} pieces</dd></div>
+            <div><dt>First look</dt><dd>The Roots</dd></div>
+          </dl>
+          <p className="drop__premise">{currentChapter.premise}</p>
+        </header>
+        <ul className="drop__grid">
+          {objects.map((p, i) => (
+            <li key={p.slug} className="drop__item" style={{ ["--tilt" as string]: `${[-1.2, 0.8, -0.6, 1.4][i % 4]}deg` }}>
+              <Link href={`/shop/${p.slug}`} className="dcard" data-cursor="View">
+                <span className="dcard__no">{String(i + 1).padStart(2, "0")}</span>
+                <span className="dcard__img">
+                  <GarmentFlat product={p} uid="drop" />
+                </span>
+                <span className="dcard__meta">
+                  <span className="dcard__name">{p.name}</span>
+                  <span className="dcard__row">
+                    <span>{formatPrice(p.priceCents, p.currency)}</span>
+                    <span className="schip">{STATUS[p.status]}</span>
+                  </span>
+                  <span className="dcard__obj">Object {p.object} · Chapter {currentChapter.number}</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="drop__cta">
+          <Link href="/shop" className="sbtn sbtn--black" data-cursor="Shop">
+            All objects <span aria-hidden="true">→</span>
+          </Link>
+          <span className="drop__small">No checkout until the chapter opens. No fake countdown.</span>
+        </p>
       </section>
 
-      {/* 05 — CHAPTER 001 */}
-      <section className="section chaptersec" aria-labelledby="chapter-title">
-        <div className="shell">
-          <p className="label">
-            <span className="label__index">05</span>
-            <span className="label__name">Chapter {currentChapter.number}</span>
-            <span className="muted">Not open · code 48</span>
-          </p>
-          <h2 id="chapter-title" className="display chaptersec__h">
-            <span className="chaptersec__n">{currentChapter.number}</span>
-            <span className="chaptersec__name blk">{currentChapter.name}</span>
-          </h2>
-          <div className="chaptersec__row">
-            <p className="chaptersec__premise">{currentChapter.premise}</p>
-            <dl className="chaptersec__facts">
-              <div><dt>Status</dt><dd>Not open</dd></div>
-              <div><dt>Objects</dt><dd>{objects.length}</dd></div>
-              <div><dt>Run</dt><dd>{currentChapter.runSize ? `${currentChapter.runSize} pieces` : "Not set"}</dd></div>
-              <div><dt>First to see it</dt><dd>The Roots</dd></div>
-            </dl>
-          </div>
-          <ul className="pgrid chaptersec__objects" aria-label={`The objects of Chapter ${currentChapter.number}`}>
-            {objects.map((p) => (
-              <li key={p.slug}>
-                <ProductCard product={p} />
+      {/* 03 — THE WATERMELON: the record behind the motif */}
+      <section className="melon" aria-labelledby="melon-title">
+        <div className="melon__pin">
+          <header className="melon__head">
+            <p className="stag stag--night">03 — Why a watermelon</p>
+            <h2 id="melon-title" className="melon__h">
+              <span>The flag</span>
+              <span>was banned.</span>
+              <span className="melon__h-red">The colours</span>
+              <span className="melon__h-red">were in a fruit.</span>
+            </h2>
+            <p className="melon__lead">
+              Red, black, white, green. What is on the record, what is only a story, and what is ours — marked, line by
+              line.
+            </p>
+          </header>
+          <ol className="melon__track" aria-label="The watermelon, 1967 to 2024">
+            {WATERMELON.map((m) => (
+              <li key={m.year + m.head} className="mcard" data-tier={m.tier}>
+                <span className="mcard__year">{m.year}</span>
+                <TierBadge tier={m.tier} />
+                <h3 className="mcard__head">{m.head}</h3>
+                <p className="mcard__line">{m.line}</p>
+                <p className="mcard__src">{m.source}</p>
               </li>
             ))}
-          </ul>
-          <p className="chaptersec__cta">
-            <Link href={`/chapters/${currentChapter.slug}`} className="btn">
-              Open Chapter {currentChapter.number}
-            </Link>
-            <Link href="/roots" className="btn btn--ghost">
-              Join The Roots — free
-            </Link>
-          </p>
+            <li className="mcard mcard--ours">
+              <span className="mcard__year">Us</span>
+              <span className="tier" data-tier="INTERPRETATION">INTERPRETATION</span>
+              <h3 className="mcard__head">Woven, not printed</h3>
+              <p className="mcard__line">
+                A clothing brand from a weaving town puts the colours back into cloth. The record goes with it, so the
+                fruit never stands alone.
+              </p>
+              <Link href={`/archive/${melon.slug}`} className="mcard__link" data-cursor="Read">
+                Full record {archiveId(melon)} →
+              </Link>
+            </li>
+          </ol>
         </div>
+        <p className="melon__q">
+          <span className="stag stag--night">Open question</span> {melon.openQuestion}
+        </p>
       </section>
 
-      {/* 06 — WHAT DO YOU CARRY? */}
-      <section className="section carrysec paper" aria-labelledby="carry-title">
-        <div className="shell">
-          <p className="label">
-            <span className="label__index">06</span>
-            <span className="label__name">{site.community}</span>
-          </p>
-          <h2 id="carry-title" className="display carrysec__h">
-            What do <span className="blk">you</span> carry?
+      {/* 04 — AL-MAJDAL: where the name comes from */}
+      <section className="town paper" aria-labelledby="town-title">
+        <p className="stag">04 — Our story</p>
+        <h2 id="town-title" className="town__h">
+          <span>Not a brand that puts Palestine on clothes.</span>
+          <span className="town__h-blk">A clothing brand descended from a clothing town.</span>
+        </h2>
+        <ul className="bento">
+          <li className="bento__a">
+            <span className="bento__n">2,000</span>
+            <span className="bento__l">looms working in al-Majdal by the 1940s — most of them inside people&rsquo;s houses</span>
+            <Link href={`/archive/${looms.slug}`} className="bento__src">{archiveId(looms)} · {looms.tier}</Link>
+          </li>
+          <li className="bento__b">
+            <span className="bento__n">8 m</span>
+            <span className="bento__l">of cloth in one piece</span>
+            <Link href={`/archive/${metres.slug}`} className="bento__src">{archiveId(metres)} · {metres.tier}</Link>
+          </li>
+          <li className="bento__c">
+            <span className="bento__n">1–2</span>
+            <span className="bento__l">months to weave it</span>
+            <Link href={`/archive/${metres.slug}`} className="bento__src">{archiveId(metres)} · {metres.tier}</Link>
+          </li>
+          <li className="bento__d">
+            <span className="bento__n">1</span>
+            <span className="bento__l">dress</span>
+          </li>
+          <li className="bento__e">
+            <span className="bento__big">1948</span>
+            <span className="bento__l">
+              The town was taken. Its people were expelled in stages over the following years, most of them to Gaza.
+              The weavers kept weaving. The cloth still carries the town&rsquo;s name: Majdalawi.
+            </span>
+            <Link href="/story" className="bento__src" data-cursor="Read">Read the story →</Link>
+          </li>
+          <li className="bento__f">
+            <span className="bento__l">The whole land, in relief — real elevation, every place with its record.</span>
+            <Link href="/map" className="sbtn sbtn--black" data-cursor="Fly">
+              See the land <span aria-hidden="true">→</span>
+            </Link>
+          </li>
+        </ul>
+      </section>
+
+      {/* 05 — THE ROOTS: the community */}
+      <section className="roots green-ground" aria-labelledby="roots-title">
+        <div className="roots__text">
+          <p className="stag stag--night">05 — {site.community}</p>
+          <h2 id="roots-title" className="roots__h">
+            What do <span className="roots__you">you</span> carry?
           </h2>
-          <p className="lead carrysec__lead">
+          <p className="roots__lead">
             The archive grows through people. An object, a photograph, a place, a name, a family story, a length of
             cloth. You decide what is shared and how you are credited — and you can take it back.
           </p>
-          <ul className="sleeves">
-            {KINDS.filter((k) => k.value !== "other").map((k, i) => (
-              <li key={k.value}>
-                <Link href={`/roots/carry?kind=${k.value}`} className="sleeve">
-                  <span className="sleeve__id">MJ-0048-C{String(i + 1).padStart(3, "0")}</span>
-                  <span className="sleeve__kind display">{k.label}</span>
-                  <span className="sleeve__empty">Not yet received →</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="card-id" aria-label="The Roots membership">
+            <p className="card-id__top">
+              <span>The Roots</span>
+              <span>MJ-0048</span>
+            </p>
+            <p className="card-id__no">Nº — — — —</p>
+            <p className="card-id__foot">Free. No list yet: we store nothing until we can store it lawfully.</p>
+          </div>
+          <p className="roots__cta">
+            <Link href="/roots" className="sbtn sbtn--white" data-cursor="Join">
+              Join The Roots <span aria-hidden="true">→</span>
+            </Link>
+          </p>
+        </div>
+        <StickerWall stickers={stickers} label="What you can carry — each opens the form" />
+      </section>
+
+      {/* 06 — 15% */}
+      <section className="impact" aria-labelledby="impact-title">
+        <div className="impact__pct">
+          <p className="stag stag--night">06 — Impact</p>
+          <h2 id="impact-title" className="impact__n">
+            {site.impactPercent}%
+          </h2>
+          <p className="impact__of">
+            Of every eligible sale, to people in Palestine. Only confirmed transfers are ever published as delivered.
+          </p>
+        </div>
+        <div className="receipt" role="group" aria-label="Impact ledger receipt">
+          <p className="receipt__h">MAJDAL — LEDGER</p>
+          <p className="receipt__sub">{ledger.currency} · public · append-only</p>
+          <dl className="receipt__rows">
+            <div><dt>Entries</dt><dd>0</dd></div>
+            <div><dt>Committed</dt><dd>{formatMoney(totals.accruedCents)}</dd></div>
+            <div><dt>Transferred</dt><dd>{formatMoney(totals.transferredCents)}</dd></div>
+            <div><dt>Confirmed</dt><dd>{formatMoney(totals.verifiedCents)}</dd></div>
+          </dl>
+          <p className="receipt__total">Zero is the truth.</p>
+          <p className="receipt__foot">Nothing has been sold, so nothing has been sent.</p>
+          <Link href="/impact" className="receipt__link" data-cursor="Read">
+            Read the full ledger →
+          </Link>
         </div>
       </section>
 
-      {/* 07 — IMPACT */}
-      <section className="section impactsec red-ground" aria-labelledby="impact-title">
-        <div className="shell impactsec__grid">
-          <div>
-            <p className="label">
-              <span className="label__index">07</span>
-              <span className="label__name">Impact</span>
-            </p>
-            <h2 id="impact-title" className="display impactsec__pct">
-              {site.impactPercent}%
-            </h2>
-            <p className="impactsec__of">
-              Of every eligible sale, to support people in Palestine. Only confirmed transfers are ever published as
-              delivered.
-            </p>
-          </div>
-          <Reveal className="ledger">
-            <div className="ledger__panel">
-              <p className="ledger__h wide">Ledger — {ledger.currency}</p>
-              <div className="table-wrap">
-                <table className="table">
-                  <caption className="visually-hidden">Impact ledger</caption>
-                  <thead>
-                    <tr>
-                      <th scope="col">Amount</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Recipient</th>
-                      <th scope="col">Proof</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td colSpan={4} className="ledger__empty">
-                        No entries. Nothing has been sold, so nothing has been sent.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <dl className="ledger__totals">
-                <div><dt>Committed</dt><dd>{formatMoney(totals.accruedCents)}</dd></div>
-                <div><dt>Transferred</dt><dd>{formatMoney(totals.transferredCents)}</dd></div>
-                <div><dt>Confirmed</dt><dd>{formatMoney(totals.verifiedCents)}</dd></div>
-              </dl>
-              <p className="ledger__foot">Zero is the truth.</p>
-              <Link href="/impact" className="btn">
-                Read the full ledger
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <Ticker className="ticker--white" speed={36} reverse items={["The Roots", "Chapter 001", "مجدل", "0048", "What do you carry?"]} />
     </>
   );
 }

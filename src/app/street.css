@@ -1,0 +1,213 @@
+/* ============================================================
+   STREET — the shared parts of the v4 system.
+   Tickers, stickers, tags, buttons, the seed cursor, the grain.
+   Black, white, red, green. Square corners. Heavy borders.
+   ============================================================ */
+
+/* Pages that start under the fixed header. */
+main > .phead:first-child,
+main > .section:first-child,
+main > article:first-child { padding-top: calc(var(--hdr-h) + var(--s-7)); }
+
+/* Archivo's width axis is loaded: 62% is the poster cut, 125% the stamp. */
+.cond { font-family: var(--font-display); font-weight: 900; font-stretch: 62%; text-transform: uppercase; }
+.ext { font-family: var(--font-display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; }
+
+/* ---------- tag: a label on a strip of tape ---------- */
+.stag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--black);
+  color: var(--white);
+  padding: 3px 8px;
+}
+.stag--night { background: var(--white); color: var(--black); }
+
+/* ---------- chip: status ---------- */
+.schip {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 2px solid currentColor;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+.schip--black { background: var(--black); color: var(--white); border-color: var(--black); }
+
+/* ---------- button: a block that shifts when pressed ---------- */
+.sbtn {
+  --sb-bg: var(--black);
+  --sb-fg: var(--white);
+  --sb-sh: var(--red);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8em;
+  min-height: 3rem;
+  padding: 0 1.2em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: var(--step-0);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--sb-bg);
+  color: var(--sb-fg);
+  border: 3px solid var(--sb-bg);
+  box-shadow: 6px 6px 0 var(--sb-sh);
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.sbtn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--sb-sh); }
+.sbtn:active { transform: translate(6px, 6px); box-shadow: 0 0 0 var(--sb-sh); }
+.sbtn--red { --sb-bg: var(--red); --sb-fg: var(--white); --sb-sh: var(--white); }
+.sbtn--white { --sb-bg: var(--white); --sb-fg: var(--black); --sb-sh: var(--black); }
+.sbtn--black { --sb-bg: var(--black); --sb-fg: var(--white); --sb-sh: var(--red); }
+.sbtn--ghost { --sb-bg: transparent; --sb-fg: var(--white); --sb-sh: transparent; border-color: var(--white); }
+.sbtn--ghost:hover { background: var(--white); color: var(--black); box-shadow: none; transform: none; }
+/* On green, a red shadow would touch green: the shadow goes black. */
+.green-ground .sbtn { --sb-sh: var(--black); }
+
+/* ---------- ticker ---------- */
+.ticker {
+  --ticker-bg: var(--black);
+  --ticker-fg: var(--white);
+  overflow: hidden;
+  background: var(--ticker-bg);
+  color: var(--ticker-fg);
+  border-block: 3px solid var(--ticker-fg);
+  white-space: nowrap;
+  position: relative;
+  z-index: 2;
+}
+.ticker__track { display: flex; width: max-content; animation: ticker var(--ticker-s, 40s) linear infinite var(--ticker-dir, normal); }
+.ticker:hover .ticker__track { animation-play-state: paused; }
+.ticker__run { display: flex; flex-shrink: 0; }
+.ticker__item { display: inline-flex; align-items: center; }
+.ticker__sep { padding-inline: 0.9em; }
+@keyframes ticker { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track { animation: none; width: auto; flex-wrap: wrap; }
+  .ticker__run[aria-hidden] { display: none; }
+  .ticker__run { flex-wrap: wrap; white-space: normal; }
+}
+
+.ticker--top { margin-top: var(--hdr-h); font-family: var(--font-mono); font-weight: 700; font-size: var(--step--1); letter-spacing: 0.08em; text-transform: uppercase; padding-block: 6px; border-width: 1px 0; border-color: var(--night-rule); }
+.ticker--top .ticker__sep { color: var(--red); }
+.ticker--red {
+  --ticker-bg: var(--red);
+  --ticker-fg: var(--white);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-stretch: 62%;
+  text-transform: uppercase;
+  font-size: clamp(2.6rem, 8vw, 7rem);
+  line-height: 1;
+  padding-block: 0.08em 0.02em;
+  border-color: var(--black);
+}
+.ticker--red .ticker__sep { color: var(--black); font-size: 0.5em; }
+.ticker--white {
+  --ticker-bg: var(--white);
+  --ticker-fg: var(--black);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  font-size: clamp(1.4rem, 3.4vw, 2.6rem);
+  padding-block: 0.25em;
+}
+.ticker--white .ticker__sep { color: var(--red); }
+
+/* ---------- the seed cursor ---------- */
+.seed {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  pointer-events: none;
+  display: none;
+}
+.has-seed .seed { display: block; }
+.seed[data-on="0"] { opacity: 0; }
+.seed__body {
+  position: absolute;
+  left: -7px;
+  top: -2px;
+  width: 14px;
+  height: 20px;
+  background: var(--black);
+  border: 2px solid var(--white);
+  /* a seed: round below, drawn to a point where it held the fruit */
+  border-radius: 50% 50% 50% 50% / 38% 38% 62% 62%;
+  rotate: -28deg;
+  transition: scale var(--dur) var(--ease-out), background var(--dur);
+}
+/* over something you can use, the seed turns white — never red, since it
+   crosses green grounds too */
+.seed[data-over="1"] .seed__body { scale: 1.6; background: var(--white); border-color: var(--black); }
+.seed[data-down="1"] .seed__body { scale: 0.8; }
+.seed[data-over="field"] { display: none; }
+.seed::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--black);
+  color: var(--white);
+  border: 1px solid var(--white);
+  padding: 2px 6px;
+  white-space: nowrap;
+  opacity: 0;
+  translate: -4px 0;
+  transition: opacity var(--dur-fast), translate var(--dur) var(--ease-out);
+}
+.seed[data-over="1"]:not([data-label=""])::after { opacity: 1; translate: 0 0; }
+.has-seed,
+.has-seed a,
+.has-seed button,
+.has-seed label,
+.has-seed summary,
+.has-seed [data-cursor] { cursor: none; }
+.has-seed input,
+.has-seed textarea,
+.has-seed select { cursor: auto; }
+@media (prefers-reduced-motion: reduce) { .seed__body, .seed::after { transition: none; } }
+
+/* ---------- grain: the page is printed, not lit ---------- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.4 -.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- scroll-driven entrances, where the browser has them ---------- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .rise {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(48px) rotate(var(--rise-tilt, 0deg)); }
+  to { opacity: 1; transform: none; }
+}

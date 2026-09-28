@@ -1,4 +1,39 @@
-# MAJDAL DESIGN SYSTEM v3.0 — THE LAND, PRINTED
+# MAJDAL DESIGN SYSTEM v4.0 — THE WATERMELON, WOVEN
+
+Underground streetwear. Brutalism and anti-design with a reason. Black,
+white, green and red. The watermelon, woven into black cloth.
+
+## v4.0 — what changed (founder decision, 2026-09-28)
+
+The founder asked for a website that reads first as a streetwear brand —
+deep inspiration from UK underground labels, the colours of Palestine, the
+watermelon motif, brutalism and anti-design, the animation and interaction
+of sites made now — and for everything before it to be set aside.
+
+- **The watermelon leads.** It is woven, not printed (§3a): every pixel is a
+  crossing of warp and weft, so the street's symbol is made in al-Majdal's
+  craft. Record A013 (`CONTESTED`) sits one click from it, everywhere.
+- **Streetwear first.** The homepage runs like a drop: ticker, cloth, a red
+  line of the story, the chapter's objects, the record, the town, the
+  community wall, the receipt.
+- **Principles from UK underground labels, never their material**: the
+  drop is the event; members over customers; raw product on flat ground;
+  rules and facts as running copy; nothing polished that does not need to
+  be. We do not borrow any label's logos, slogans, graphics, campaigns or
+  site layouts.
+- **Current web craft**: CSS scroll-driven animation (the record strip rides
+  sideways while you scroll down), a custom cursor, draggable stickers,
+  infinite tickers, variable-width type, grain, canvas texture. Every one of
+  them has a reduced-motion and no-support state that shows the same
+  content.
+- **The land** stays as a 3D relief, on `/map` only. The homepage film is
+  gone.
+
+The v3.0 notes below still hold where v4.0 does not replace them.
+
+---
+
+# v3.0 — THE LAND, PRINTED
 
 Controlled brutalism. Anti-design with a reason. The whole land, in relief,
 printed in black, white, green and red.
@@ -27,7 +62,8 @@ it goes.
 
 | # | Symbol | Where it lives | Rule |
 | --- | --- | --- | --- |
-| 01 | **The map** | `LandFilm`, `LandExplore` — the whole land in relief; `MapSheet` as the 2D fallback | Real elevation only, vertical scale printed. Never a globe, never a fantasy terrain |
+| 00 | **The watermelon** | `WovenHero` + `weave/loom.ts`; record A013 | Woven, never printed flat. The record always one click away. Off garments until Gate 2 |
+| 01 | **The map** | `LandExplore` on `/map` — the whole land in relief; `MapSheet` as the 2D fallback | Real elevation only, vertical scale printed. Never a globe, never a fantasy terrain |
 | 02 | **The olive tree** | `public/olive/*.svg`, `Olive` | Our drawing, not a symbol with an assigned meaning |
 | 03 | **The red thread** | `Thread`, the thread in the relief, the sheet's thread layer | One continuous line; brand graphic, never a claimed route |
 | 04 | **48** | `/48`, `0048`, chapter code | Small and exact. Never graffiti-sized |
@@ -77,10 +113,11 @@ colours. `.paper` (white), `.green-ground` (also `.deep-ground` and
 `.olive-ground`, kept as aliases), `.red-ground`. The header reads the ground
 under it and swaps the logo between bone (dark grounds) and ink (paper).
 
-Rhythm on the homepage: the black film → white manifesto → black numbers →
-green olive → black Chapter 001 → white "what do you carry?" → red impact →
-black footer. **A green field and a red field never touch**: there is always
-black or white between them.
+Rhythm on the homepage (v4): black ticker → black woven cloth → red story
+ticker → white drop → black watermelon record → white town → green Roots
+wall → black receipt → white ticker → black footer. **A green field and a
+red field never touch**: there is always black or white between them. On
+green, button shadows go black and the seed cursor turns white, never red.
 
 ## 2. Typography
 
@@ -93,10 +130,12 @@ black or white between them.
 | Arabic | IBM Plex Sans Arabic | Display Arabic, isolated direction |
 | Pencil | Reenie Beanie | A note written on a document. Rare |
 
-Only Archivo's weight axis is loaded (`@fontsource-variable/archivo`); the
-width axis is not, so do not write `font-variation-settings: "wdth"` — it
-does nothing. Big figures size themselves to their cell with container
-units (`cqi`) so they never cross a rule.
+v4 loads both of Archivo's axes (`@fontsource-variable/archivo/wdth.css`:
+weight 100–900, width 62–125%). Use `font-stretch`: **62%** is the poster
+cut (headlines, figures, ticker), **125%** the stamp (small caps lines),
+100% everything else. The `.cond` and `.ext` utilities set them. Big
+figures size themselves to their cell with container units (`cqi`) so they
+never cross a rule.
 
 Contrast of scale is the identity: MAJDAL huge → مجدل → ARCHIVE 001 →
 tiny SOURCE lines. Do not make everything huge; do not rotate every word.
@@ -128,20 +167,32 @@ never shows. Place pins are black; al-Majdal's is red. The thread is a red
 line draped over the relief. The olive tree stands at al-Majdal as a
 billboard of the engraving.
 
-- **The film** (`LandFilm`, homepage): the land rises once on arrival (2.4 s,
-  not tied to scroll), then scroll flies the camera: the whole land → out
-  over the sea → Akka and Haifa → down the coast → al-Majdal, where the
-  olive tree grows → up while the thread is sewn → south over the Naqab →
-  the whole land. Stops carry a sideways `shift` so type and land share a
-  wide frame. Reduced motion: risen at once, the camera cuts between stops.
-  Screen readers get the flight in words; a skip link jumps past it.
 - **Explore** (`LandExplore`, `/map`): orbit, pan, zoom, keyboard; every
   place is a real button pinned to the relief; the record card opens with
-  its evidence tier. Draws only while visible.
-- **Loading**: three.js is imported after first paint. Until then the stage
-  holds `public/land/poster.webp` — the live first frame, captured by
-  `scripts/capture-poster.mjs`. Without WebGL2 the film keeps the poster and
+  its evidence tier. Draws only while visible. (The v3 homepage film was
+  removed in v4; it is in git history.)
+- **Loading**: three.js is imported after first paint. Without WebGL2,
   `/map` shows the 2D sheet (`MapSheet`, SHEET 00).
+
+## 3a. The watermelon, woven (v4)
+
+`src/components/weave/loom.ts`, mounted by `WovenHero`. A canvas where every
+cell is one crossing of warp and weft. Where the coloured weft is up you see
+red, white or green; where the black warp is up you see black. A 4×4
+ordered dither decides which thread is up, so the image is made of the
+decision a weaver makes at every crossing.
+
+- **The slice**: a half-moon, cut edge up. Red flesh, twelve black seeds in
+  two rings, white pith, green rind striped in darker green. The pith
+  always separates red from green.
+- **The red thread**: one red pick runs the width of the cloth.
+- **On arrival** the cloth is woven in row by row (1.6 s) with a red
+  shuttle riding the fell; unwoven rows show bare warp.
+- **The pointer** is a lamp over the cloth; **scroll** turns the slice.
+- **Reduced motion**: the finished cloth, lit from the middle, no weaving.
+  **No JS / no canvas**: a plain weave drawn in CSS behind the same words.
+- Renders only while on screen; cells are stamped from pre-drawn thread
+  sprites, so a frame is a few thousand `drawImage` calls.
 - **Historical sheets** (PEF 1880; Survey of Palestine 1940s) are separate
   objects in `src/content/sources.ts`, shown only as themselves, and **on
   hold** under dossier 003's P0 reviews even once the files exist.

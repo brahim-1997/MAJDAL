@@ -63,22 +63,38 @@ npm run impact:validate  # ledger invariants only
   likely to be broken; enforce it.
 - Red and green are brand language, not a flag. Never call them Majdalawi
   colours, and never let the page assemble into a flag.
+- **The watermelon is the lead motif** (founder decision, 2026-09-28). It is
+  *woven*, never printed flat: `src/components/weave/loom.ts` draws it as
+  warp and weft crossings, the craft of al-Majdal carrying the street's
+  symbol. Its record is archive A013, tiered `CONTESTED` — the flag ban
+  (1967–1993) and the 1980 gallery closure are record; the Gaza
+  watermelon-arrest story is disputed and must always be marked so; the
+  critique that the trend empties the symbol is printed too. Wherever the
+  watermelon appears, the record is one click away. It stays off garments
+  until Gate 2. Its anatomy keeps the colour rule: white pith between red
+  flesh and green rind.
 - Fuchsia and turquoise are **documented Majdalawi silk colours**. They live in
   the cloth — garment colourways and archive records — capped at ~5% of a
   garment.
 - **The logo is the founder's artwork** (`brand/assets/majdal-logo-sheet.jpg`),
   extracted by `scripts/extract-logo.mjs`, never redrawn. See
   `brand/DESIGN-SYSTEM.md` §7.
-- **The six symbols**: the map, the olive tree, the red thread, 48, archive
-  numbers, the logo. An element that supports none of them goes.
-- **The land is a 3D relief** (founder decision, 2026-09-27, second
-  revision): real elevation of the whole land of Palestine, engraved
+- **The symbols**: the woven watermelon, the map, the olive tree, the red
+  thread, 48, archive numbers, the logo. An element that supports none of
+  them goes.
+- **Style (v4, 2026-09-28)**: underground streetwear, brutalist and
+  anti-design — tickers, stickers, tape tags, hard 3px borders, offset block
+  shadows, Archivo at 62% (poster) and 125% (stamp) width, a seed cursor, a
+  grain over everything. UK underground labels are studied for *principles*
+  (drop-first, members over customers, raw product, rules as copy) — never
+  their logos, slogans, graphics or campaigns.
+- **The land is a 3D relief** on `/map` (founder decision, 2026-09-27,
+  second revision): real elevation of the whole land of Palestine, engraved
   (`src/components/land/`). three.js is allowed for this one job only, loaded
-  after first paint, with a poster still and the 2D `MapSheet` as fallbacks.
-  Elevation is real (AWS Terrain Tiles ← NASA SRTM / NOAA ETOPO1) and the
-  vertical scale (×7) is printed wherever the relief appears. Rebuild the
-  data with `node scripts/build-land.mjs`; recapture the still with
-  `node scripts/capture-poster.mjs`. No globe, no particles, no glow, no
+  after first paint, with the 2D `MapSheet` as fallback. Elevation is real
+  (AWS Terrain Tiles ← NASA SRTM / NOAA ETOPO1) and the vertical scale (×7)
+  is printed wherever the relief appears. Rebuild the data with
+  `node scripts/build-land.mjs`. No globe, no particles, no glow, no
   unlabelled exaggeration.
 - **The olive tree is a traditional engraving** (`scripts/draw-olive.mjs` →
   `public/olive/olive-engraved.svg`). Its meaning on the site is labelled

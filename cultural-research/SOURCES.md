@@ -38,6 +38,30 @@ must be opened and read in full before Gate 2 review.
 | 17 | Wikipedia — "Arab citizens of Israel" <https://en.wikipedia.org/wiki/Arab_citizens_of_Israel> | Encyclopaedic | summary-only |
 | 18 | Wikipedia — "Green Line (Israel)" <https://en.wikipedia.org/wiki/Green_Line_(Israel)> | Encyclopaedic | summary-only |
 
+## The watermelon (archive A013)
+
+Accessed 2026-09-28 via search; every page was blocked for direct reading by
+the egress proxy, so all are **summary-only**.
+
+| # | Source | Type | Supports | Status |
+| --- | --- | --- | --- | --- |
+| 19 | B'Tselem — "Military order 101" <https://www.btselem.org/demonstrations/military_order_101> | Human-rights organisation, legal text | Order 101 (Aug 1967): no flags or political symbols without army approval | summary-only |
+| 20 | Human Rights Watch — "Born Without Civil Rights" (2019) <https://www.hrw.org/report/2019/12/17/born-without-civil-rights/israels-use-draconian-military-orders-repress> | Human-rights report | Order 101 in force | summary-only |
+| 21 | The National — "How the watermelon became a symbol of Palestinian resistance" (2021) <https://www.thenationalnews.com/arts/how-the-watermelon-became-a-symbol-of-palestinian-resistance-1.1230806> | Journalism, primary interview | Sliman Mansour's account of 79 Gallery, 1980 | summary-only — **priority read** |
+| 22 | The New York Times, John Kifner, October 1993, and its later editor's note (reported via Wikipedia and TechCrunch) | Journalism | The Gaza arrests anecdote, and its withdrawal | summary-only — **retrieve the NYT note itself** |
+| 23 | Decolonize Palestine — "Myth: Palestinians used watermelons as symbols during first Intifada" <https://decolonizepalestine.com/myth/palestinians-used-watermelons/> | Palestinian-run research site | Disputes first-intifada use | summary-only — **priority read** |
+| 24 | Hyperallergic — "How Watermelon Became a Symbol of Palestinian Resistance" <https://hyperallergic.com/how-watermelon-became-a-symbol-of-palestinian-resistance/> | Art journalism | Khaled Hourani, *The Story of the Watermelon* (2007) | summary-only |
+| 25 | Time — "How the Watermelon Became a Symbol of Palestinian Solidarity" (2023) <https://time.com/6326312/watermelon-palestinian-symbol-solidarity/> | Journalism | Hourani; ban until the 1990s; spread since 2021 | summary-only |
+| 26 | The Times of Israel — "Activists use images of watermelons to protest police crackdown on Palestinian flags" (2023) <https://www.timesofisrael.com/activists-use-images-of-watermelons-to-protest-police-crackdown-on-palestinian-flags/> | Journalism | Zazim, 16 taxis, "This is not a Palestinian flag" | summary-only |
+| 27 | Yasmine Rishmawi — "The Watermelon Question and its Role in the Hegemonic Symbolic Erasure of Palestinian Identity", Rowaq Arabi 29(3), 2024 <https://cihrs-rowaq.org/views-the-watermelon-question-and-its-role-in-the-hegemonic-symbolic-erasure-of-palestinian-identity/?lang=en> | Palestinian author, journal essay | The critique: co-option and trivialisation | summary-only — **priority read** |
+
+**Where the accounts differ.** The ban on the flag (1967–1993) and the 1980
+gallery closure rest on legal texts and a named artist's first-hand account.
+The popular story of arrests for carrying watermelons does not: the paper that
+printed it withdrew it, and Palestinian organisers from the period could not
+recall it. The site prints both, marked. It also prints Rishmawi's critique,
+because it is a criticism of exactly what a brand using the watermelon does.
+
 ## Sources deliberately NOT used as cultural authority
 
 - **ADISH SS21 / Majdalawi weaving** (surfaced in search). ADISH is an existing
