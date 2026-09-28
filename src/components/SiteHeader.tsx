@@ -18,7 +18,7 @@ const GROUNDS: [string, Ground][] = [
   ["paper", "paper"],
   ["green-ground", "green"],
   ["deep-ground", "green"],
-  ["olive-ground", "olive"],
+  ["olive-ground", "green"],
   ["red-ground", "red"],
 ];
 

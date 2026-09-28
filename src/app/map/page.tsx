@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArchivePhoto } from "@/components/archive/ArchivePhoto";
 import { archiveId } from "@/components/archive/RecordCard";
+import { LandExplore } from "@/components/land/LandExplore";
 import { MapExplorer, type ExplorerLayer } from "@/components/map/MapExplorer";
 import { Reveal } from "@/components/Reveal";
 import { TierBadge } from "@/components/TierBadge";
@@ -13,7 +14,7 @@ import { resolveSources } from "@/lib/sources";
 export const metadata: Metadata = {
   title: "The Land",
   description:
-    "Every place has a memory. SHEET 00 — al-Majdal and the coast — drawn by MAJDAL from public-domain data, with a register of places, each one sourced, tiered and incomplete on purpose.",
+    "Every place has a memory. The whole land of Palestine in relief, from real elevation data, with a register of places — each one sourced, tiered and incomplete on purpose.",
 };
 
 export default function MapPage() {
@@ -35,30 +36,34 @@ export default function MapPage() {
     <>
       <section className="land" aria-labelledby="land-title">
         <h1 id="land-title" className="visually-hidden">
-          The Land — SHEET 00, al-Majdal and the coast
+          The Land — the whole land of Palestine, in relief
         </h1>
-        <MapExplorer
-          historical={historical}
-          archivePanel={
-            <div className="explore__archive">
-              <p className="meta">Photographs held: {photos.length}. Records: {records.length}.</p>
-              <ul className="explore__photos">
-                {photos.map((s) => (
-                  <li key={s.id}>
-                    <ArchivePhoto source={s} compact />
-                  </li>
-                ))}
-              </ul>
-              <ul className="explore__records">
-                {records.map((e) => (
-                  <li key={e.slug}>
-                    <Link href={`/archive/${e.slug}`} className="link">
-                      {archiveId(e)} — {e.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <LandExplore
+          fallback={
+            <MapExplorer
+              historical={historical}
+              archivePanel={
+                <div className="explore__archive">
+                  <p className="meta">Photographs held: {photos.length}. Records: {records.length}.</p>
+                  <ul className="explore__photos">
+                    {photos.map((s) => (
+                      <li key={s.id}>
+                        <ArchivePhoto source={s} compact />
+                      </li>
+                    ))}
+                  </ul>
+                  <ul className="explore__records">
+                    {records.map((e) => (
+                      <li key={e.slug}>
+                        <Link href={`/archive/${e.slug}`} className="link">
+                          {archiveId(e)} — {e.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              }
+            />
           }
         />
       </section>
@@ -129,8 +134,9 @@ export default function MapPage() {
               would be worse than not doing it.
             </p>
             <p className="muted">
-              Coordinates are modern city positions, marked approximate. The coast is Natural Earth 1:10m, lightly
-              smoothed for drawing. SHEET 00 is a drawing, not a survey.
+              Coordinates are modern city positions, marked approximate. The relief is real elevation (NASA SRTM and
+              NOAA ETOPO1 via AWS Terrain Tiles), with the vertical scale exaggerated seven times so the land can be
+              read. The outline is Natural Earth 1:10m, with the Syrian Golan excluded.
             </p>
           </div>
         </div>

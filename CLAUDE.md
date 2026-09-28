@@ -42,7 +42,7 @@ belong to any brand, delete it.
 Next.js (App Router) + TypeScript + hand-authored CSS with a design-token layer.
 **No CSS framework, no UI library, no animation library** — the editorial look
 needs direct control, and dependencies are a cost. Keep it that way unless
-there is a specific reason.
+there is a specific reason. The one exception is three.js, for the 3D land.
 
 ```
 npm run dev              # develop
@@ -54,12 +54,13 @@ npm run impact:validate  # ledger invariants only
   `brand/DESIGN-SYSTEM.md` before changing a value.
 - Content: `src/content/*.ts` — typed. Products, chapters, archive, site.
 - Impact: `impact/ledger.json` (append-only) → `src/lib/impact.ts` → `/impact`.
-- Palette (founder decision, 2026-09-27): black `#080808`, paper `#E9E4D8`,
-  green `#173F2A`, deep green `#0D2419`, olive `#4B5130`, red `#B8211C`, stone
-  `#A49C8C`. No acid, no electric blue, no purple, no pink, no gradients.
-  **Red never carries small text on black** (3.12:1); on paper it may annotate
-  (5.06:1). Red never touches green or olive. This is the rule most likely to
-  be broken; enforce it.
+- Palette (founder decision, 2026-09-27, second revision — the colours of
+  Palestine, printed): black `#0a0a0a`, white `#f4f2ec`, green `#0a6b39`,
+  red `#d2161e`, stone `#9c988e`. No acid, no electric blue, no purple, no
+  pink, no gradients. **Red never carries small text on black** (3.65:1); on
+  white it may annotate (4.84:1). **A red field never touches a green field**
+  (1.22:1) — always black or white between them. This is the rule most
+  likely to be broken; enforce it.
 - Red and green are brand language, not a flag. Never call them Majdalawi
   colours, and never let the page assemble into a flag.
 - Fuchsia and turquoise are **documented Majdalawi silk colours**. They live in
@@ -70,8 +71,18 @@ npm run impact:validate  # ledger invariants only
   `brand/DESIGN-SYSTEM.md` §7.
 - **The six symbols**: the map, the olive tree, the red thread, 48, archive
   numbers, the logo. An element that supports none of them goes.
-- **No 3D.** The map is a 2D sheet (`MapSheet`); motion is pan, zoom, ink,
-  cuts. three.js was removed on 2026-09-27; do not bring it back.
+- **The land is a 3D relief** (founder decision, 2026-09-27, second
+  revision): real elevation of the whole land of Palestine, engraved
+  (`src/components/land/`). three.js is allowed for this one job only, loaded
+  after first paint, with a poster still and the 2D `MapSheet` as fallbacks.
+  Elevation is real (AWS Terrain Tiles ← NASA SRTM / NOAA ETOPO1) and the
+  vertical scale (×7) is printed wherever the relief appears. Rebuild the
+  data with `node scripts/build-land.mjs`; recapture the still with
+  `node scripts/capture-poster.mjs`. No globe, no particles, no glow, no
+  unlabelled exaggeration.
+- **The olive tree is a traditional engraving** (`scripts/draw-olive.mjs` →
+  `public/olive/olive-engraved.svg`). Its meaning on the site is labelled
+  INTERPRETATION.
 - Archive assets live in `src/content/sources.ts` with their catalogue
   records. A frame shows an image only when the file is in `/public` and the
   source is not on `hold`. The survey sheets are on hold under dossier 003.

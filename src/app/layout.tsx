@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#080808",
+  themeColor: "#0a0a0a",
   width: "device-width",
   initialScale: 1,
 };
@@ -73,16 +73,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Before first paint: mark JS as present, and arm the homepage intro
-            — once per session, never under reduced motion. Any key, click,
-            touch or wheel ends it on its final frame. Fails safe: if anything
-            throws, the page is simply the poster. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{var d=document.documentElement;d.classList.add('js');var k='majdal-intro';if(location.pathname==='/'&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem(k)){sessionStorage.setItem(k,'1');d.dataset.intro='play';var e=['keydown','pointerdown','wheel','touchstart'],f=function(){d.dataset.intro='done';e.forEach(function(n){removeEventListener(n,f)})};e.forEach(function(n){addEventListener(n,f,{passive:true})});setTimeout(f,6400)}}catch(x){}",
-          }}
-        />
+        {/* Before first paint: mark JS as present, so no-JS fallbacks can show. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
       <body>
         {/* Without JS the IntersectionObserver never fires, so revealed

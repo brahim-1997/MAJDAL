@@ -61,6 +61,31 @@ search summaries of those sources rather than the sources as read. Until that
 reconciliation happens, treat the dossier's `VERIFIED` tier as
 *provisionally verified*.
 
+## The land — elevation and outline data
+
+Recorded 2026-09-27. Built by `scripts/build-land.mjs` into
+`public/land/land.png` and `src/content/land.ts`; drawn as the 3D relief on
+the homepage and `/map`.
+
+| Data | Source | Licence |
+| --- | --- | --- |
+| Elevation | Terrain Tiles on AWS Open Data (Tilezen / Mapzen), terrarium encoding, zoom 9 — derived here from NASA SRTM and NOAA ETOPO1 — <https://registry.opendata.aws/terrain-tiles/> | Public domain (SRTM, ETOPO1) |
+| Outline | Natural Earth 1:10m admin-0 countries: the union of the polygons named "Palestine" and "Israel", with the Syrian Golan excluded — <https://www.naturalearthdata.com/> | Public domain |
+| Lakes | Natural Earth 1:50m lakes | Public domain |
+
+Honest limits, printed with the relief:
+
+- **Vertical scale ×7.** The land is real; its height is exaggerated so the
+  ridge, the rift and the Galilee read at this size.
+- **The outline is a present-day data set**, used as the shape of the whole
+  land from the Galilee to the Naqab. It is not a historical boundary and
+  makes no claim about one. Where MAJDAL needs a historical boundary, it will
+  use a sourced historical sheet (see below), shown as itself.
+- The Golan is excluded because it is Syrian territory, not part of the land
+  this relief shows.
+- ~1 km resolution. Place pins use the coordinates in `src/content/places.ts`,
+  each with its own record and tier.
+
 ## Archive assets — photographs and map sheets
 
 Recorded 2026-09-27. The records below are in `src/content/sources.ts`, which

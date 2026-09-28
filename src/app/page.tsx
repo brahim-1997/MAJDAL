@@ -1,23 +1,17 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
-import { Thread } from "@/components/brut/Thread";
-import { ArchivePhoto } from "@/components/archive/ArchivePhoto";
-import { RecordCard, archiveId } from "@/components/archive/RecordCard";
-import { MapFilm } from "@/components/film/MapFilm";
-import { Hero } from "@/components/home/Hero";
-import { MemoryTable, type TableItem } from "@/components/home/MemoryTable";
-import { MapSheet } from "@/components/map/MapSheet";
+import { archiveId } from "@/components/archive/RecordCard";
+import { LandFilm } from "@/components/land/LandFilm";
 import { Olive } from "@/components/olive/Olive";
-import { GarmentFlat, calloutsFor } from "@/components/product/GarmentFlat";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
-import { archive, getArchiveEntry } from "@/content/archive";
+import { TierBadge } from "@/components/TierBadge";
+import { getArchiveEntry } from "@/content/archive";
 import { currentChapter } from "@/content/chapters";
 import { KINDS } from "@/content/community";
-import { formatPrice, productsInChapter } from "@/content/products";
+import { productsInChapter } from "@/content/products";
 import { site } from "@/content/site";
 import { formatMoney, getImpactTotals, ledger } from "@/lib/impact";
-import { resolveSource } from "@/lib/sources";
 
 const entry = (slug: string) => {
   const e = getArchiveEntry(slug);
@@ -26,328 +20,228 @@ const entry = (slug: string) => {
 };
 
 export default function HomePage() {
-  const looms = resolveSource("loc-matpc-19868");
-  const closer = resolveSource("loc-matpc-19871");
-  const market = resolveSource("loc-matpc-19865");
   const objects = productsInChapter(currentChapter.slug);
-  const [feature, ...rest] = objects;
   const totals = getImpactTotals();
-
-  const table: TableItem[] = [
-    { key: "p1", node: <ArchivePhoto source={looms} className="taped" />, at: { l: 1, t: 4, w: 31, r: -2 } },
-    {
-      key: "a001",
-      href: "/archive/two-thousand-looms",
-      label: `${archiveId(entry("two-thousand-looms"))} — open the record`,
-      node: <RecordCard entry={entry("two-thousand-looms")} stamp />,
-      at: { l: 29, t: 0, w: 24, r: 2 },
-    },
-    {
-      key: "map",
-      node: (
-        <div className="mcut paper">
-          <MapSheet id="table-cut" bare thread viewBox="120 860 250 170" preserveAspectRatio="xMidYMid slice" />
-          <p className="hand mcut__note">the weaving town</p>
-        </div>
-      ),
-      at: { l: 55, t: 6, w: 25, r: -3 },
-    },
-    { key: "p2", node: <ArchivePhoto source={closer} compact />, at: { l: 76, t: 22, w: 23, r: 3.5 } },
-    {
-      key: "a002",
-      href: "/archive/eight-metres",
-      label: `${archiveId(entry("eight-metres"))} — open the record`,
-      node: <RecordCard entry={entry("eight-metres")} />,
-      at: { l: 5, t: 50, w: 24, r: 2.5 },
-    },
-    {
-      key: "note",
-      node: (
-        <p className="slip paper">
-          <span className="hand">The weavers kept weaving.</span>
-          <span className="slip__ref">see {archiveId(entry("the-cloth-kept-the-name"))}</span>
-        </p>
-      ),
-      at: { l: 31, t: 46, w: 17, r: -5 },
-    },
-    {
-      key: "a005",
-      href: "/archive/taken-in-1948",
-      label: `${archiveId(entry("taken-in-1948"))} — open the record`,
-      node: <RecordCard entry={entry("taken-in-1948")} stamp />,
-      at: { l: 47, t: 52, w: 25, r: -1.5 },
-    },
-    { key: "p3", node: <ArchivePhoto source={market} compact className="taped" />, at: { l: 73, t: 60, w: 25, r: 1.2 } },
-  ];
+  const looms = entry("two-thousand-looms");
+  const metres = entry("eight-metres");
 
   return (
     <>
-      {/* 01 — THE LAND */}
-      <Hero />
+      <h1 className="visually-hidden">MAJDAL, مجدل — the land remains.</h1>
 
-      {/* 02 — THE MAP */}
-      <MapFilm
-        layers={<ArchivePhoto source={looms} compact />}
-        second={<ArchivePhoto source={closer} compact />}
-        archivePhoto={<ArchivePhoto source={market} compact />}
-        record={<RecordCard entry={entry("two-thousand-looms")} stamp />}
-        garment={feature ? <GarmentFlat product={feature} uid="film" /> : null}
-        logo={<Logo lockup="primary" tone="bone" alt="" />}
-      />
+      {/* 01 — THE LAND: a flight over the whole land */}
+      <LandFilm poster="/land/poster.webp">
+        <div className="lfo lfo--title" data-r="0:0.11">
+          <p className="lfo__h display">
+            <span className="blk">The land</span>
+            <span className="blk blk--in">remains.</span>
+          </p>
+          <p className="lfo__scroll">Scroll — fly the land ↓</p>
+        </div>
+        <dl className="lfo lfo--data kv" data-r="0:0.11">
+          <div><dt>Land</dt><dd>Galilee to the Naqab</dd></div>
+          <div><dt>Relief</dt><dd>Real elevation · vertical ×7</dd></div>
+          <div><dt>Code</dt><dd>0048</dd></div>
+        </dl>
+        <p className="lfo lfo--memory display" data-r="0.13:0.25">
+          <span className="blk">Every place</span>
+          <span className="blk">has a</span>
+          <span className="blk blk--in">memory.</span>
+        </p>
+        <div className="lfo lfo--majdal" data-r="0.53:0.645">
+          <p className="lfo__id">
+            <span className="docid">{archiveId(looms)}</span> <TierBadge tier={looms.tier} />
+          </p>
+          <p className="display lfo__name">
+            <b>Al-Majdal</b> <span className="arabic">مجدل</span>
+          </p>
+          <p className="lfo__line">The weaving town. Around 2,000 looms worked here by the 1940s, most of them inside people&rsquo;s houses.</p>
+        </div>
+        <div className="lfo lfo--thread" data-r="0.66:0.78">
+          <p className="display">The thread</p>
+          <p className="lfo__small">Sewn place to place. A brand line — not a road, not a route.</p>
+        </div>
+        <p className="lfo lfo--carried display" data-r="0.79:0.905">
+          <span className="blk">They carried it.</span>
+          <span className="blk blk--in">We carry it.</span>
+        </p>
+        <div className="lfo lfo--end" data-r="0.915:1.01">
+          <p className="display lfo__next">
+            <span className="blk">The next generation</span>
+            <span className="blk blk--red">carries it forward.</span>
+          </p>
+          <Logo lockup="primary" tone="bone" className="lfo__logo" alt="" />
+        </div>
+        <p className="lfo__credit">
+          Elevation: NASA SRTM &amp; NOAA ETOPO1 via AWS Terrain Tiles · Outline: Natural Earth · Vertical scale ×7 · Public domain
+        </p>
+        <span className="lfo__ruler" aria-hidden="true" />
+      </LandFilm>
 
-      {/* 03 — THE MEMORY */}
-      <section className="section memory" id="memory" aria-labelledby="memory-title">
+      {/* 02 — MANIFESTO */}
+      <section className="section manifesto paper" aria-labelledby="manifesto-title">
+        <div className="shell">
+          <p className="label">
+            <span className="label__index">02</span>
+            <span className="label__name">What MAJDAL is</span>
+          </p>
+          <h2 id="manifesto-title" className="display manifesto__h">
+            <span className="manifesto__l1">Not a brand that puts</span>
+            <span className="manifesto__l2">Palestine on clothes.</span>
+            <span className="manifesto__l3 blk">A clothing brand</span>
+            <span className="manifesto__l4">descended from a</span>
+            <span className="manifesto__l5">clothing town.</span>
+          </h2>
+        </div>
+      </section>
+
+      {/* 03 — AL-MAJDAL, IN NUMBERS */}
+      <section className="section numbers" aria-labelledby="numbers-title">
         <div className="shell">
           <p className="label">
             <span className="label__index">03</span>
-            <span className="label__name">The memory</span>
-            <span className="muted">Archive 001 — what is on the table</span>
+            <span className="label__name" id="numbers-title">Al-Majdal, in numbers</span>
+            <span className="muted">From the archive — with sources</span>
           </p>
-          <div className="memory__head">
-            <h2 id="memory-title" className="display memory__title">
-              The archive is never complete.
-            </h2>
-            <p className="memory__lead">
-              Three photographs of al-Majdal&rsquo;s looms and market, taken by the American Colony Photo
-              Department between 1934 and 1939, now in the Library of Congress. The records beside them, with
-              their sources. Push them around. Open any of them.
-            </p>
-          </div>
-        </div>
-        <div className="memory__table">
-          <MemoryTable items={table} label="Archive material on the table" />
-        </div>
-        <div className="shell memory__foot">
-          <Link href="/archive" className="btn">
-            Enter the archive — {archive.length} records
-          </Link>
-          <p className="meta">Frames stay empty until the object is on file. Nothing is substituted.</p>
+          <ol className="numbers__grid">
+            <li>
+              <span className="numbers__n display">2,000</span>
+              <span className="numbers__l">Looms working in al-Majdal by the 1940s</span>
+              <Link href={`/archive/${looms.slug}`} className="numbers__src">{archiveId(looms)} · {looms.tier}</Link>
+            </li>
+            <li>
+              <span className="numbers__n display">8&nbsp;m</span>
+              <span className="numbers__l">Of cloth in one piece</span>
+              <Link href={`/archive/${metres.slug}`} className="numbers__src">{archiveId(metres)} · {metres.tier}</Link>
+            </li>
+            <li>
+              <span className="numbers__n display">1–2</span>
+              <span className="numbers__l">Months of work to weave it</span>
+              <Link href={`/archive/${metres.slug}`} className="numbers__src">{archiveId(metres)} · {metres.tier}</Link>
+            </li>
+            <li>
+              <span className="numbers__n display numbers__n--red">1</span>
+              <span className="numbers__l">Dress</span>
+              <Link href={`/archive/${metres.slug}`} className="numbers__src">{archiveId(metres)} · {metres.tier}</Link>
+            </li>
+          </ol>
+          <p className="meta numbers__note">
+            Sources cited on each record. Verified at Gate 1; a named Palestinian reviewer has not yet checked them.
+          </p>
         </div>
       </section>
 
-      {/* 04 — THE THREAD */}
-      <section className="section threadsec" aria-labelledby="thread-title">
-        <Thread
-          path={{
-            start: [0.62, 0],
-            curves: [
-              [[0.62, 0.18], [0.2, 0.2], [0.26, 0.4]],
-              [[0.32, 0.6], [0.86, 0.52], [0.78, 0.76]],
-              [[0.7, 0.96], [0.4, 0.9], [0.44, 1]],
-            ],
-            knotStart: true,
-          }}
-        />
-        <div className="shell">
+      {/* 04 — THE OLIVE */}
+      <section className="section olivesec green-ground" aria-labelledby="olive-title">
+        <div className="olivesec__tree">
+          <Olive label="An old olive tree, drawn as a traditional engraving: a wide billowing crown, a twisted split trunk, roots." />
+        </div>
+        <div className="shell olivesec__text">
           <p className="label">
             <span className="label__index">04</span>
-            <span className="label__name">The thread</span>
-            <span className="muted">The MAJDAL grammar — our reading, not a historical claim</span>
+            <span className="label__name">The olive</span>
           </p>
-          <h2 id="thread-title" className="visually-hidden">
-            The thread
-          </h2>
-          <ol className="grammar">
-            {[
-              ["A place", "becomes", "a memory."],
-              ["A memory", "becomes", "an archive."],
-              ["An archive", "becomes", "a thread."],
-              ["The thread", "becomes", "clothing."],
-              ["Clothing", "creates", "community."],
-              ["Community", "carries it", "forward."],
-            ].map(([a, verb, b], i) => (
-              <Reveal as="li" key={a} className={`grammar__row grammar__row--${i + 1}`}>
-                <span className="display grammar__a">{a}</span>
-                <span className="grammar__verb">{verb}</span>
-                <span className="display grammar__b">{b}</span>
-              </Reveal>
-            ))}
-          </ol>
+          <h2 id="olive-title" className="display olivesec__h">Roots</h2>
+          <p className="olivesec__lead">Old trees. Slow work. Roots before fruit.</p>
+          <p className="olivesec__body">
+            The olive tree is how MAJDAL draws patience: it stays where it is planted, it takes its time, and it is
+            handed on. We build the same way — slowly, in the open, with receipts.
+          </p>
+          <p className="olivesec__tier">
+            <span className="tier" data-tier="INTERPRETATION">INTERPRETATION</span>
+            <Link href="/archive/the-olive-and-the-key" className="link">
+              Read the record — {archiveId(entry("the-olive-and-the-key"))}
+            </Link>
+          </p>
         </div>
       </section>
 
-      {/* 05 — THE ROOTS */}
-      <section className="section rootsec green-ground" aria-labelledby="roots-title">
-        <div className="shell rootsec__grid">
-          <p className="label rootsec__label">
-            <span className="label__index">05</span>
-            <span className="label__name">The roots</span>
-          </p>
-          <div className="rootsec__tree">
-            <Olive variant="woodcut" label="The MAJDAL olive tree: an old tree with a split, twisted trunk and a wide crown, cut as a woodcut." />
-            <p className="meta rootsec__cap">Drawn by MAJDAL. An old olive: split trunk, exposed roots, low wide limbs.</p>
-          </div>
-          <div className="rootsec__text">
-            <h2 id="roots-title" className="display rootsec__title">Roots</h2>
-            <p className="lead rootsec__lead">
-              The olive tree is how MAJDAL draws roots. It is not a symbol we have given a meaning to. It is a
-              tree: old, rooted, slow, still there.
-            </p>
-            <dl className="equation" aria-label="The MAJDAL visual grammar">
-              {[
-                ["Map", "place"],
-                ["Olive tree", "roots"],
-                ["Red thread", "continuity"],
-                ["Archive", "memory"],
-                ["Clothing", "the present"],
-                ["Community", "the future"],
-              ].map(([k, v]) => (
-                <div key={k}>
-                  <dt>{k}</dt>
-                  <dd>{v}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="meta rootsec__tier">
-              <span className="tier" data-tier="INTERPRETATION">INTERPRETATION</span> MAJDAL&rsquo;s own grammar.{" "}
-              <Link href="/archive/the-olive-and-the-key" className="link">
-                Why an olive tree — record {archiveId(entry("the-olive-and-the-key"))}
-              </Link>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 06 — CHAPTER 001 */}
+      {/* 05 — CHAPTER 001 */}
       <section className="section chaptersec" aria-labelledby="chapter-title">
         <div className="shell">
           <p className="label">
-            <span className="label__index">06</span>
+            <span className="label__index">05</span>
             <span className="label__name">Chapter {currentChapter.number}</span>
-            <span>48 / {currentChapter.name}</span>
+            <span className="muted">Not open · code 48</span>
           </p>
-          <h2 id="chapter-title" className="display chaptersec__title">
+          <h2 id="chapter-title" className="display chaptersec__h">
             <span className="chaptersec__n">{currentChapter.number}</span>
-            <span className="chaptersec__name">{currentChapter.name}</span>
+            <span className="chaptersec__name blk">{currentChapter.name}</span>
           </h2>
-          <div className="chaptersec__body">
+          <div className="chaptersec__row">
             <p className="chaptersec__premise">{currentChapter.premise}</p>
             <dl className="chaptersec__facts">
               <div><dt>Status</dt><dd>Not open</dd></div>
               <div><dt>Objects</dt><dd>{objects.length}</dd></div>
-              <div><dt>Code</dt><dd>0048</dd></div>
               <div><dt>Run</dt><dd>{currentChapter.runSize ? `${currentChapter.runSize} pieces` : "Not set"}</dd></div>
+              <div><dt>First to see it</dt><dd>The Roots</dd></div>
             </dl>
+          </div>
+          <ul className="pgrid chaptersec__objects" aria-label={`The objects of Chapter ${currentChapter.number}`}>
+            {objects.map((p) => (
+              <li key={p.slug}>
+                <ProductCard product={p} />
+              </li>
+            ))}
+          </ul>
+          <p className="chaptersec__cta">
             <Link href={`/chapters/${currentChapter.slug}`} className="btn">
               Open Chapter {currentChapter.number}
             </Link>
-          </div>
+            <Link href="/roots" className="btn btn--ghost">
+              Join The Roots — free
+            </Link>
+          </p>
         </div>
       </section>
 
-      {/* 07 — THE OBJECT */}
-      <section className="section objectsec" aria-labelledby="object-title">
+      {/* 06 — WHAT DO YOU CARRY? */}
+      <section className="section carrysec paper" aria-labelledby="carry-title">
         <div className="shell">
           <p className="label">
-            <span className="label__index">07</span>
-            <span className="label__name">The object</span>
-            <span className="muted">Technical drawings — no product photography exists yet</span>
+            <span className="label__index">06</span>
+            <span className="label__name">{site.community}</span>
           </p>
-          {feature ? (
-            <div className="objfeat">
-              <div className="objfeat__draw paper">
-                <Reveal>
-                  <GarmentFlat product={feature} callouts />
-                </Reveal>
-              </div>
-              <div className="objfeat__tag paper">
-                <p className="objfeat__no">
-                  OBJECT {feature.object} · CHAPTER {currentChapter.number} · 48 / {currentChapter.name}
-                </p>
-                <h2 id="object-title" className="display objfeat__name">
-                  {feature.name}
-                </h2>
-                <p className="objfeat__line">{feature.line}</p>
-                <dl className="kv objfeat__kv">
-                  <div><dt>Colourway</dt><dd>{feature.colourway.name}</dd></div>
-                  <div><dt>Price</dt><dd>{formatPrice(feature.priceCents, feature.currency)}</dd></div>
-                  <div><dt>Status</dt><dd>Chapter not open</dd></div>
-                </dl>
-                <div className="objfeat__proposed">
-                  <p className="objfeat__ph">Proposed for sampling — not final</p>
-                  <ul>
-                    <li>Small MAJDAL logo, chest</li>
-                    <li>The olive tree, embroidered</li>
-                    <li>The thread, as the seam where the band meets the body</li>
-                    <li>Inside label: They carried it. We carry it.</li>
-                  </ul>
-                </div>
-                <Link href={`/shop/${feature.slug}`} className="btn">
-                  Read the object
-                </Link>
-              </div>
-            </div>
-          ) : null}
-          {rest.length ? (
-            <ul className="pgrid objectsec__rest" aria-label="The other objects in the chapter">
-              {rest.map((p) => (
-                <li key={p.slug}>
-                  <ProductCard product={p} />
-                </li>
-              ))}
-            </ul>
-          ) : null}
-          {feature ? <p className="visually-hidden">{calloutsFor(feature).length} numbered details on the drawing.</p> : null}
-        </div>
-      </section>
-
-      {/* 08 — THE COMMUNITY */}
-      <section className="section carrysec" aria-labelledby="carry-title">
-        <div className="shell">
-          <p className="label">
-            <span className="label__index">08</span>
-            <span className="label__name">The community</span>
-            <span className="muted">{site.community}</span>
-          </p>
-          <h2 id="carry-title" className="display carrysec__title">
-            What do you carry?
+          <h2 id="carry-title" className="display carrysec__h">
+            What do <span className="blk">you</span> carry?
           </h2>
           <p className="lead carrysec__lead">
             The archive grows through people. An object, a photograph, a place, a name, a family story, a length of
-            cloth. You decide what is shared, how you are credited, and you can withdraw it later.
+            cloth. You decide what is shared and how you are credited — and you can take it back.
           </p>
           <ul className="sleeves">
             {KINDS.filter((k) => k.value !== "other").map((k, i) => (
-              <li key={k.value} style={{ "--r": `${[-1.5, 1, -0.6, 1.8, -2, 0.8][i % 6]}deg` } as React.CSSProperties}>
+              <li key={k.value}>
                 <Link href={`/roots/carry?kind=${k.value}`} className="sleeve">
-                  <span className="sleeve__frame" aria-hidden="true">
-                    <span className="sleeve__id">MJ-0048-C{String(i + 1).padStart(3, "0")}</span>
-                    <span className="sleeve__empty">Not yet received</span>
-                  </span>
-                  <span className="sleeve__kind">{k.label}</span>
+                  <span className="sleeve__id">MJ-0048-C{String(i + 1).padStart(3, "0")}</span>
+                  <span className="sleeve__kind display">{k.label}</span>
+                  <span className="sleeve__empty">Not yet received →</span>
                 </Link>
               </li>
             ))}
           </ul>
-          <p className="carrysec__more">
-            <Link href="/roots" className="link">
-              Join THE ROOTS
-            </Link>{" "}
-            — free, no purchase.
-          </p>
         </div>
       </section>
 
-      {/* 09 — THE IMPACT */}
-      <section className="section impactsec" aria-labelledby="impact-title">
-        <div className="shell">
-          <p className="label">
-            <span className="label__index">09</span>
-            <span className="label__name">The impact</span>
-            <span className="muted">Ledger — {ledger.currency}</span>
-          </p>
-          <div className="impactsec__grid">
-            <div>
-              <h2 id="impact-title" className="display impactsec__pct">
-                {site.impactPercent}%
-              </h2>
-              <p className="wide impactsec__word">Committed</p>
-              <p className="impactsec__of">
-                Of every eligible product sale, to support people in Palestine. Only confirmed transfers are ever
-                published as delivered.
-              </p>
-            </div>
-            <div className="ledger">
+      {/* 07 — IMPACT */}
+      <section className="section impactsec red-ground" aria-labelledby="impact-title">
+        <div className="shell impactsec__grid">
+          <div>
+            <p className="label">
+              <span className="label__index">07</span>
+              <span className="label__name">Impact</span>
+            </p>
+            <h2 id="impact-title" className="display impactsec__pct">
+              {site.impactPercent}%
+            </h2>
+            <p className="impactsec__of">
+              Of every eligible sale, to support people in Palestine. Only confirmed transfers are ever published as
+              delivered.
+            </p>
+          </div>
+          <Reveal className="ledger">
+            <div className="ledger__panel">
+              <p className="ledger__h wide">Ledger — {ledger.currency}</p>
               <div className="table-wrap">
                 <table className="table">
                   <caption className="visually-hidden">Impact ledger</caption>
@@ -356,7 +250,7 @@ export default function HomePage() {
                       <th scope="col">Amount</th>
                       <th scope="col">Date</th>
                       <th scope="col">Recipient</th>
-                      <th scope="col">Documentation</th>
+                      <th scope="col">Proof</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -371,14 +265,14 @@ export default function HomePage() {
               <dl className="ledger__totals">
                 <div><dt>Committed</dt><dd>{formatMoney(totals.accruedCents)}</dd></div>
                 <div><dt>Transferred</dt><dd>{formatMoney(totals.transferredCents)}</dd></div>
-                <div><dt>Confirmed received</dt><dd>{formatMoney(totals.verifiedCents)}</dd></div>
+                <div><dt>Confirmed</dt><dd>{formatMoney(totals.verifiedCents)}</dd></div>
               </dl>
-              <p className="meta ledger__foot">Zero is the truth. The ledger is append-only and published in full.</p>
-              <Link href="/impact" className="btn btn--ghost">
+              <p className="ledger__foot">Zero is the truth.</p>
+              <Link href="/impact" className="btn">
                 Read the full ledger
               </Link>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

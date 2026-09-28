@@ -292,7 +292,7 @@ export function MapSheet({
 
       {olive && (
         <g data-layer="olive" className="sheet__olive" clipPath={oliveGrow ? `url(#${id}-grow)` : undefined}>
-          <image href="/olive/olive-woodcut.svg" x={ob.x} y={ob.y} width={ob.w} height={ob.h} />
+          <image href="/olive/olive-engraved.svg" x={ob.x} y={ob.y} width={ob.w} height={ob.h} />
         </g>
       )}
     </svg>

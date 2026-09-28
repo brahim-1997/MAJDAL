@@ -135,10 +135,9 @@
   display: block;
   width: 100%;
   background: currentColor;
-  -webkit-mask: url("/olive/olive-woodcut.svg") center / contain no-repeat;
-  mask: url("/olive/olive-woodcut.svg") center / contain no-repeat;
+  -webkit-mask: url("/olive/olive-engraved.svg") center / contain no-repeat;
+  mask: url("/olive/olive-engraved.svg") center / contain no-repeat;
 }
-.olive--pencil { -webkit-mask-image: url("/olive/olive-pencil.svg"); mask-image: url("/olive/olive-pencil.svg"); }
 .olive--mark { -webkit-mask-image: url("/olive/olive-mark.svg"); mask-image: url("/olive/olive-mark.svg"); }
 
 /* The olive stamp: the tree cut into a block and printed. */
@@ -152,7 +151,7 @@
   rotate: -3deg;
 }
 .ostamp .olive { width: 100%; }
-.ostamp__word { font-family: var(--font-display); font-weight: 900; font-variation-settings: "wdth" 62; text-transform: uppercase; line-height: 0.85; }
+.ostamp__word { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; line-height: 0.85; }
 .ostamp__line { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: 0.18em; text-transform: uppercase; }
 
 /* ============================================================
@@ -170,7 +169,7 @@
 .sheet__neat--outer { stroke-width: 0.6; }
 .sheet__margin text { font-size: 9px; fill: #3f3c36; letter-spacing: 0.06em; }
 .sheet__margin .sheet__series { font-size: 11px; fill: #080808; letter-spacing: 0.16em; font-weight: 700; }
-.sheet__margin .sheet__title { font-family: var(--font-display); font-weight: 900; font-variation-settings: "wdth" 62; font-size: 20px; fill: #080808; letter-spacing: 0.02em; }
+.sheet__margin .sheet__title { font-family: var(--font-display); font-weight: 900; font-size: 20px; fill: #080808; letter-spacing: 0.02em; }
 .sheet__margin .sheet__credit { font-size: 7.5px; letter-spacing: 0.08em; }
 .sheet__north path { fill: #080808; }
 .sheet__north text { font-size: 10px; font-weight: 700; fill: #080808; }
@@ -183,7 +182,7 @@
 .sheet__legend .sheet__legend-sub { fill: #5a564e; font-size: 7px; }
 .sheet__threadkey { stroke: var(--red); stroke-width: 2.4; }
 .sheet__dot { fill: #080808; }
-.sheet__name { font-family: var(--font-display); font-weight: 900; font-variation-settings: "wdth" 62; font-size: 17px; fill: #080808; letter-spacing: 0.02em; }
+.sheet__name { font-family: var(--font-display); font-weight: 900; font-size: 17px; fill: #080808; letter-spacing: 0.02em; }
 .sheet__ar { font-family: var(--font-arabic); font-weight: 700; font-size: 12px; fill: #3f3c36; }
 /* paper halo: names stay legible over water-lining and grid, as on a survey sheet */
 .sheet__name, .sheet__ar { paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; }
@@ -368,7 +367,7 @@
 .gf__label { fill: #e9e4d8; stroke: #080808; stroke-width: 0.6; }
 .gf__labeltext { font-family: var(--font-mono); font-size: 5px; font-weight: 700; text-anchor: middle; fill: #080808; }
 .gf__hem { font-family: var(--font-mono); font-size: 7px; font-weight: 700; fill: #e9e4d8; }
-.gf__word { font-family: var(--font-display); font-weight: 900; font-variation-settings: "wdth" 62; font-size: 30px; }
+.gf__word { font-family: var(--font-display); font-weight: 900; font-size: 30px; }
 .gf__wordar { font-family: var(--font-arabic); font-weight: 700; font-size: 18px; }
 .gf__capar { font-family: var(--font-arabic); font-weight: 700; font-size: 18px; }
 .gf__view { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.2em; fill: currentColor; }

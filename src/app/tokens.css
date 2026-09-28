@@ -1,64 +1,56 @@
 /* ============================================================
    MAJDAL — TOKENS
-   A found archive that entered street culture.
-   Palette: founder decision, 2026-09-27. Measured, not eyeballed:
+   The colours of Palestine, printed: black, white, green, red.
+   Founder decision, 2026-09-27 (second revision). Measured:
 
-     paper  / black    15.79   any text
-     stone  / black     7.36   any text (secondary)
-     #857F73 / black    5.04   any text (faint)
-     red    / black     3.12   LARGE TYPE AND MARKS ONLY
-     red    / paper     5.06   any text — red annotation lives on paper
-     paper  / red       5.06   any text
-     paper  / green     9.30   any text
-     paper  / deep      12.90  any text
-     paper  / olive     6.57   any text
-     red    / green     1.84   NEVER
-     red    / olive     1.30   NEVER
+     white / black    17.7   any text
+     stone / black     6.9   any text (secondary)
+     #807C73 / black   4.8   any text (faint)
+     red / black       3.7   LARGE TYPE AND MARKS ONLY
+     red / white       4.8   any text
+     white / red       4.8   any text
+     white / green     5.9   any text
+     green / white     5.9   any text
+     red / green       1.2   NEVER
 
-   Ratio, per page, roughly: 55% black · 25% paper · 10% green/olive ·
-   7% red · 3% stone. Some sections break it on purpose: one red page,
-   one green page. That is rhythm, not permission.
+   Used as blocks of a screen print, never assembled into the flag: a
+   green field and a red field never touch.
    ============================================================ */
 
 :root {
   /* --- The palette --- */
-  --black: #080808;
-  --paper: #e9e4d8;
-  --green: #173f2a;
-  --green-deep: #0d2419;
-  --olive: #4b5130;
-  --red: #b8211c;
-  --stone: #a49c8c;
+  --black: #0a0a0a;
+  --white: #f4f2ec;
+  --green: #0a6b39;
+  --red: #d2161e;
+  --stone: #9c988e;
 
-  /* Night hierarchy */
-  --stone-dim: #857f73; /* 5.04:1 on black */
-  --night-rule: #2b2a27; /* rules, never text */
+  /* Kept names, so records and components resolve without edits. */
+  --paper: var(--white);
+  --green-deep: #06401f;
+  --olive: var(--green);
+  --stone-dim: #807c73; /* 4.8:1 on black */
+  --night-rule: #2a2927;
+  --bone: var(--white);
+  --ink: var(--black);
+  --off-white: var(--white);
 
   /* --- Semantic: night is the default ground --- */
   --bg: var(--black);
-  --bg-raised: #121210;
-  --fg: var(--paper);
+  --bg-raised: #141413;
+  --fg: var(--white);
   --fg-muted: var(--stone);
   --fg-faint: var(--stone-dim);
   --rule: var(--night-rule);
-  --focus: var(--paper);
-  --mark: var(--red); /* red marks: underlines, ticks, the thread */
-  --verified: var(--paper);
+  --focus: var(--white);
+  --mark: var(--red);
+  --verified: var(--white);
 
-  /* Legacy names, so older records keep resolving. New work uses the
-     palette names above. */
-  --bone: var(--paper);
-  --ink: var(--black);
-  --off-white: var(--paper);
-
-  /* --- Type ---
-     One family carries three behaviours through its width axis:
-     wdth 62 = condensed industrial, 100 = grotesk, 125 = wide stamp. */
+  /* --- Type --- */
   --font-display: "Archivo Variable", "Arial Narrow", Impact, sans-serif;
   --font-text: "Archivo Variable", ui-sans-serif, system-ui, Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
   --font-arabic: "IBM Plex Sans Arabic", "Noto Kufi Arabic", "Geeza Pro", sans-serif;
-  /* Pencil, for notes written on documents. Rare. */
   --font-hand: "Reenie Beanie", "Comic Sans MS", cursive;
 
   --step--2: 0.68rem;
@@ -91,9 +83,9 @@
 
   /* --- Hard edges --- */
   --radius: 0;
-  --border: 2px solid currentColor;
+  --border: 3px solid currentColor;
 
-  /* --- Motion: paper, ink, cuts --- */
+  /* --- Motion --- */
   --ease-out: cubic-bezier(0.2, 0.9, 0.1, 1);
   --ease-paper: cubic-bezier(0.3, 0.1, 0.1, 1);
   --dur-fast: 90ms;
@@ -115,72 +107,52 @@
 }
 
 /* ============================================================
-   GROUNDS — a class redefines the semantic tokens, so anything
-   placed on it inherits legible colours without knowing where it is.
+   GROUNDS — a class redefines the semantic tokens.
    ============================================================ */
 
-/* PAPER — documents, records, maps. Black ink; red annotation allowed. */
+/* WHITE — documents, statements, records. Black ink; red may annotate. */
 .paper {
-  --bg: var(--paper);
-  --bg-raised: #dfd9cb;
+  --bg: var(--white);
+  --bg-raised: #e8e5dc;
   --fg: var(--black);
-  --fg-muted: #3f3c36; /* 8.66:1 */
-  --fg-faint: #5a564e; /* 5.76:1 */
-  --rule: #bdb6a6;
+  --fg-muted: #45423c; /* 8.9:1 */
+  --fg-faint: #5e5a52; /* 6.2:1 */
+  --rule: #c9c5ba;
   --focus: var(--black);
   --verified: var(--green);
-  background: var(--paper);
+  --mark: var(--red);
+  background: var(--white);
   color: var(--black);
 }
 
-/* GREEN — the land. Paper type only; red never touches it. */
-.green-ground {
-  --bg: var(--green);
-  --bg-raised: #1d4a33;
-  --fg: var(--paper);
-  --fg-muted: #c9c4b6; /* 6.77:1 */
-  --fg-faint: #c9c4b6;
-  --rule: #35604a;
-  --focus: var(--paper);
-  --mark: var(--paper);
-  background: var(--green);
-  color: var(--paper);
-}
-.deep-ground {
-  --bg: var(--green-deep);
-  --bg-raised: #133021;
-  --fg: var(--paper);
-  --fg-muted: var(--stone); /* 6.01:1 */
-  --fg-faint: var(--stone);
-  --rule: #24402f;
-  --focus: var(--paper);
-  --mark: var(--paper);
-  background: var(--green-deep);
-  color: var(--paper);
-}
+/* GREEN — the olive, the land. White type only; red never touches it. */
+.green-ground,
+.deep-ground,
 .olive-ground {
-  --bg: var(--olive);
-  --bg-raised: #555b39;
-  --fg: var(--paper);
-  --fg-muted: #dcd7ca;
-  --fg-faint: #dcd7ca;
-  --rule: #6b7150;
-  --focus: var(--paper);
-  --mark: var(--paper);
-  background: var(--olive);
-  color: var(--paper);
+  --bg: var(--green);
+  --bg-raised: #0c7a41;
+  --fg: var(--white);
+  --fg-muted: #dfe9e2;
+  --fg-faint: #dfe9e2;
+  --rule: #3f8c63;
+  --focus: var(--white);
+  --mark: var(--white);
+  --verified: var(--white);
+  background: var(--green);
+  color: var(--white);
 }
 
-/* RED — one page at a time. Paper type; black only at display size. */
+/* RED — one field per page at most. White type; black only at display size. */
 .red-ground {
   --bg: var(--red);
-  --bg-raised: #a51d19;
-  --fg: var(--paper);
-  --fg-muted: var(--paper);
-  --fg-faint: var(--paper);
-  --rule: #d7675f;
-  --focus: var(--paper);
+  --bg-raised: #b8131a;
+  --fg: var(--white);
+  --fg-muted: var(--white);
+  --fg-faint: var(--white);
+  --rule: #e56a6f;
+  --focus: var(--white);
   --mark: var(--black);
+  --verified: var(--white);
   background: var(--red);
-  color: var(--paper);
+  color: var(--white);
 }

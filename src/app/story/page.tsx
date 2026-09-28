@@ -29,7 +29,7 @@ export default function StoryPage() {
           <div className="split">
             <Reveal>
               <div className="prose stack" style={{ ["--flow" as string]: "var(--s-5)" }}>
-                <h2 className="display d3">The town made cloth.</h2>
+                <h2 className="display d4">The town made cloth.</h2>
                 <p>
                   Through the late Ottoman and Mandate periods, al-Majdal became the
                   primary textile and weaving centre of the Gaza District. Cotton
@@ -49,7 +49,7 @@ export default function StoryPage() {
                   to two months.
                 </p>
 
-                <h2 className="display d3" style={{ paddingTop: "var(--s-6)" }}>
+                <h2 className="display d4" style={{ paddingTop: "var(--s-6)" }}>
                   The weavers named their cloth.
                 </h2>
                 <p>
@@ -64,7 +64,7 @@ export default function StoryPage() {
                   are not going to improve on names like those.
                 </p>
 
-                <h2 className="display d3" style={{ paddingTop: "var(--s-6)" }}>
+                <h2 className="display d4" style={{ paddingTop: "var(--s-6)" }}>
                   1948.
                 </h2>
                 <p>
@@ -81,7 +81,7 @@ export default function StoryPage() {
                   the site in 1949.
                 </p>
 
-                <h2 className="display d3" style={{ paddingTop: "var(--s-6)" }}>
+                <h2 className="display d4" style={{ paddingTop: "var(--s-6)" }}>
                   The cloth kept the name.
                 </h2>
                 <p>

@@ -101,7 +101,6 @@ ul, ol { list-style: none; }
 .display {
   font-family: var(--font-display);
   font-weight: 900;
-  font-variation-settings: "wdth" 62;
   text-transform: uppercase;
   letter-spacing: -0.01em;
   line-height: 0.84;
@@ -116,7 +115,6 @@ ul, ol { list-style: none; }
 .wide {
   font-family: var(--font-display);
   font-weight: 800;
-  font-variation-settings: "wdth" 125;
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
@@ -272,7 +270,6 @@ ul, ol { list-style: none; }
   padding: var(--s-1) var(--s-3);
   font-family: var(--font-display);
   font-weight: 800;
-  font-variation-settings: "wdth" 125;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: var(--step--1);
